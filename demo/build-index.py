@@ -11,15 +11,16 @@ import io, json, os, html
 HERE = os.path.dirname(os.path.abspath(__file__))
 
 BLURB = {
-    "page-1": "The front of the library, the book, and one edition, including the opening line the arrival "
-              "test sets.",
-    "page-2": "One chapter, in the order a reader meets it: the narrator's scene, the four moves in the seats' "
-              "own words, a note in plain words checked by the seat it explains, the author's reply and the ledger.",
-    "page-3": "Where a reader follows one objection across the years, sees how an edition was made, and reads "
-              "the evidence and the two gauges.",
-    "page-4": "Thanks, with money or with a note, and a printed copy sold at cost. The thanks on a purchase "
-              "comes after it, separately.",
-    "page-5": "The same chapter on a wide screen, with the plain-words note in the margin.",
+    "page-1": "The front of the library, and the book with its three ways in: the story, the full debate and the record.",
+    "page-2": "The story, for everyone: what happened, told in the narrator's voice. Words in quotation marks are exactly "
+              "what a seat said, and a check confirms every one; each passage links to the debate it tells.",
+    "page-3": "The full debate, for serious readers: the narrator's scene, the four moves in the seats' own words, a note "
+              "in plain words checked by the seat it explains, the author's reply and the ledger.",
+    "page-4": "Where a reader follows one objection across the years, sees how an edition was made, and reads the "
+              "evidence and the two gauges.",
+    "page-5": "Thanks, with money or with a note, and a printed copy of the story sold at cost. The thanks on a "
+              "purchase comes after it, separately.",
+    "page-6": "The story and a debate chapter on a wide screen.",
 }
 
 
@@ -118,7 +119,7 @@ TEMPLATE = r"""<!doctype html>
 <div class="wrap">
   <h1>Two Singularities &mdash; the design</h1>
   <p class="sub">The reading site at <span class="mono">book.thonly.org</span>, drawn screen by screen:
-    {{COUNT}} artboards across five surfaces. Phase 2 of 4; a clickable prototype comes next.</p>
+    {{COUNT}} artboards across six surfaces, in three layers: the story, the full debate, and the record behind them. Phase 2 of 4; a clickable prototype comes next.</p>
 
   <a class="wall-link" href="./wall.html">
     <span class="kicker">All of it at once</span>

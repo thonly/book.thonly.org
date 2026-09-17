@@ -23,3 +23,6 @@ notes-private/
 
 # OpenTimestamps upgrade backups
 *.ots.bak
+
+# Python bytecode
+__pycache__/

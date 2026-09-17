@@ -9,6 +9,13 @@ author's reply is sample text, the cover is placeholder art, and the printed-cop
 
 ⚠️ **When a screen and the private memory disagree, the memory is canonical** (see `../SPEC.md`'s header).
 
+## Three layers (founder, 2026-09-16)
+
+**The record** (the rules and every conversation, at `github.com/thonly/two-singularities`) → **the full debate** (for
+serious readers) → **the story** (for everyone). The story may choose, order and describe; it may not invent. Words in
+quotation marks are always a seat's exact words — `build-boards.py` refuses to build if a story quote is not found word
+for word in the debate — and the story says what a seat said and did, never what it felt.
+
 ## Files
 
 | | |

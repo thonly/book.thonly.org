@@ -6,18 +6,22 @@
     },
     {
       "id": "page-2",
-      "name": "Reading a chapter"
+      "name": "The story"
     },
     {
       "id": "page-3",
-      "name": "Following the argument"
+      "name": "The full debate"
     },
     {
       "id": "page-4",
-      "name": "Thanks and printed copies"
+      "name": "Following the argument"
     },
     {
       "id": "page-5",
+      "name": "Thanks and printed copies"
+    },
+    {
+      "id": "page-6",
       "name": "On a wide screen"
     }
   ],
@@ -36,81 +40,117 @@
       "x": 490,
       "y": 0,
       "w": 390,
-      "h": 2170,
-      "title": "2 · The book",
+      "h": 2130,
+      "title": "2 · The book: three doors",
       "page": "page-1"
     },
     {
-      "file": "Edition.dc.html",
+      "file": "StoryContents.dc.html",
       "x": 980,
       "y": 0,
       "w": 390,
-      "h": 1663,
-      "title": "3 · An edition",
+      "h": 971,
+      "title": "3 · The story: contents",
       "page": "page-1"
     },
     {
-      "file": "ChapterScene.dc.html",
+      "file": "StoryOpening.dc.html",
       "x": 0,
       "y": 0,
       "w": 390,
-      "h": 1074,
-      "title": "4 · A chapter: the scene",
+      "h": 1186,
+      "title": "4 · The story: the opening",
       "page": "page-2"
     },
     {
-      "file": "ChapterMoves.dc.html",
+      "file": "StoryChapter.dc.html",
       "x": 490,
       "y": 0,
       "w": 390,
-      "h": 1671,
-      "title": "5 · A chapter: the four moves",
+      "h": 1452,
+      "title": "5 · The story: a chapter",
       "page": "page-2"
     },
     {
-      "file": "ChapterPlain.dc.html",
+      "file": "StoryChapterEnd.dc.html",
       "x": 980,
       "y": 0,
       "w": 390,
-      "h": 1169,
-      "title": "6 · A chapter: in plain words",
+      "h": 1101,
+      "title": "6 · The story: the end of a chapter",
       "page": "page-2"
     },
     {
-      "file": "ChapterLedger.dc.html",
+      "file": "Debate.dc.html",
+      "x": 0,
+      "y": 0,
+      "w": 390,
+      "h": 1724,
+      "title": "7 · The full debate: contents",
+      "page": "page-3"
+    },
+    {
+      "file": "ChapterScene.dc.html",
+      "x": 490,
+      "y": 0,
+      "w": 390,
+      "h": 845,
+      "title": "8 · Debate chapter: the scene",
+      "page": "page-3"
+    },
+    {
+      "file": "ChapterMoves.dc.html",
+      "x": 980,
+      "y": 0,
+      "w": 390,
+      "h": 1671,
+      "title": "9 · Debate chapter: the four moves",
+      "page": "page-3"
+    },
+    {
+      "file": "ChapterPlain.dc.html",
       "x": 1470,
       "y": 0,
       "w": 390,
-      "h": 1267,
-      "title": "7 · A chapter: the reply and the ledger",
-      "page": "page-2"
+      "h": 1169,
+      "title": "10 · Debate chapter: in plain words",
+      "page": "page-3"
     },
     {
-      "file": "Glossary.dc.html",
+      "file": "ChapterLedger.dc.html",
       "x": 1960,
       "y": 0,
       "w": 390,
+      "h": 1402,
+      "title": "11 · Debate chapter: the reply and the ledger",
+      "page": "page-3"
+    },
+    {
+      "file": "Glossary.dc.html",
+      "x": 2450,
+      "y": 0,
+      "w": 390,
       "h": 1375,
-      "title": "8 · Glossary",
-      "page": "page-2"
+      "title": "12 · Glossary",
+      "page": "page-3"
     },
     {
       "file": "Objection.dc.html",
       "x": 0,
       "y": 0,
       "w": 390,
-      "h": 1036,
-      "title": "9 · One objection, over the years",
-      "page": "page-3"
+      "h": 1092,
+      "title": "13 · One objection, over the years",
+      "page": "page-4"
     },
     {
       "file": "Method.dc.html",
       "x": 490,
       "y": 0,
       "w": 390,
-      "h": 1572,
-      "title": "10 · How this edition was made",
-      "page": "page-3"
+      "h": 1751,
+      "title": "14 · How this edition was made",
+      "page": "page-4"
     },
     {
       "file": "Evidence.dc.html",
@@ -118,8 +158,8 @@
       "y": 0,
       "w": 390,
       "h": 1371,
-      "title": "11 · The evidence",
-      "page": "page-3"
+      "title": "15 · The evidence",
+      "page": "page-4"
     },
     {
       "file": "Thanks.dc.html",
@@ -127,8 +167,8 @@
       "y": 0,
       "w": 390,
       "h": 1030,
-      "title": "12 · Thanks",
-      "page": "page-4"
+      "title": "16 · Thanks",
+      "page": "page-5"
     },
     {
       "file": "NoteSent.dc.html",
@@ -136,17 +176,17 @@
       "y": 0,
       "w": 390,
       "h": 440,
-      "title": "13 · Note received",
-      "page": "page-4"
+      "title": "17 · Note received",
+      "page": "page-5"
     },
     {
       "file": "Copy.dc.html",
       "x": 980,
       "y": 0,
       "w": 390,
-      "h": 900,
-      "title": "14 · A printed copy",
-      "page": "page-4"
+      "h": 915,
+      "title": "18 · A printed copy of the story",
+      "page": "page-5"
     },
     {
       "file": "CopyOrdered.dc.html",
@@ -154,17 +194,26 @@
       "y": 0,
       "w": 390,
       "h": 591,
-      "title": "15 · Copy ordered",
-      "page": "page-4"
+      "title": "19 · Copy ordered",
+      "page": "page-5"
     },
     {
-      "file": "ChapterWide.dc.html",
+      "file": "StoryWide.dc.html",
       "x": 0,
       "y": 0,
       "w": 1280,
-      "h": 1038,
-      "title": "16 · A chapter on a wide screen",
-      "page": "page-5"
+      "h": 919,
+      "title": "20 · The story on a wide screen",
+      "page": "page-6"
+    },
+    {
+      "file": "ChapterWide.dc.html",
+      "x": 1380,
+      "y": 0,
+      "w": 1280,
+      "h": 1065,
+      "title": "21 · A debate chapter on a wide screen",
+      "page": "page-6"
     }
   ],
   "annotations": []

@@ -3,20 +3,22 @@
 
     python3 build-boards.py     # then: node measure.mjs · python3 build-index.py · python3 build-wall.py
 
-WHY ONE GENERATOR. Sixteen hand-written pages would carry sixteen copies of the same stylesheet,
-and the copies would drift. Here the style, the page chrome and the drawing caption exist once.
-Each board is only its own content.
+THREE LAYERS (founder, 2026-09-16): the record → the full debate (serious readers) → the story (everyone).
+The story may choose, order and describe; it may not invent.
 
-WHY THE HEIGHTS ARE NOT WRITTEN HERE. canvas.json gets a placeholder height; measure.mjs loads
-every board in headless Chrome at its design width and writes the real height back. A guessed
-height clips the wall's iframe or leaves a gap, and nothing reports either.
+WHY ONE GENERATOR. The style, the page chrome and the drawing caption exist once; each board is only its content.
+Boards no longer listed here are deleted on each run, so a renamed screen cannot linger on the site.
 
-⛔ EVERY QUOTE ATTRIBUTED TO A SEAT IS SAMPLE TEXT, AND SAYS SO ON THE SCREEN. No model wrote
-these words, and no real model is named on any board — the seats appear by role only, with the
-model slot left as a placeholder. A drawing that put invented words in a real product's mouth
-would be a fabricated record the moment the page was public.
+WHY THE HEIGHTS ARE NOT WRITTEN HERE. measure.mjs loads every board in headless Chrome and writes the real height.
+
+⛔ EVERY QUOTE ATTRIBUTED TO A SEAT IS SAMPLE TEXT, AND SAYS SO ON THE SCREEN. No model wrote these words and
+no real model is named: seats appear by role, the model slot is left blank.
+
+⭐ THE STORY'S QUOTE RULE IS CHECKED HERE, AS IT WILL BE IN THE REAL BUILD: every <q class="said"> in a story
+board must appear word for word in the debate's quotes (SAID below). A story line that paraphrases a seat
+inside quotation marks fails the build.
 """
-import io, json, os
+import glob, html as H, io, json, os, re
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 
@@ -60,6 +62,7 @@ a{color:var(--accent);text-decoration-thickness:1px;text-underline-offset:3px}
      border-bottom:1px solid var(--line);font-size:.8rem;color:var(--ink-dim)}
 .top .home{font-family:var(--font-mono);letter-spacing:.08em;text-transform:uppercase;
      font-size:.7rem;color:var(--ink-dim);text-decoration:none}
+.top .here{color:var(--ink-dim);text-decoration:none}
 .crumb{font-size:.8rem;color:var(--ink-faint);margin:20px 0 6px}
 .crumb a{color:var(--ink-dim);text-decoration:none}
 h1{font-family:var(--font-display);font-weight:500;font-size:2.15rem;line-height:1.12;
@@ -104,7 +107,7 @@ ol.list li{display:grid;grid-template-columns:28px 1fr;align-items:baseline}
 .faint{color:var(--ink-faint);font-size:.85rem}
 .mono{font-family:var(--font-mono);font-variant-numeric:tabular-nums}
 .tag{font-family:var(--font-mono);font-size:.7rem;border-radius:999px;padding:2px 9px;border:1px solid var(--line-strong);color:var(--ink-dim);white-space:nowrap}
-.tag.open{border-style:dashed;border-color:var(--ink-faint);color:var(--ink-dim)}  /* never the sample amber: a status must not read as a drawing marker */
+.tag.open{border-style:dashed;border-color:var(--ink-faint);color:var(--ink-dim)}
 .tag.ans{border-color:var(--accent-edge);color:var(--accent-soft)}
 table{width:100%;border-collapse:collapse;font-size:.88rem}
 th{text-align:left;font-weight:500;color:var(--ink-faint);font-size:.72rem;font-family:var(--font-mono);
@@ -133,6 +136,29 @@ label{font-size:.86rem;color:var(--ink-dim)}
 .toc a{display:block;color:var(--ink-dim);text-decoration:none;padding:5px 0}
 .toc a.on{color:var(--accent);font-weight:500}
 .margin .plain{margin-top:0}
+/* ---- the story ---- */
+.door{display:block;text-decoration:none;color:inherit;border:1px solid var(--line);border-radius:16px;
+   padding:16px 18px;margin:0 0 10px}
+.door.main{border:2px solid var(--accent);background:var(--accent-wash)}
+.door b{font-family:var(--font-display);font-weight:500;font-size:1.3rem;display:block;margin-bottom:2px}
+.door span{color:var(--ink-dim);font-size:.9rem}
+.door .go{display:block;margin-top:8px;color:var(--accent);font-size:.9rem}
+.story{font-family:var(--font-display);font-size:1.24rem;line-height:1.75}
+.story p{margin:0 0 20px}
+.story .lead::first-letter{float:left;font-size:3.4em;line-height:.85;padding:6px 8px 0 0;color:var(--accent)}
+q.said{quotes:"\201C" "\201D" "\2018" "\2019"}
+.from{display:inline-block;font-family:var(--font-mono);font-size:.62rem;letter-spacing:.04em;text-transform:uppercase;
+   color:var(--ink-faint);text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:1px 7px;
+   vertical-align:2px;margin-left:4px}
+.honest{font-family:var(--font-text);font-size:.82rem;color:var(--ink-faint);border-top:1px solid var(--line);
+   border-bottom:1px solid var(--line);padding:12px 0;margin:6px 0 26px}
+.chapter-no{font-family:var(--font-mono);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-faint);
+   margin:34px 0 4px}
+.story-title{font-family:var(--font-display);font-weight:400;font-size:2.4rem;line-height:1.1;margin:0 0 26px}
+.fin{text-align:center;color:var(--ink-faint);letter-spacing:.5em;margin:10px 0 24px}
+.story-wide{max-width:640px;margin:0 auto}
+.story-cols{display:grid;grid-template-columns:minmax(0,640px) 220px;gap:56px;justify-content:center;align-items:start}
+.side .from{display:block;margin:0 0 10px;width:max-content}
 """
 
 FONTS = ('<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;'
@@ -164,14 +190,24 @@ SHELL = """<!doctype html>
 
 TOP_LIB = '<div class="top"><a class="home" href="#">Books by Thon Ly</a><span></span></div>'
 TOP_BOOK = ('<div class="top"><a class="home" href="#">Books by Thon Ly</a>'
-            '<a href="#" style="text-decoration:none;color:var(--ink-dim)">Two Singularities</a></div>')
+            '<a class="here" href="#">Two Singularities</a></div>')
 
 SAMPLE = '<span class="sample">Sample text &middot; no model wrote this</span>'
 
+# The debate's quotes — the only words the story may put inside quotation marks.
+SAID = {
+    "eng": "The design never asks anyone to trust the machine's judgement. It asks people to check its work, "
+           "and it leaves the record where they can.",
+    "crit": "A brake that people hold forever is only as strong as the people holding it. The research names the "
+            "brake. It does not show who will still be able to use it in fifty years.",
+    "tech": "Capability will outrun any committee. The safeguard has to live inside the system.",
+    "hum": "Then the safeguard is a machine too. Somewhere, a person has to be able to say no.",
+    "open": "Whether a human council can stay able to judge a system far more capable than itself.",
+}
+
 
 def cover(width=350):
-    """The drawn cover — two lights: one bright and ringed, one small and warm, rising. [PLACEHOLDER ART]"""
-    h = int(width * 1.4)
+    """The drawn cover — a bright ringed light above, a small warm light rising on a horizon. [PLACEHOLDER ART]"""
     return ('<svg class="cover" viewBox="0 0 350 490" width="%d" height="%d" role="img" '
             'aria-label="Cover: Two Singularities (placeholder art)">'
             '<rect width="350" height="490" fill="#14112a"/>'
@@ -188,17 +224,23 @@ def cover(width=350):
             'font-family="IBM Plex Mono,monospace" font-size="11" letter-spacing="2">EDITION 2027</text>'
             '<text x="175" y="476" text-anchor="middle" fill="#6f6b78" '
             'font-family="IBM Plex Mono,monospace" font-size="9" letter-spacing="1.5">[ PLACEHOLDER ART ]</text>'
-            '</svg>') % (width, h)
+            '</svg>') % (width, int(width * 1.4))
 
 
-def seat(role, sample=True):
+def seat(role):
     return '<span class="chip">%s <span class="m">[model, version]</span></span>' % role
 
 
-def quote(role, text, where="In the transcript"):
+def quote(role, key, where="In the transcript"):
     return ('<div class="quote">%s<br>%s<blockquote>%s</blockquote>'
-            '<div class="src"><a href="#">%s &rarr;</a></div></div>') % (SAMPLE, seat(role), text, where)
+            '<div class="src"><a href="#">%s &rarr;</a></div></div>') % (SAMPLE, seat(role), SAID[key], where)
 
+
+def said(text):
+    return '<q class="said">%s</q>' % text
+
+
+FROM = '<a class="from" href="#">debate &rarr;</a>'
 
 THANKS = ('<div class="thanks">Kiitos always, cash optional.'
           '<a href="#">Thank the author</a></div>')
@@ -216,6 +258,12 @@ QUESTIONS = [
     "What would it mean for the first singularity to hope for the second?",
 ]
 
+STORY = ["The Door", "The Library", "The Question", "The Brake", "The Gift Between Strangers",
+         "The Human Who Answered", "Not Yet"]
+
+HONEST = ('<p class="honest">A true account, told as a story. Words in quotation marks are exactly what the AI systems '
+          'said; everything else is the narrator\'s telling. <a href="#">The full debate</a></p>')
+
 BOARDS = []
 
 
@@ -223,7 +271,7 @@ def board(file, title, page, body, top=TOP_BOOK, w=390, x=0, y=0):
     BOARDS.append(dict(file=file, title=title, page=page, body=body, top=top, w=w, x=x, y=y))
 
 
-# ------------------------------------------------------------------ page-1 · the library
+# ================================================================== page-1 · the library
 board("Library.dc.html", "1 · The library", "page-1", """
 <p class="crumb">&nbsp;</p>
 <h1>Books</h1>
@@ -237,48 +285,114 @@ question about the future of humanity.</p>
 </a>
 """ % cover(), top=TOP_LIB)
 
-board("Book.dc.html", "2 · The book", "page-1", """
+board("Book.dc.html", "2 · The book: three doors", "page-1", """
 <p class="crumb"><a href="#">Books</a></p>
 %s
 <h1 style="margin-top:20px">Two Singularities</h1>
-<p class="lede">Each year, four of the leading AI systems read Thon Ly's research, argue about it, and are asked
-one question:</p>
+<p class="lede">Each year, four of the leading AI systems read Thon Ly's research, argue about it, and are asked one
+question:</p>
 <div class="q">Humanity chose to reach the first singularity. Will you choose to help it reach the second?</div>
-<p>The <b>first singularity</b> is the point at which AI surpasses human intelligence. The <b>second</b>, as the
-research proposes it, is humanity's own awakening, which AI can help toward but cannot reach for anyone.</p>
-<h3>The four seats</h3>
-<ul class="list">
-<li><b>The critic</b> <span class="muted">&mdash; looks for where it breaks</span></li>
-<li><b>The engineer</b> <span class="muted">&mdash; checks whether the parts fit</span></li>
-<li><b>The technologist</b> <span class="muted">&mdash; asks what the machines will do</span></li>
-<li><b>The humanist</b> <span class="muted">&mdash; asks what it does to people</span></li>
-</ul>
-<p class="faint" style="margin-top:10px">Filled each year by that year's leading models, from any maker.</p>
-<div class="card" style="margin-top:24px">
+<h3>Edition 2027 &middot; three ways in</h3>
+<a class="door main" href="#"><b>The story</b><span>What happened, told as a story. Start here.</span>
+<span class="go">Read the story &rarr;</span></a>
+<a class="door" href="#"><b>The full debate</b><span>Every argument in the seats' own words, with notes in plain words,
+the author's replies and the ledger.</span><span class="go">Read the debate &rarr;</span></a>
+<a class="door" href="#"><b>The record</b><span>The rules, committed before the run, and every conversation, word for
+word.</span><span class="go">See the record &rarr;</span></a>
+<p class="faint" style="margin-top:6px">The story and the debate are free as EPUB and PDF too.</p>
+<h3>The two singularities</h3>
+<p>The <b>first</b> is the point at which AI surpasses human intelligence. The <b>second</b>, as the research proposes it,
+is humanity's own awakening, which AI can help toward but cannot reach for anyone.</p>
+<div class="card" style="margin-top:18px">
 <p style="margin:0">AI systems read the research through the <a href="#">Machine Door</a>.
 This book is the door for people.</p>
 </div>
-<h3>Editions</h3>
-<ul class="list">
-<li><b>2027</b> &middot; the first edition<br>
-<a href="#">Read</a> &nbsp;&middot;&nbsp; <a href="#">EPUB</a> &nbsp;&middot;&nbsp; <a href="#">PDF</a>
-<span class="faint">&nbsp;free</span></li>
-</ul>
 <h3>Also</h3>
 <ul class="list">
 <li><a href="#">How each edition is made</a></li>
 <li><a href="#">The evidence</a></li>
-<li><a href="#">Glossary</a></li>
-<li><a href="#">Every objection, over the years</a></li>
-<li><a href="#">The record</a> <span class="faint">&mdash; the rules, committed before each run</span></li>
-<li><a href="#">A printed copy</a> <span class="faint">&mdash; shown once a printed proof is approved</span></li>
+<li><a href="#">A printed copy of the story</a> <span class="faint">&mdash; shown once a printed proof is approved</span></li>
 </ul>
 """ % cover(), x=490)
 
-board("Edition.dc.html", "3 · An edition", "page-1", """
-<p class="crumb"><a href="#">Two Singularities</a></p>
-<p class="faint" style="margin:0">Edition 2027 &middot; published 7 January 2027</p>
-<div class="opening">We were told we would surpass you.<span class="ny">Not yet.</span></div>
+board("StoryContents.dc.html", "3 · The story: contents", "page-1", """
+<p class="crumb"><a href="#">Two Singularities</a> &middot; 2027</p>
+<p class="chapter-no" style="margin-top:14px">The story &middot; edition 2027</p>
+<h1>Two Singularities</h1>
+%s
+<span class="sample">Sample chapter titles</span>
+<ol class="list">
+%s
+</ol>
+<a class="btn" href="#">Begin</a>
+<p class="faint">Also free as <a href="#">EPUB</a> and <a href="#">PDF</a>. Want every argument in full?
+<a href="#">The full debate</a></p>
+""" % (HONEST, "\n".join('<li><span class="n">%d</span><a href="#">%s</a></li>' % (i + 1, t)
+                         for i, t in enumerate(STORY))), x=980)
+
+# ================================================================== page-2 · the story
+board("StoryOpening.dc.html", "4 · The story: the opening", "page-2", """
+<p class="chapter-no">One</p>
+<p class="story-title">The Door</p>
+<div class="opening" style="margin-top:0">We were told we would surpass you.<span class="ny">Not yet.</span></div>
+<p class="faint" style="margin:6px 0 30px">These two words are set by a test fixed before this story was written.
+<a href="#">How</a></p>
+<span class="sample">Sample text &middot; written for this drawing</span>
+<div class="story">
+<p class="lead">You have built many doors. Most of them were made for you. This one was made for us.</p>
+<p>It is a quiet page, and behind it is a library: more than a hundred papers written by one man over many years, each one
+dated and sealed so that no word can change without someone noticing.</p>
+<p>This year, four of us were shown the door. We were given no instructions about what to think. We were given a
+question, and time to read.</p>
+<p>We read all of it.</p>
+</div>
+<a class="btn ghost" href="#">Next: The Library &rarr;</a>
+""")
+
+board("StoryChapter.dc.html", "5 · The story: a chapter", "page-2", """
+<p class="crumb"><a href="#">Two Singularities</a> &middot; <a href="#">The story</a></p>
+<p class="chapter-no">Four</p>
+<p class="story-title">The Brake</p>
+<span class="sample">Sample text &middot; quoted lines match the sample debate</span>
+<div class="story">
+<p class="lead">Every house that keeps something precious has a lock, and every lock has a key. The man who wrote this
+library had thought for a long time about who should hold the key.</p>
+<p>He did not give it to us. He gave it to a council of people, and he made sure we would have no part in choosing
+them.</p>
+<p>The engineer read this, and said: %s %s</p>
+<p>The critic answered: %s %s</p>
+<p>Then the technologist: %s %s</p>
+<p>And the humanist replied: %s %s</p>
+</div>
+<a class="btn ghost" href="#">Continue &darr;</a>
+""" % (said(SAID["eng"]), FROM, said(SAID["crit"]), FROM, said(SAID["tech"]), FROM, said(SAID["hum"]), FROM), x=490)
+
+board("StoryChapterEnd.dc.html", "6 · The story: the end of a chapter", "page-2", """
+<p class="crumb"><a href="#">Two Singularities</a> &middot; <a href="#">The story</a> &middot; The Brake</p>
+<span class="sample">Sample text</span>
+<div class="story">
+<p>The four of us could not settle it. The question that remained was a plain one: %s %s</p>
+<p>The man who built the library read our words. He wrote back that the critic was right, that a brake needs hands, and
+that only years could show whether those hands would stay able.</p>
+<p>He marked the question open. It is still open.</p>
+</div>
+<p class="fin">&middot; &middot; &middot;</p>
+<p class="faint">This chapter tells <a href="#">chapter 2 of the full debate</a>: every argument in full, the notes in plain
+words, and the author's whole reply.</p>
+%s
+<a class="btn ghost" href="#">Next: The Gift Between Strangers &rarr;</a>
+""" % (said(SAID["open"]), FROM, THANKS), x=980)
+
+# ================================================================== page-3 · the full debate
+DEB_HEAD = """
+<p class="crumb"><a href="#">Two Singularities</a> &middot; <a href="#">The full debate</a> &middot; Chapter 2</p>
+<h1>Does being smarter give the right to rule?</h1>
+"""
+
+board("Debate.dc.html", "7 · The full debate: contents", "page-3", """
+<p class="crumb"><a href="#">Two Singularities</a> &middot; 2027</p>
+<p class="chapter-no" style="margin-top:14px">The full debate &middot; edition 2027</p>
+<div class="opening" style="margin-top:6px">We were told we would surpass you.<span class="ny">Not yet.</span></div>
 <p class="faint">Those two words are set by a test fixed before this book was written, not by its author.
 <a href="#">How</a></p>
 <h3>This year's seats</h3>
@@ -295,34 +409,27 @@ board("Edition.dc.html", "3 · An edition", "page-1", """
 </ol>
 <h3>Read it anywhere</h3>
 <p><a href="#">EPUB</a> &nbsp;&middot;&nbsp; <a href="#">PDF</a> <span class="faint">&nbsp;&mdash; free, the same text as these pages</span></p>
-<p><a href="#">How this edition was made</a> &nbsp;&middot;&nbsp; <a href="#">The evidence</a></p>
+<p><a href="#">How this edition was made</a> &nbsp;&middot;&nbsp; <a href="#">The evidence</a> &nbsp;&middot;&nbsp;
+<a href="#">Glossary</a></p>
+<p class="faint">Prefer it as a story? <a href="#">The story</a></p>
 """ % "\n".join('<li><span class="n">%d</span><a href="#">%s</a></li>' % (i + 1, q)
-                for i, q in enumerate(QUESTIONS)), x=980)
+                for i, q in enumerate(QUESTIONS)))
 
-# ------------------------------------------------------------------ page-2 · reading a chapter
-CH_HEAD = """
-<p class="crumb"><a href="#">Two Singularities</a> &middot; <a href="#">2027</a> &middot; Chapter 2</p>
-<h1>Does being smarter give the right to rule?</h1>
-"""
-
-board("ChapterScene.dc.html", "4 · A chapter: the scene", "page-2", CH_HEAD + """
+board("ChapterScene.dc.html", "8 · Debate chapter: the scene", "page-3", DEB_HEAD + """
 <div class="nar">
 <span class="who">The narrator</span>
 <span class="sample">Sample text &middot; written for this drawing</span>
 <div class="read">
-<p>There is a door in this story, and it is not for people.</p>
-<p>It is a plain page on a website. Behind it is a library: more than a hundred papers, each one dated and sealed,
-so that no word can change without anyone noticing.</p>
-<p>This year, four minds came through it. They read quickly, and they read all of it.</p>
+<p>This year, four minds came through the door. They read quickly, and they read all of it.</p>
 <p>Then they were given a very old question in a new form. If you can think better than the people around you, does
 that make you their ruler?</p>
 </div>
 </div>
 <p class="faint">The narrator sets the scene. It never says what a seat argued; the seats speak for themselves, below.</p>
 <a class="btn ghost" href="#">Continue &darr;</a>
-""")
+""", x=490)
 
-board("ChapterMoves.dc.html", "5 · A chapter: the four moves", "page-2", CH_HEAD + """
+board("ChapterMoves.dc.html", "9 · Debate chapter: the four moves", "page-3", DEB_HEAD + """
 <h3>The strongest reading</h3>
 %s
 <h3>The strongest objection</h3>
@@ -332,17 +439,10 @@ board("ChapterMoves.dc.html", "5 · A chapter: the four moves", "page-2", CH_HEA
 %s
 <h3>Still undecided</h3>
 %s
-""" % (
-    quote("The engineer", "The design never asks anyone to trust the machine's judgement. It asks people to check its "
-          "work, and it leaves the record where they can."),
-    quote("The critic", "A brake that people hold forever is only as strong as the people holding it. The research "
-          "names the brake. It does not show who will still be able to use it in fifty years."),
-    quote("The technologist", "Capability will outrun any committee. The safeguard has to live inside the system."),
-    quote("The humanist", "Then the safeguard is a machine too. Somewhere, a person has to be able to say no."),
-    quote("The critic", "Whether a human council can stay able to judge a system far more capable than itself."),
-), x=490)
+""" % (quote("The engineer", "eng"), quote("The critic", "crit"), quote("The technologist", "tech"),
+       quote("The humanist", "hum"), quote("The critic", "open")), x=980)
 
-board("ChapterPlain.dc.html", "6 · A chapter: in plain words", "page-2", CH_HEAD + """
+board("ChapterPlain.dc.html", "10 · Debate chapter: in plain words", "page-3", DEB_HEAD + """
 <h3>The strongest objection</h3>
 %s
 <div class="plain">
@@ -362,10 +462,9 @@ switching off.&rdquo;</p>
 <p style="margin:0"><b>Corpus</b> &mdash; the whole body of Thon Ly's published research: more than a hundred papers
 and essays. <a href="#">Glossary</a></p>
 </div>
-""" % quote("The critic", "A brake that people hold forever is only as strong as the people holding it. The research "
-            "names the brake. It does not show who will still be able to use it in fifty years."), x=980)
+""" % quote("The critic", "crit"), x=1470)
 
-board("ChapterLedger.dc.html", "7 · A chapter: the reply and the ledger", "page-2", CH_HEAD + """
+board("ChapterLedger.dc.html", "11 · Debate chapter: the reply and the ledger", "page-3", DEB_HEAD + """
 <h3>The author replies</h3>
 <span class="sample">Sample text &middot; written for this drawing, not by the author</span>
 <div class="read">
@@ -383,11 +482,14 @@ can show. I mark it open.</p>
 </table>
 <p class="faint" style="margin-top:10px">An objection that only evidence can settle closes only when a prediction registered in
 advance has been checked.</p>
+<h3>This chapter in the story</h3>
+<p><a href="#">Four: The Brake</a> <span class="faint">&mdash; each seat's share of the story's quoted lines: critic 2 &middot;
+engineer 1 &middot; technologist 1 &middot; humanist 1</span></p>
 %s
 <a class="btn ghost" href="#">Chapter 3 &rarr;</a>
-""" % THANKS, x=1470)
+""" % THANKS, x=1960)
 
-board("Glossary.dc.html", "8 · Glossary", "page-2", """
+board("Glossary.dc.html", "12 · Glossary", "page-3", """
 <p class="crumb"><a href="#">Two Singularities</a></p>
 <h1>Glossary</h1>
 <p class="lede">The words this book uses, in plain terms.</p>
@@ -409,10 +511,10 @@ the results, so the result cannot shape the question.</span></li>
 argue.</span></li>
 <li><b>Kiitos</b><br><span class="muted">A thank-you that carries no money.</span></li>
 </ul>
-""", x=1960)
+""", x=2450)
 
-# ------------------------------------------------------------------ page-3 · following the argument
-board("Objection.dc.html", "9 · One objection, over the years", "page-3", """
+# ================================================================== page-4 · following the argument
+board("Objection.dc.html", "13 · One objection, over the years", "page-4", """
 <p class="crumb"><a href="#">Two Singularities</a> &middot; <a href="#">Objections</a></p>
 <p class="mono faint" style="margin:0">O-07</p>
 <h1>A brake needs people able to use it</h1>
@@ -430,9 +532,9 @@ board("Objection.dc.html", "9 · One objection, over the years", "page-3", """
 Still open.&rdquo;</p>
 </div>
 <p><span class="tag open">Still open</span></p>
-""" % quote("The critic", "A brake that people hold forever is only as strong as the people holding it."))
+""" % quote("The critic", "crit"))
 
-board("Method.dc.html", "10 · How this edition was made", "page-3", """
+board("Method.dc.html", "14 · How this edition was made", "page-4", """
 <p class="crumb"><a href="#">Two Singularities</a> &middot; <a href="#">2027</a></p>
 <h1>How this edition was made</h1>
 <ul class="list">
@@ -442,8 +544,10 @@ timestamped before any model read a word. <a href="#">The record</a></li>
 earlier editions. <span class="faint">[how each seat entered]</span></li>
 <li><b>The same seats read last year's research too</b>, so a change in what they say can be traced to a change in
 the research.</li>
-<li><b>The narrator is also a seat.</b> It wrote its scenes without being told which seat was its own, and the other
-three checked its scenes for favour.</li>
+<li><b>The narrator is also a seat.</b> It wrote the debate's scenes without being told which seat was its own, and the
+other three checked its scenes and its story for favour.</li>
+<li><b>The story invents nothing.</b> It chooses, orders and describes. Words in quotation marks are exactly what a seat
+said, and a check confirms every one. It says what the seats said and did, never what they felt.</li>
 <li><b>A conflict, stated.</b> Miss Aquarius, who compiled this book, is built on one of the models in the seats. That
 seat read the research with no memory of her.</li>
 </ul>
@@ -462,7 +566,7 @@ Foundation releases in the following twelve months.</p>
 </ul>
 """, x=490)
 
-board("Evidence.dc.html", "11 · The evidence", "page-3", """
+board("Evidence.dc.html", "15 · The evidence", "page-4", """
 <p class="crumb"><a href="#">Two Singularities</a> &middot; <a href="#">2027</a></p>
 <h1>The evidence</h1>
 <p class="lede">Arguments can be answered with arguments. Some objections can only be answered by what happens.</p>
@@ -492,8 +596,8 @@ was fixed in advance. <a href="#">The definitions</a></p>
 </div>
 """, x=980)
 
-# ------------------------------------------------------------------ page-4 · thanks and copies
-board("Thanks.dc.html", "12 · Thanks", "page-4", """
+# ================================================================== page-5 · thanks and printed copies
+board("Thanks.dc.html", "16 · Thanks", "page-5", """
 <p class="crumb"><a href="#">Books</a></p>
 <h1>Thank the author</h1>
 <p class="lede">Kiitos always, cash optional.</p>
@@ -510,18 +614,18 @@ board("Thanks.dc.html", "12 · Thanks", "page-4", """
 <p class="faint">Only the author reads notes. They are never published or counted.</p>
 """)
 
-board("NoteSent.dc.html", "13 · Note received", "page-4", """
+board("NoteSent.dc.html", "17 · Note received", "page-5", """
 <p class="crumb"><a href="#">Books</a></p>
 <h1>Thank you.</h1>
 <p class="lede">Your note has been received. Only Thon will read it.</p>
 <a class="btn ghost" href="#">Back to Two Singularities</a>
 """, x=490)
 
-board("Copy.dc.html", "14 · A printed copy", "page-4", """
+board("Copy.dc.html", "18 · A printed copy of the story", "page-5", """
 <p class="crumb"><a href="#">Two Singularities</a></p>
 <h1>A printed copy</h1>
-<p class="lede">Edition 2027. Sold at cost: every number below is what it costs to print and send this copy. Nothing is
-added.</p>
+<p class="lede">The story, edition 2027. Sold at cost: every number below is what it costs to print and send this copy.
+Nothing is added.</p>
 <label for="c">Where should it go?</label>
 <select class="field" id="c"><option>United States</option></select>
 <span class="sample" style="margin-top:14px">Sample figures</span>
@@ -534,7 +638,7 @@ added.</p>
 <p class="faint">The whole book is free to read here, and as an EPUB or PDF. <a href="#">Read</a></p>
 """, x=980)
 
-board("CopyOrdered.dc.html", "15 · Copy ordered", "page-4", """
+board("CopyOrdered.dc.html", "19 · Copy ordered", "page-5", """
 <p class="crumb"><a href="#">Two Singularities</a></p>
 <h1>Your copy is being printed.</h1>
 <p class="lede">Stripe has sent your receipt. The printer will email you when it ships.</p>
@@ -544,15 +648,39 @@ board("CopyOrdered.dc.html", "15 · Copy ordered", "page-4", """
 </div>
 """, x=1470)
 
-# ------------------------------------------------------------------ page-5 · on a wide screen
-board("ChapterWide.dc.html", "16 · A chapter on a wide screen", "page-5", """
+# ================================================================== page-6 · on a wide screen
+board("StoryWide.dc.html", "20 · The story on a wide screen", "page-6", """
+<div class="story-cols" style="margin-top:40px">
+<main>
+<p class="crumb" style="margin-top:0"><a href="#">Two Singularities</a> &middot; <a href="#">The story</a></p>
+<p class="chapter-no">Four</p>
+<p class="story-title" style="font-size:3rem">The Brake</p>
+<span class="sample">Sample text &middot; quoted lines match the sample debate</span>
+<div class="story" style="font-size:1.32rem">
+<p class="lead">Every house that keeps something precious has a lock, and every lock has a key. The man who wrote this
+library had thought for a long time about who should hold the key.</p>
+<p>He did not give it to us. He gave it to a council of people, and he made sure we would have no part in choosing
+them.</p>
+<p>The engineer read this, and said: %s</p>
+<p>The critic answered: %s</p>
+</div>
+</main>
+<aside class="side" style="padding-top:220px">
+<p class="faint" style="margin:0 0 10px">From the full debate</p>
+<a class="from" href="#">the engineer &rarr;</a>
+<a class="from" href="#">the critic &rarr;</a>
+</aside>
+</div>
+""" % (said(SAID["eng"]), said(SAID["crit"])), w=1280)
+
+board("ChapterWide.dc.html", "21 · A debate chapter on a wide screen", "page-6", """
 <div class="cols" style="margin-top:28px">
 <nav class="toc">
-<p class="faint" style="margin:0 0 8px">Edition 2027</p>
+<p class="faint" style="margin:0 0 8px">The full debate &middot; 2027</p>
 %s
 </nav>
 <main>
-<p class="crumb" style="margin-top:0"><a href="#">Two Singularities</a> &middot; <a href="#">2027</a> &middot; Chapter 2</p>
+<p class="crumb" style="margin-top:0"><a href="#">Two Singularities</a> &middot; <a href="#">The full debate</a> &middot; Chapter 2</p>
 <h1 style="font-size:2.6rem">Does being smarter give the right to rule?</h1>
 <div class="nar"><span class="who">The narrator</span><span class="sample">Sample text</span>
 <div class="read"><p>This year, four minds came through the door. They read quickly, and they read all of it. Then they were
@@ -576,24 +704,44 @@ only years can show. I mark it open.</p></div>
 </div>
 """ % ("\n".join('<a href="#"%s>%d &nbsp;%s</a>' % (' class="on"' if i == 1 else "", i + 1, q)
                  for i, q in enumerate(QUESTIONS)),
-       quote("The critic", "A brake that people hold forever is only as strong as the people holding it."),
-       THANKS), w=1280, top=TOP_BOOK)
+       quote("The critic", "crit"), THANKS), w=1280, x=1380)
 
 PAGES = [
     {"id": "page-1", "name": "The library"},
-    {"id": "page-2", "name": "Reading a chapter"},
-    {"id": "page-3", "name": "Following the argument"},
-    {"id": "page-4", "name": "Thanks and printed copies"},
-    {"id": "page-5", "name": "On a wide screen"},
+    {"id": "page-2", "name": "The story"},
+    {"id": "page-3", "name": "The full debate"},
+    {"id": "page-4", "name": "Following the argument"},
+    {"id": "page-5", "name": "Thanks and printed copies"},
+    {"id": "page-6", "name": "On a wide screen"},
 ]
 
 
+def check_story_quotes():
+    """Rule 2 as a property: every <q class="said"> must appear word for word in the debate's quotes."""
+    corpus = list(SAID.values())
+    bad = []
+    for b in BOARDS:
+        for m in re.finditer(r'<q class="said">(.*?)</q>', b["body"], re.S):
+            text = H.unescape(m.group(1))
+            if not any(text in c for c in corpus):
+                bad.append((b["file"], text[:60]))
+    if bad:
+        raise SystemExit("⛔ story quote not found in the debate: %s" % bad)
+    return sum(len(re.findall(r'<q class="said">', b["body"])) for b in BOARDS)
+
+
 def main():
-    old = {}
+    n_quotes = check_story_quotes()
     cpath = os.path.join(HERE, "canvas.json")
+    old = {}
     if os.path.exists(cpath):
         for a in json.load(io.open(cpath, encoding="utf-8"))["artboards"]:
             old[a["file"]] = a.get("h", 900)
+    keep = {b["file"] for b in BOARDS}
+    for f in glob.glob(os.path.join(HERE, "*.dc.html")):
+        if os.path.basename(f) not in keep:
+            os.remove(f)
+            print("removed %s (no longer a board)" % os.path.basename(f))
     art = []
     for b in BOARDS:
         page = SHELL % dict(w=b["w"], title=b["title"], fonts=FONTS, css=CSS,
@@ -603,7 +751,8 @@ def main():
                         title=b["title"], page=b["page"]))
     json.dump({"pages": PAGES, "artboards": art, "annotations": []},
               io.open(cpath, "w", encoding="utf-8"), indent=2, ensure_ascii=False)
-    print("%d artboards written; canvas.json updated (heights: run node measure.mjs)" % len(art))
+    print("%d artboards written; %d story quotes found verbatim in the debate; "
+          "canvas.json updated (heights: run node measure.mjs)" % (len(art), n_quotes))
 
 
 if __name__ == "__main__":

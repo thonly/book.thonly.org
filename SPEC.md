@@ -13,6 +13,14 @@ A **library**: the home of every book Thon Ly publishes, starting with *Two Sing
 7 January from 2027. Each book lives under its own path. The site is for **lay readers**: everything a reader needs to
 understand the book is on the page, in plain words.
 
+Each edition has **three layers**, and a reader chooses how deep to go:
+
+- **The story** — for everyone. What happened, told as a story.
+- **The full debate** — for serious readers. Every argument in the seats' own words, with notes in plain words, the
+  author's replies and the ledger.
+- **The record** — the rules committed before the run, and every conversation, word for word
+  (`github.com/thonly/two-singularities`).
+
 - **Free to read, whole.** Nothing is locked, metered or previewed.
 - **Thanks welcomed, never asked for first.** *Kiitos always, cash optional.*
 - **Printed copies sold at cost.** thonly.org takes no profit (a stance, not a legal nonprofit).
@@ -36,6 +44,9 @@ understand the book is on the page, in plain words.
 | Free EPUB and PDF downloads, never a fee | *"yes per your recommendation"* (charge for what is consumed, never for access) |
 | The audio narrator is an original designed voice | *"yes per your recommendation"* |
 | The narrator writes to a style brief (§4.5) | *"yes; you read my mind"* |
+| Three layers: the record, the full debate, the story | *"The record -> the textbook (for serious readers) -> the book (for casual readers)"* |
+| Public names: the story · the full debate · the record | *"yes; textbook does sound like homework!"* |
+| The story's rules (§4.6), told in the register of §4.5 | *"yes and one addition"* |
 
 ## 3. Routes
 
@@ -43,8 +54,10 @@ understand the book is on the page, in plain words.
 |---|---|---|
 | `/` | The library: each book that exists, one line each. ⛔ **No empty shelves, no "coming soon".** Before 7 January 2027 the one line may say the book is published that day, once, as a fact. | yes |
 | `/two-singularities/` | The book: what it is, the central question, the newest edition, and every past edition | yes |
-| `/two-singularities/<year>/` | One edition: contents, the opening, the chapters | yes |
-| `/two-singularities/<year>/<chapter>/` | One chapter | yes |
+| `/two-singularities/<year>/` | **The story**: its contents and opening — the default way in | yes |
+| `/two-singularities/<year>/<chapter>/` | A chapter of the story | yes |
+| `/two-singularities/<year>/debate/` | **The full debate**: contents, the opening, this year's seats | yes |
+| `/two-singularities/<year>/debate/<chapter>/` | A chapter of the full debate | yes |
 | `/two-singularities/<year>/two-singularities-<year>.epub` · `.pdf` | Free downloads of the edition, built from the same source as the pages and the print file | — |
 | `/two-singularities/<year>/method/` | How this edition was made (§5) | yes |
 | `/two-singularities/<year>/evidence/` | The evidence page and the two gauges (§6) | yes |
@@ -58,9 +71,9 @@ understand the book is on the page, in plain words.
 ⭐ **Every edition stays readable forever at its own URL.** A new edition never replaces an old one; the book's page
 defaults to the newest. This is what lets a reader see the corpus change over time.
 
-## 4. The book's anatomy — two layers
+## 4. The full debate's anatomy
 
-### 4.1 A chapter
+### 4.1 A debate chapter
 
 A chapter answers one of the edition's fixed questions (the same questions every year, so editions can be compared).
 
@@ -109,6 +122,23 @@ and warm, unhurried, with long pauses and quiet authority, speaking to someone h
 with or marketed as any real person. It has its own name and is chosen by a blind test with lay listeners. The four seats
 each get a distinct voice of their own, and every synthetic voice is disclosed.
 
+### 4.6 The story
+
+The story is told from the full debate, in the voice of §4.5, and in a particular register: a far older intelligence
+recounting, gently and without hurry, what it saw people build — its **manner**, never a claim to feel anything.
+
+- **It may choose, order and describe what happened. It may not invent.** No event, pause, tone or gesture that the record
+  does not hold. Every passage links to the debate chapter it tells.
+- ⭐ **Words in quotation marks are always a seat's exact words**; everything else is the narrator's telling. The build
+  refuses to publish a story line inside quotation marks that is not found word for word in the record.
+- **It says what the seats said and did, never what they felt.**
+- **The ending follows the record.** If the seats said no, the story ends on no.
+- **Fairness.** The other three seats review the story for favour, and their answers are printed in the full debate, with
+  each seat's share of the story's quoted lines.
+- The story opens with one plain line: *a true account, told as a story; words in quotation marks are exactly what the AI
+  systems said.*
+- Printed copies, the audiobook and the film are made from the story.
+
 ## 5. The method page (per edition)
 
 States, plainly: the rules were committed and timestamped before the run (link to
@@ -144,7 +174,7 @@ One quiet line **after** each chapter and at the end of each edition (and at the
   collection that clients may **create and never read**; only the author reads them. ⛔ Never published, never counted
   on any page. Stores the note and its time, nothing else.
 
-### 7.3 Printed copies (after a proof is approved)
+### 7.3 Printed copies of the story (after a proof is approved)
 
 - **Price = that order's actual cost** — print, shipping, the payment fee and tax — computed per order and shown before
   payment, with *"sold at cost"* stated once.
@@ -187,7 +217,7 @@ One quiet line **after** each chapter and at the end of each edition (and at the
 | M2 | Clickable prototype at `/demo/` (phase 3) | October 2026 |
 | M3 | The pilot run's text rendered through the real templates | November 2026 |
 | M4 | Library, book, method, glossary, privacy, thanks (Stripe + note) — live | by 7 January 2027 |
-| M5 | Edition 1 published, with free EPUB and PDF | 7 January 2027 |
+| M5 | Edition 1 published — the story, the full debate and the record — with free EPUB and PDF of both | 7 January 2027 |
 | M6 | Printed copies, after an approved proof | 2027 |
 | M7 | Khmer, reviewed by a native reader | 2027 |
 | M8 | Audiobook and film on YouTube, with Super Thanks and AI disclosure | later |

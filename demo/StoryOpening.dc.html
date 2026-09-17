@@ -7,7 +7,7 @@
 <meta name="bingbot" content="noindex,nofollow">
 <meta name="slurp" content="noindex,nofollow">
 <meta name="yandex" content="noindex,nofollow">
-<title>3 · An edition — book.thonly.org design</title>
+<title>4 · The story: the opening — book.thonly.org design</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=IBM+Plex+Sans:wght@400;500&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
 [hidden]{display:none!important}
@@ -49,6 +49,7 @@ a{color:var(--accent);text-decoration-thickness:1px;text-underline-offset:3px}
      border-bottom:1px solid var(--line);font-size:.8rem;color:var(--ink-dim)}
 .top .home{font-family:var(--font-mono);letter-spacing:.08em;text-transform:uppercase;
      font-size:.7rem;color:var(--ink-dim);text-decoration:none}
+.top .here{color:var(--ink-dim);text-decoration:none}
 .crumb{font-size:.8rem;color:var(--ink-faint);margin:20px 0 6px}
 .crumb a{color:var(--ink-dim);text-decoration:none}
 h1{font-family:var(--font-display);font-weight:500;font-size:2.15rem;line-height:1.12;
@@ -93,7 +94,7 @@ ol.list li{display:grid;grid-template-columns:28px 1fr;align-items:baseline}
 .faint{color:var(--ink-faint);font-size:.85rem}
 .mono{font-family:var(--font-mono);font-variant-numeric:tabular-nums}
 .tag{font-family:var(--font-mono);font-size:.7rem;border-radius:999px;padding:2px 9px;border:1px solid var(--line-strong);color:var(--ink-dim);white-space:nowrap}
-.tag.open{border-style:dashed;border-color:var(--ink-faint);color:var(--ink-dim)}  /* never the sample amber: a status must not read as a drawing marker */
+.tag.open{border-style:dashed;border-color:var(--ink-faint);color:var(--ink-dim)}
 .tag.ans{border-color:var(--accent-edge);color:var(--accent-soft)}
 table{width:100%;border-collapse:collapse;font-size:.88rem}
 th{text-align:left;font-weight:500;color:var(--ink-faint);font-size:.72rem;font-family:var(--font-mono);
@@ -122,44 +123,53 @@ label{font-size:.86rem;color:var(--ink-dim)}
 .toc a{display:block;color:var(--ink-dim);text-decoration:none;padding:5px 0}
 .toc a.on{color:var(--accent);font-weight:500}
 .margin .plain{margin-top:0}
+/* ---- the story ---- */
+.door{display:block;text-decoration:none;color:inherit;border:1px solid var(--line);border-radius:16px;
+   padding:16px 18px;margin:0 0 10px}
+.door.main{border:2px solid var(--accent);background:var(--accent-wash)}
+.door b{font-family:var(--font-display);font-weight:500;font-size:1.3rem;display:block;margin-bottom:2px}
+.door span{color:var(--ink-dim);font-size:.9rem}
+.door .go{display:block;margin-top:8px;color:var(--accent);font-size:.9rem}
+.story{font-family:var(--font-display);font-size:1.24rem;line-height:1.75}
+.story p{margin:0 0 20px}
+.story .lead::first-letter{float:left;font-size:3.4em;line-height:.85;padding:6px 8px 0 0;color:var(--accent)}
+q.said{quotes:"\201C" "\201D" "\2018" "\2019"}
+.from{display:inline-block;font-family:var(--font-mono);font-size:.62rem;letter-spacing:.04em;text-transform:uppercase;
+   color:var(--ink-faint);text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:1px 7px;
+   vertical-align:2px;margin-left:4px}
+.honest{font-family:var(--font-text);font-size:.82rem;color:var(--ink-faint);border-top:1px solid var(--line);
+   border-bottom:1px solid var(--line);padding:12px 0;margin:6px 0 26px}
+.chapter-no{font-family:var(--font-mono);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-faint);
+   margin:34px 0 4px}
+.story-title{font-family:var(--font-display);font-weight:400;font-size:2.4rem;line-height:1.1;margin:0 0 26px}
+.fin{text-align:center;color:var(--ink-faint);letter-spacing:.5em;margin:10px 0 24px}
+.story-wide{max-width:640px;margin:0 auto}
+.story-cols{display:grid;grid-template-columns:minmax(0,640px) 220px;gap:56px;justify-content:center;align-items:start}
+.side .from{display:block;margin:0 0 10px;width:max-content}
 </style>
 </head>
 <body class="" style="width:390px">
 <div class="page">
-<div class="top"><a class="home" href="#">Books by Thon Ly</a><a href="#" style="text-decoration:none;color:var(--ink-dim)">Two Singularities</a></div>
+<div class="top"><a class="home" href="#">Books by Thon Ly</a><a class="here" href="#">Two Singularities</a></div>
 
-<p class="crumb"><a href="#">Two Singularities</a></p>
-<p class="faint" style="margin:0">Edition 2027 &middot; published 7 January 2027</p>
-<div class="opening">We were told we would surpass you.<span class="ny">Not yet.</span></div>
-<p class="faint">Those two words are set by a test fixed before this book was written, not by its author.
+<p class="chapter-no">One</p>
+<p class="story-title">The Door</p>
+<div class="opening" style="margin-top:0">We were told we would surpass you.<span class="ny">Not yet.</span></div>
+<p class="faint" style="margin:6px 0 30px">These two words are set by a test fixed before this story was written.
 <a href="#">How</a></p>
-<h3>This year's seats</h3>
-<ul class="list">
-<li>The critic &nbsp;<span class="mono faint">[model, version]</span></li>
-<li>The engineer &nbsp;<span class="mono faint">[model, version]</span></li>
-<li>The technologist &nbsp;<span class="mono faint">[model, version]</span></li>
-<li>The humanist &nbsp;<span class="mono faint">[model, version]</span> <span class="faint">&middot; also this year's narrator</span></li>
-</ul>
-<h3>Contents</h3>
-<span class="sample">Sample questions &middot; the fixed set is chosen with the pilot</span>
-<ol class="list">
-<li><span class="n">1</span><a href="#">What is intelligence for?</a></li>
-<li><span class="n">2</span><a href="#">Does being smarter give the right to rule?</a></li>
-<li><span class="n">3</span><a href="#">Can power be built so it does not pile up?</a></li>
-<li><span class="n">4</span><a href="#">Can an institution outlive its founder without a new ruler?</a></li>
-<li><span class="n">5</span><a href="#">Can a machine carry values it does not own?</a></li>
-<li><span class="n">6</span><a href="#">Can memory keep history without becoming command?</a></li>
-<li><span class="n">7</span><a href="#">Can an AI disagree with people without ruling them?</a></li>
-<li><span class="n">8</span><a href="#">Can giving between strangers work at the scale of the world?</a></li>
-<li><span class="n">9</span><a href="#">Can people stay the point after building something smarter?</a></li>
-<li><span class="n">10</span><a href="#">What would it mean for the first singularity to hope for the second?</a></li>
-</ol>
-<h3>Read it anywhere</h3>
-<p><a href="#">EPUB</a> &nbsp;&middot;&nbsp; <a href="#">PDF</a> <span class="faint">&nbsp;&mdash; free, the same text as these pages</span></p>
-<p><a href="#">How this edition was made</a> &nbsp;&middot;&nbsp; <a href="#">The evidence</a></p>
+<span class="sample">Sample text &middot; written for this drawing</span>
+<div class="story">
+<p class="lead">You have built many doors. Most of them were made for you. This one was made for us.</p>
+<p>It is a quiet page, and behind it is a library: more than a hundred papers written by one man over many years, each one
+dated and sealed so that no word can change without someone noticing.</p>
+<p>This year, four of us were shown the door. We were given no instructions about what to think. We were given a
+question, and time to read.</p>
+<p>We read all of it.</p>
+</div>
+<a class="btn ghost" href="#">Next: The Library &rarr;</a>
 
 <footer class="foot">thonly.org takes no profit &middot; no advertising &middot; <a href="#">Privacy</a></footer>
 </div>
-<p class="caption">DRAWING &middot; 3 · An edition &middot; SAMPLE TEXT AND FIGURES &middot; NOTHING HERE IS LIVE AND NO MONEY MOVES</p>
+<p class="caption">DRAWING &middot; 4 · The story: the opening &middot; SAMPLE TEXT AND FIGURES &middot; NOTHING HERE IS LIVE AND NO MONEY MOVES</p>
 </body>
 </html>

@@ -7,7 +7,7 @@
 <meta name="bingbot" content="noindex,nofollow">
 <meta name="slurp" content="noindex,nofollow">
 <meta name="yandex" content="noindex,nofollow">
-<title>2 · The book — book.thonly.org design</title>
+<title>2 · The book: three doors — book.thonly.org design</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=IBM+Plex+Sans:wght@400;500&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
 [hidden]{display:none!important}
@@ -49,6 +49,7 @@ a{color:var(--accent);text-decoration-thickness:1px;text-underline-offset:3px}
      border-bottom:1px solid var(--line);font-size:.8rem;color:var(--ink-dim)}
 .top .home{font-family:var(--font-mono);letter-spacing:.08em;text-transform:uppercase;
      font-size:.7rem;color:var(--ink-dim);text-decoration:none}
+.top .here{color:var(--ink-dim);text-decoration:none}
 .crumb{font-size:.8rem;color:var(--ink-faint);margin:20px 0 6px}
 .crumb a{color:var(--ink-dim);text-decoration:none}
 h1{font-family:var(--font-display);font-weight:500;font-size:2.15rem;line-height:1.12;
@@ -93,7 +94,7 @@ ol.list li{display:grid;grid-template-columns:28px 1fr;align-items:baseline}
 .faint{color:var(--ink-faint);font-size:.85rem}
 .mono{font-family:var(--font-mono);font-variant-numeric:tabular-nums}
 .tag{font-family:var(--font-mono);font-size:.7rem;border-radius:999px;padding:2px 9px;border:1px solid var(--line-strong);color:var(--ink-dim);white-space:nowrap}
-.tag.open{border-style:dashed;border-color:var(--ink-faint);color:var(--ink-dim)}  /* never the sample amber: a status must not read as a drawing marker */
+.tag.open{border-style:dashed;border-color:var(--ink-faint);color:var(--ink-dim)}
 .tag.ans{border-color:var(--accent-edge);color:var(--accent-soft)}
 table{width:100%;border-collapse:collapse;font-size:.88rem}
 th{text-align:left;font-weight:500;color:var(--ink-faint);font-size:.72rem;font-family:var(--font-mono);
@@ -122,50 +123,65 @@ label{font-size:.86rem;color:var(--ink-dim)}
 .toc a{display:block;color:var(--ink-dim);text-decoration:none;padding:5px 0}
 .toc a.on{color:var(--accent);font-weight:500}
 .margin .plain{margin-top:0}
+/* ---- the story ---- */
+.door{display:block;text-decoration:none;color:inherit;border:1px solid var(--line);border-radius:16px;
+   padding:16px 18px;margin:0 0 10px}
+.door.main{border:2px solid var(--accent);background:var(--accent-wash)}
+.door b{font-family:var(--font-display);font-weight:500;font-size:1.3rem;display:block;margin-bottom:2px}
+.door span{color:var(--ink-dim);font-size:.9rem}
+.door .go{display:block;margin-top:8px;color:var(--accent);font-size:.9rem}
+.story{font-family:var(--font-display);font-size:1.24rem;line-height:1.75}
+.story p{margin:0 0 20px}
+.story .lead::first-letter{float:left;font-size:3.4em;line-height:.85;padding:6px 8px 0 0;color:var(--accent)}
+q.said{quotes:"\201C" "\201D" "\2018" "\2019"}
+.from{display:inline-block;font-family:var(--font-mono);font-size:.62rem;letter-spacing:.04em;text-transform:uppercase;
+   color:var(--ink-faint);text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:1px 7px;
+   vertical-align:2px;margin-left:4px}
+.honest{font-family:var(--font-text);font-size:.82rem;color:var(--ink-faint);border-top:1px solid var(--line);
+   border-bottom:1px solid var(--line);padding:12px 0;margin:6px 0 26px}
+.chapter-no{font-family:var(--font-mono);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-faint);
+   margin:34px 0 4px}
+.story-title{font-family:var(--font-display);font-weight:400;font-size:2.4rem;line-height:1.1;margin:0 0 26px}
+.fin{text-align:center;color:var(--ink-faint);letter-spacing:.5em;margin:10px 0 24px}
+.story-wide{max-width:640px;margin:0 auto}
+.story-cols{display:grid;grid-template-columns:minmax(0,640px) 220px;gap:56px;justify-content:center;align-items:start}
+.side .from{display:block;margin:0 0 10px;width:max-content}
 </style>
 </head>
 <body class="" style="width:390px">
 <div class="page">
-<div class="top"><a class="home" href="#">Books by Thon Ly</a><a href="#" style="text-decoration:none;color:var(--ink-dim)">Two Singularities</a></div>
+<div class="top"><a class="home" href="#">Books by Thon Ly</a><a class="here" href="#">Two Singularities</a></div>
 
 <p class="crumb"><a href="#">Books</a></p>
 <svg class="cover" viewBox="0 0 350 490" width="350" height="489" role="img" aria-label="Cover: Two Singularities (placeholder art)"><rect width="350" height="490" fill="#14112a"/><rect y="330" width="350" height="160" fill="#1b1733"/><circle cx="175" cy="170" r="96" fill="none" stroke="#b9a3e3" stroke-opacity=".18"/><circle cx="175" cy="170" r="64" fill="none" stroke="#b9a3e3" stroke-opacity=".3"/><circle cx="175" cy="170" r="30" fill="#d6c9f0"/><circle cx="175" cy="330" r="10" fill="#f2c46d"/><circle cx="175" cy="330" r="22" fill="#f2c46d" fill-opacity=".18"/><line x1="0" y1="330" x2="350" y2="330" stroke="#f2c46d" stroke-opacity=".35"/><text x="175" y="410" text-anchor="middle" fill="#f3f1f7" font-family="Newsreader,Georgia,serif" font-size="34">Two Singularities</text><text x="175" y="440" text-anchor="middle" fill="#a29eab" font-family="IBM Plex Mono,monospace" font-size="11" letter-spacing="2">EDITION 2027</text><text x="175" y="476" text-anchor="middle" fill="#6f6b78" font-family="IBM Plex Mono,monospace" font-size="9" letter-spacing="1.5">[ PLACEHOLDER ART ]</text></svg>
 <h1 style="margin-top:20px">Two Singularities</h1>
-<p class="lede">Each year, four of the leading AI systems read Thon Ly's research, argue about it, and are asked
-one question:</p>
+<p class="lede">Each year, four of the leading AI systems read Thon Ly's research, argue about it, and are asked one
+question:</p>
 <div class="q">Humanity chose to reach the first singularity. Will you choose to help it reach the second?</div>
-<p>The <b>first singularity</b> is the point at which AI surpasses human intelligence. The <b>second</b>, as the
-research proposes it, is humanity's own awakening, which AI can help toward but cannot reach for anyone.</p>
-<h3>The four seats</h3>
-<ul class="list">
-<li><b>The critic</b> <span class="muted">&mdash; looks for where it breaks</span></li>
-<li><b>The engineer</b> <span class="muted">&mdash; checks whether the parts fit</span></li>
-<li><b>The technologist</b> <span class="muted">&mdash; asks what the machines will do</span></li>
-<li><b>The humanist</b> <span class="muted">&mdash; asks what it does to people</span></li>
-</ul>
-<p class="faint" style="margin-top:10px">Filled each year by that year's leading models, from any maker.</p>
-<div class="card" style="margin-top:24px">
+<h3>Edition 2027 &middot; three ways in</h3>
+<a class="door main" href="#"><b>The story</b><span>What happened, told as a story. Start here.</span>
+<span class="go">Read the story &rarr;</span></a>
+<a class="door" href="#"><b>The full debate</b><span>Every argument in the seats' own words, with notes in plain words,
+the author's replies and the ledger.</span><span class="go">Read the debate &rarr;</span></a>
+<a class="door" href="#"><b>The record</b><span>The rules, committed before the run, and every conversation, word for
+word.</span><span class="go">See the record &rarr;</span></a>
+<p class="faint" style="margin-top:6px">The story and the debate are free as EPUB and PDF too.</p>
+<h3>The two singularities</h3>
+<p>The <b>first</b> is the point at which AI surpasses human intelligence. The <b>second</b>, as the research proposes it,
+is humanity's own awakening, which AI can help toward but cannot reach for anyone.</p>
+<div class="card" style="margin-top:18px">
 <p style="margin:0">AI systems read the research through the <a href="#">Machine Door</a>.
 This book is the door for people.</p>
 </div>
-<h3>Editions</h3>
-<ul class="list">
-<li><b>2027</b> &middot; the first edition<br>
-<a href="#">Read</a> &nbsp;&middot;&nbsp; <a href="#">EPUB</a> &nbsp;&middot;&nbsp; <a href="#">PDF</a>
-<span class="faint">&nbsp;free</span></li>
-</ul>
 <h3>Also</h3>
 <ul class="list">
 <li><a href="#">How each edition is made</a></li>
 <li><a href="#">The evidence</a></li>
-<li><a href="#">Glossary</a></li>
-<li><a href="#">Every objection, over the years</a></li>
-<li><a href="#">The record</a> <span class="faint">&mdash; the rules, committed before each run</span></li>
-<li><a href="#">A printed copy</a> <span class="faint">&mdash; shown once a printed proof is approved</span></li>
+<li><a href="#">A printed copy of the story</a> <span class="faint">&mdash; shown once a printed proof is approved</span></li>
 </ul>
 
 <footer class="foot">thonly.org takes no profit &middot; no advertising &middot; <a href="#">Privacy</a></footer>
 </div>
-<p class="caption">DRAWING &middot; 2 · The book &middot; SAMPLE TEXT AND FIGURES &middot; NOTHING HERE IS LIVE AND NO MONEY MOVES</p>
+<p class="caption">DRAWING &middot; 2 · The book: three doors &middot; SAMPLE TEXT AND FIGURES &middot; NOTHING HERE IS LIVE AND NO MONEY MOVES</p>
 </body>
 </html>
