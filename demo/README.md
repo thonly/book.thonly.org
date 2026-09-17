@@ -52,3 +52,22 @@ robots file for about a day. Absence means allow. `og:image` is an absolute URL.
 - The opening's "Not yet." is set by the arrival test, never by the author.
 - An objection's page is ordered by edition only.
 - The note form states its character limit once, with no running tally.
+
+## True only in the prototype — the phase 4 carry list
+
+A prototype is allowed to stub what a build is not. Each of these must be real, or absent, on the day the site is public:
+
+- **Thanks by money** — the button opens nothing. Needs the Stripe Payment Link (reader chooses the amount), held by the
+  entity the private legal review names.
+- **Thanks by note** — nothing is stored. Needs a create-only Firestore collection (the note and its time, nothing else;
+  never read by any client), **and abuse protection** (a rate limit and a bot check), or the author's inbox fills with spam.
+- **A printed copy** — the prices are sample figures and nothing is ordered. Needs an approved printed proof, the
+  print-on-demand provider's cost API behind a small server, Stripe Checkout at that exact amount, and the order placed on
+  payment. Until then the page does not exist.
+- **Every quote, title, question, reply and figure is sample text** — the real ones come from the pilot run and the first
+  edition. ARC-AGI figures are updated to what is published on 7 January.
+- **The quote check** runs here against sample quotes; in the build it must run against the real transcripts, and a second
+  check is still to be designed: manner words (*slowly*, *gently*) attached to a seat.
+- **Links out** — the record opens `github.com/thonly/two-singularities`, the Machine Door opens `thonly.org/mcp`.
+- **Addresses** — the prototype routes by `#/…`; the site uses real paths (`/two-singularities/2027/…`).
+- **Not built yet:** the privacy page, analytics, EPUB and PDF generation, the objection pages beyond one, Khmer.
