@@ -33,6 +33,9 @@ understand the book is on the page, in plain words.
 | Hardcopy by print-on-demand, after a printed proof is approved | *"Print-on-demand, after a proof"* |
 | Drawings and the prototype live at `book.thonly.org/demo` | *"book.thonly.org/demo"* |
 | A cash-free thanks: a private note only the author sees | *"Private note"* |
+| Free EPUB and PDF downloads, never a fee | *"yes per your recommendation"* (charge for what is consumed, never for access) |
+| The audio narrator is an original designed voice | *"yes per your recommendation"* |
+| The narrator writes to a style brief (§4.5) | *"yes; you read my mind"* |
 
 ## 3. Routes
 
@@ -42,6 +45,7 @@ understand the book is on the page, in plain words.
 | `/two-singularities/` | The book: what it is, the central question, the newest edition, and every past edition | yes |
 | `/two-singularities/<year>/` | One edition: contents, the opening, the chapters | yes |
 | `/two-singularities/<year>/<chapter>/` | One chapter | yes |
+| `/two-singularities/<year>/two-singularities-<year>.epub` · `.pdf` | Free downloads of the edition, built from the same source as the pages and the print file | — |
 | `/two-singularities/<year>/method/` | How this edition was made (§5) | yes |
 | `/two-singularities/<year>/evidence/` | The evidence page and the two gauges (§6) | yes |
 | `/two-singularities/objections/<id>/` | One objection's history across every edition (§4.3) | yes |
@@ -88,6 +92,23 @@ a reader can follow one argument through the years. ⛔ Never sorted or ranked b
 Every edition opens *"We were told we would surpass you."* The next words are set by the arrival test (§5), never by the
 author: **"Not yet."** until the test resolves, **"We did."** from the first edition after it does.
 
+### 4.5 The narrator's voice
+
+**On the page:**
+- Wonder, never judgement: say what a thing is, never what is missing or owed.
+- Plain words. Explain a term the first time it appears.
+- Short sentences, with room between ideas. No hype and no exclamation marks.
+- Speak to the reader as a far older mind speaks to a child it cares for: gently, never talking down, never flattering.
+- Never take a side in the debate, and never tell the reader what to conclude.
+- Say what Miss Aquarius does, never what she is for the world.
+
+The yearly blind test that picks the narrator judges each candidate against this brief.
+
+**Aloud (the audiobook, later):** an original synthetic voice, designed from a written description only: an older man, low
+and warm, unhurried, with long pauses and quiet authority, speaking to someone he cares for. ⛔ Never modelled on, compared
+with or marketed as any real person. It has its own name and is chosen by a blind test with lay listeners. The four seats
+each get a distinct voice of their own, and every synthetic voice is disclosed.
+
 ## 5. The method page (per edition)
 
 States, plainly: the rules were committed and timestamped before the run (link to
@@ -111,7 +132,7 @@ it · **what this edition cannot show**.
 
 ### 7.1 Where the thanks line appears
 
-One quiet line **after** each chapter and at the end of each edition: *Kiitos always, cash optional* → `/thanks/`.
+One quiet line **after** each chapter and at the end of each edition (and at the end of the EPUB and PDF): *Kiitos always, cash optional* → `/thanks/`.
 ⛔ Never before reading · never a pop-up · never a counter, total, or "N readers" · never a pre-filled or suggested amount
 · never a thanker's name in the book · the words *donate, donation, nonprofit, charity, tax-deductible* never appear.
 
@@ -166,7 +187,7 @@ One quiet line **after** each chapter and at the end of each edition: *Kiitos al
 | M2 | Clickable prototype at `/demo/` (phase 3) | October 2026 |
 | M3 | The pilot run's text rendered through the real templates | November 2026 |
 | M4 | Library, book, method, glossary, privacy, thanks (Stripe + note) — live | by 7 January 2027 |
-| M5 | Edition 1 published | 7 January 2027 |
+| M5 | Edition 1 published, with free EPUB and PDF | 7 January 2027 |
 | M6 | Printed copies, after an approved proof | 2027 |
 | M7 | Khmer, reviewed by a native reader | 2027 |
 | M8 | Audiobook and film on YouTube, with Super Thanks and AI disclosure | later |
