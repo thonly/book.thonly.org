@@ -51,6 +51,8 @@
      color:var(--accent-soft);display:block;margin-bottom:6px}
   .wall-link h2{font-family:var(--font-display);font-size:1.45rem;font-weight:500;margin:0 0 6px}
   .wall-link p{margin:0;color:var(--ink-dim);font-size:.94rem}
+  .wall-link.quiet{border:1px solid var(--line-strong);background:var(--surface)}
+  .wall-link.quiet .kicker{color:var(--ink-faint)}
   .surface{margin-bottom:36px}
   .surface h2{font-size:.8rem;font-weight:500;letter-spacing:.06em;margin:0 0 5px;color:var(--accent-soft)}
   .blurb{margin:0 0 14px;color:var(--ink-dim);font-size:.9rem;max-width:64ch}
@@ -68,9 +70,16 @@
 <div class="wrap">
   <h1>Two Singularities &mdash; the design</h1>
   <p class="sub">The reading site at <span class="mono">book.thonly.org</span>, drawn screen by screen:
-    21 artboards across six surfaces, in three layers: the story, the full debate, and the record behind them. Phase 2 of 4; a clickable prototype comes next.</p>
+    21 artboards across six surfaces, in three layers: the story, the full debate, and the record behind them. Phase 3 of 4: the drawings, and a reader you can use.</p>
 
-  <a class="wall-link" href="./wall.html">
+  <a class="wall-link start" href="./walkthrough.html">
+    <span class="kicker">Start here</span>
+    <h2>Try the reader</h2>
+    <p>Read a chapter of the story, open the debate behind a quote, follow the objection, and say thanks, or buy a
+      printed copy at cost. It works; nothing in it is sent or charged.</p>
+  </a>
+
+  <a class="wall-link quiet" href="./wall.html">
     <span class="kicker">All of it at once</span>
     <h2>The wall</h2>
     <p>Every screen on one pan-and-zoom surface, grouped by what the reader is doing.</p>

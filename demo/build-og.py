@@ -43,18 +43,29 @@ CARD = """<!doctype html><html><head><meta charset="utf-8">
 </body></html>"""
 
 
+CARDS = {
+    "og.png": CARD,
+    "og-walkthrough.png": CARD.replace("<h1>Two Singularities</h1>", "<h1>Try the reader</h1>")
+        .replace("<p>Humanity chose to reach the first singularity. Will you choose to help it reach the second?</p>",
+                 "<p>A chapter of the story, the debate behind a quote, and thanks. Nothing is sent or charged.</p>")
+        .replace("book.thonly.org &middot; the design", "book.thonly.org &middot; prototype"),
+}
+
+
 def main():
     if not os.path.exists(CHROME):
         sys.exit("Chrome not found at %s" % CHROME)
-    with tempfile.TemporaryDirectory() as tmp:
-        src = os.path.join(tmp, "card.html")
-        io.open(src, "w", encoding="utf-8").write(CARD)
-        out = os.path.join(HERE, "og.png")
-        subprocess.run([CHROME, "--headless", "--disable-gpu", "--hide-scrollbars",
-                        "--force-device-scale-factor=1", "--window-size=1200,630",
-                        "--virtual-time-budget=4000", "--screenshot=" + out, "file://" + src],
-                       check=True, capture_output=True)
-        print("og.png %d bytes" % os.path.getsize(out))
+    for name, card in CARDS.items():
+        assert card.count("<h1>") == 1
+        with tempfile.TemporaryDirectory() as tmp:
+            src = os.path.join(tmp, "card.html")
+            io.open(src, "w", encoding="utf-8").write(card)
+            out = os.path.join(HERE, name)
+            subprocess.run([CHROME, "--headless", "--disable-gpu", "--hide-scrollbars",
+                            "--force-device-scale-factor=1", "--window-size=1200,630",
+                            "--virtual-time-budget=4000", "--screenshot=" + out, "file://" + src],
+                           check=True, capture_output=True)
+            print("%s %d bytes" % (name, os.path.getsize(out)))
 
 
 if __name__ == "__main__":

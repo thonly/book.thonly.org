@@ -1,6 +1,6 @@
 # /demo — the design of book.thonly.org
 
-Phase 2 of the four-phase build (spec → drawings → clickable prototype → implementation). Live, unlisted, at
+Phases 2 and 3 of the four-phase build (spec → drawings → clickable prototype → implementation). Live, unlisted, at
 <https://book.thonly.org/demo/>; everything on one surface at `/demo/wall.html`.
 
 ⛔ **Nothing here is the site.** No page is live, no note is sent, nobody is charged. **Every quote is sample text**: no
@@ -24,12 +24,15 @@ for word in the debate — and the story says what a seat said and did, never wh
 | `*.dc.html` | one artboard each — **generated**; edit `build-boards.py`, never these |
 | `measure.mjs` | loads every board in headless Chrome at its design width, writes the real height into `canvas.json`, and **fails** on sideways overflow or a nested scroll container |
 | `build-index.py` · `build-wall.py` | generate `index.html` (the front door) and `wall.html` (pan and zoom) from `canvas.json` |
-| `build-og.py` | renders `og.png`, the 1200×630 link-preview card, with headless Chrome |
+| `build-og.py` | renders `og.png` and `og-walkthrough.png`, the 1200×630 link-preview cards, with headless Chrome |
+| `build-prototype.py` | ⭐ writes `walkthrough.html`, **the clickable prototype** (phase 3) — it IMPORTS the style, quotes, titles and cover from `build-boards.py`, so the two cannot disagree |
+| `test-walkthrough.mjs` | serves the prototype over HTTP and drives it in headless Chrome at 390 and 1280px: every screen, the note, the printed-copy total, the jump from a quote to the debate, Back, overflow, nested scrollers, exceptions |
 
 ## The loop
 
 ```sh
-python3 build-boards.py && node measure.mjs && python3 build-index.py && python3 build-wall.py
+python3 build-boards.py && node measure.mjs && python3 build-prototype.py && node test-walkthrough.mjs \
+  && python3 build-index.py && python3 build-wall.py && python3 build-og.py
 ```
 
 Then the structural checks (div balance, quote integrity, tag nesting, and `node --check` on the wall's script), a

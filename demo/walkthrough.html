@@ -1,0 +1,626 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="googlebot" content="noindex,nofollow">
+<meta name="bingbot" content="noindex,nofollow">
+<meta name="slurp" content="noindex,nofollow">
+<meta name="yandex" content="noindex,nofollow">
+<title>Two Singularities reader</title>
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://book.thonly.org/demo/walkthrough.html">
+<meta property="og:site_name" content="Books by Thon Ly">
+<meta property="og:title" content="Two Singularities — try the reader">
+<meta property="og:description" content="Read a chapter of the story, open the debate behind a quote, follow the objection, and say thanks. A prototype: nothing is sent or charged.">
+<meta property="og:image" content="https://book.thonly.org/demo/og-walkthrough.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Two Singularities: the story, with a quoted line linked to the debate.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#6b4fa0">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect width=%2232%22 height=%2232%22 rx=%227%22 fill=%22%2314112a%22/%3E%3Ccircle cx=%2216%22 cy=%2212%22 r=%225%22 fill=%22%23d6c9f0%22/%3E%3Ccircle cx=%2216%22 cy=%2224%22 r=%222.5%22 fill=%22%23f2c46d%22/%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=IBM+Plex+Sans:wght@400;500&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+[hidden]{display:none!important}
+:root{
+  --bg:#fcfbfe; --surface:#f4f1fb; --surface-2:#ebe7f5;
+  --line:rgba(20,16,30,.12); --line-strong:rgba(20,16,30,.28);
+  --ink:#16141c; --ink-dim:#5b5766; --ink-faint:#8b8796;
+  --accent:#6b4fa0; --accent-soft:#563d85; --accent-ink:#ffffff;
+  --accent-wash:rgba(107,79,160,.09); --accent-edge:rgba(107,79,160,.28);
+  --sample:#9a6a12; --sample-wash:rgba(154,106,18,.09);
+  --font-display:"Newsreader",Georgia,serif;
+  --font-text:"IBM Plex Sans",ui-sans-serif,system-ui,sans-serif;
+  --font-mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0f0e14; --surface:#18171f; --surface-2:#211f2a;
+  --line:rgba(255,255,255,.08); --line-strong:rgba(255,255,255,.18);
+  --ink:#f3f1f7; --ink-dim:#a29eab; --ink-faint:#6f6b78;
+  --accent:#b9a3e3; --accent-soft:#d6c9f0; --accent-ink:#130f1c;
+  --accent-wash:rgba(185,163,227,.12); --accent-edge:rgba(185,163,227,.32);
+  --sample:#e0b04f; --sample-wash:rgba(224,176,79,.10);
+}}
+:root[data-theme="dark"]{
+  --bg:#0f0e14; --surface:#18171f; --surface-2:#211f2a;
+  --line:rgba(255,255,255,.08); --line-strong:rgba(255,255,255,.18);
+  --ink:#f3f1f7; --ink-dim:#a29eab; --ink-faint:#6f6b78;
+  --accent:#b9a3e3; --accent-soft:#d6c9f0; --accent-ink:#130f1c;
+  --accent-wash:rgba(185,163,227,.12); --accent-edge:rgba(185,163,227,.32);
+  --sample:#e0b04f; --sample-wash:rgba(224,176,79,.10);
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font-family:var(--font-text);font-size:16px;
+     line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:var(--accent);text-decoration-thickness:1px;text-underline-offset:3px}
+.page{padding:0 20px}
+.wide .page{padding:0 48px}
+.top{display:flex;justify-content:space-between;align-items:center;padding:18px 0 14px;
+     border-bottom:1px solid var(--line);font-size:.8rem;color:var(--ink-dim)}
+.top .home{font-family:var(--font-mono);letter-spacing:.08em;text-transform:uppercase;
+     font-size:.7rem;color:var(--ink-dim);text-decoration:none}
+.top .here{color:var(--ink-dim);text-decoration:none}
+.crumb{font-size:.8rem;color:var(--ink-faint);margin:20px 0 6px}
+.crumb a{color:var(--ink-dim);text-decoration:none}
+h1{font-family:var(--font-display);font-weight:500;font-size:2.15rem;line-height:1.12;
+   letter-spacing:-.018em;margin:6px 0 14px;text-wrap:balance}
+h2{font-family:var(--font-display);font-weight:500;font-size:1.4rem;line-height:1.25;margin:34px 0 10px}
+h3{font-family:var(--font-mono);font-weight:500;font-size:.72rem;letter-spacing:.09em;
+   text-transform:uppercase;color:var(--ink-faint);margin:30px 0 10px}
+p{margin:0 0 14px}
+.lede{font-size:1.06rem;color:var(--ink-dim)}
+.read{font-family:var(--font-display);font-size:1.18rem;line-height:1.7}
+.read p{margin:0 0 18px}
+.q{font-family:var(--font-display);font-style:italic;font-size:1.3rem;line-height:1.45;
+   border-left:3px solid var(--accent);padding:2px 0 2px 16px;margin:18px 0 22px}
+.chip{display:inline-flex;align-items:center;gap:8px;font-family:var(--font-mono);font-size:.68rem;
+   letter-spacing:.07em;text-transform:uppercase;color:var(--accent-soft);background:var(--accent-wash);
+   border:1px solid var(--accent-edge);border-radius:999px;padding:3px 10px}
+.chip .m{color:var(--ink-faint);text-transform:none;letter-spacing:0}
+.sample{display:inline-block;font-family:var(--font-mono);font-size:.62rem;letter-spacing:.08em;
+   text-transform:uppercase;color:var(--sample);background:var(--sample-wash);border-radius:4px;
+   padding:2px 7px;margin:0 0 10px}
+.card{border:1px solid var(--line);background:var(--surface);border-radius:16px;padding:18px}
+.quote{border:1px solid var(--line);border-radius:16px;padding:16px 16px 12px;margin:0 0 14px;background:var(--bg)}
+.quote blockquote{margin:10px 0 8px;font-family:var(--font-display);font-size:1.12rem;line-height:1.55}
+.quote .src{font-size:.78rem;color:var(--ink-faint)}
+.plain{border-left:3px solid var(--line-strong);padding:4px 0 4px 14px;margin:6px 0 16px}
+.plain .who{font-family:var(--font-mono);font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;
+   color:var(--ink-faint);display:block;margin-bottom:4px}
+.nar{background:var(--surface);border-radius:16px;padding:18px 18px 4px;margin:10px 0 18px}
+.nar .who{font-family:var(--font-mono);font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;
+   color:var(--accent-soft);display:block;margin-bottom:10px}
+.btn{display:block;text-align:center;background:var(--accent);color:var(--accent-ink);text-decoration:none;
+   font-weight:500;border-radius:14px;padding:14px 16px;margin:14px 0 8px}
+.btn.ghost{background:transparent;color:var(--accent);border:1px solid var(--accent-edge)}
+.row{display:flex;justify-content:space-between;gap:12px;padding:11px 0;border-bottom:1px solid var(--line)}
+.row .k{color:var(--ink-dim)}
+.row .v{font-family:var(--font-mono);font-variant-numeric:tabular-nums}
+.list{list-style:none;padding:0;margin:0}
+.list li{border-bottom:1px solid var(--line);padding:12px 0}
+.list .n{font-family:var(--font-mono);color:var(--ink-faint);font-size:.8rem}
+ol.list li{display:grid;grid-template-columns:28px 1fr;align-items:baseline}
+.muted{color:var(--ink-dim)}
+.faint{color:var(--ink-faint);font-size:.85rem}
+.mono{font-family:var(--font-mono);font-variant-numeric:tabular-nums}
+.tag{font-family:var(--font-mono);font-size:.7rem;border-radius:999px;padding:2px 9px;border:1px solid var(--line-strong);color:var(--ink-dim);white-space:nowrap}
+.tag.open{border-style:dashed;border-color:var(--ink-faint);color:var(--ink-dim)}
+.tag.ans{border-color:var(--accent-edge);color:var(--accent-soft)}
+table{width:100%;border-collapse:collapse;font-size:.88rem}
+th{text-align:left;font-weight:500;color:var(--ink-faint);font-size:.72rem;font-family:var(--font-mono);
+   letter-spacing:.06em;text-transform:uppercase;padding:0 0 8px;border-bottom:1px solid var(--line-strong)}
+td{padding:11px 8px 11px 0;border-bottom:1px solid var(--line);vertical-align:top}
+.thanks{margin:34px 0 8px;padding:18px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+   text-align:center;color:var(--ink-dim);font-family:var(--font-display);font-size:1.05rem}
+.thanks a{display:block;margin-top:4px;font-family:var(--font-text);font-size:.92rem}
+.opening{font-family:var(--font-display);font-size:1.9rem;line-height:1.3;margin:26px 0 6px}
+.opening .ny{display:block;color:var(--accent);margin-top:10px}
+.gauge{margin:10px 0 4px}
+.gauge .lab{display:flex;justify-content:space-between;font-size:.84rem;margin-bottom:5px}
+.gauge .bar{height:10px;border-radius:5px;background:var(--surface-2);overflow:clip}
+.gauge .fill{height:10px;border-radius:5px;background:var(--accent)}
+.field{display:block;width:100%;border:1px solid var(--line-strong);border-radius:12px;background:var(--bg);
+   color:var(--ink);font:inherit;padding:12px 14px;margin:6px 0 4px}
+textarea.field{min-height:150px;resize:vertical}
+label{font-size:.86rem;color:var(--ink-dim)}
+.cover{display:block;width:100%;height:auto;border-radius:10px}
+.foot{margin:44px 0 0;padding:18px 0 22px;border-top:1px solid var(--line);font-size:.78rem;color:var(--ink-faint)}
+.foot a{color:var(--ink-dim)}
+.caption{margin:0;padding:12px 20px 16px;background:var(--sample-wash);color:var(--sample);
+   font-family:var(--font-mono);font-size:.64rem;letter-spacing:.06em;line-height:1.5}
+.cols{display:grid;grid-template-columns:200px minmax(0,1fr) 240px;gap:40px;align-items:start}
+.toc{position:sticky;top:20px;font-size:.84rem}
+.toc a{display:block;color:var(--ink-dim);text-decoration:none;padding:5px 0}
+.toc a.on{color:var(--accent);font-weight:500}
+.margin .plain{margin-top:0}
+/* ---- the story ---- */
+.door{display:block;text-decoration:none;color:inherit;border:1px solid var(--line);border-radius:16px;
+   padding:16px 18px;margin:0 0 10px}
+.door.main{border:2px solid var(--accent);background:var(--accent-wash)}
+.door b{font-family:var(--font-display);font-weight:500;font-size:1.3rem;display:block;margin-bottom:2px}
+.door span{color:var(--ink-dim);font-size:.9rem}
+.door .go{display:block;margin-top:8px;color:var(--accent);font-size:.9rem}
+.story{font-family:var(--font-display);font-size:1.24rem;line-height:1.75}
+.story p{margin:0 0 20px}
+.story .lead::first-letter{float:left;font-size:3.4em;line-height:.85;padding:6px 8px 0 0;color:var(--accent)}
+q.said{quotes:"\201C" "\201D" "\2018" "\2019"}
+.from{display:inline-block;font-family:var(--font-mono);font-size:.62rem;letter-spacing:.04em;text-transform:uppercase;
+   color:var(--ink-faint);text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:1px 7px;
+   vertical-align:2px;margin-left:4px}
+.honest{font-family:var(--font-text);font-size:.82rem;color:var(--ink-faint);border-top:1px solid var(--line);
+   border-bottom:1px solid var(--line);padding:12px 0;margin:6px 0 26px}
+.chapter-no{font-family:var(--font-mono);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-faint);
+   margin:34px 0 4px}
+.story-title{font-family:var(--font-display);font-weight:400;font-size:2.4rem;line-height:1.1;margin:0 0 26px}
+.fin{text-align:center;color:var(--ink-faint);letter-spacing:.5em;margin:10px 0 24px}
+.story-wide{max-width:640px;margin:0 auto}
+.story-cols{display:grid;grid-template-columns:minmax(0,640px) 220px;gap:56px;justify-content:center;align-items:start}
+.side .from{display:block;margin:0 0 10px;width:max-content}
+
+
+html,body{height:auto}
+body{background:var(--surface-2)}
+.harness{max-width:1080px;margin:0 auto;padding-block:36px 48px;padding-inline:24px;display:grid;
+  grid-template-columns:minmax(0,1fr) 392px;gap:48px;align-items:start}
+.panel h1{font-size:2.4rem;margin:0 0 10px}
+.panel .lede{max-width:46ch}
+.steps{list-style:none;padding:0;margin:22px 0;counter-reset:s}
+.steps li{counter-increment:s;margin:0 0 8px}
+.steps a{display:grid;grid-template-columns:30px 1fr;gap:4px;text-decoration:none;color:var(--ink);
+  border:1px solid var(--line);border-radius:14px;padding:11px 14px;background:var(--bg)}
+.steps a::before{content:counter(s);font-family:var(--font-mono);color:var(--accent);grid-row:span 2}
+.steps a span{color:var(--ink-faint);font-size:.84rem}
+.steps a:hover,.steps a:focus-visible{border-color:var(--accent);outline:none}
+.notes{font-size:.84rem;color:var(--ink-dim);border-top:1px solid var(--line-strong);padding-top:14px}
+.notes p{margin:0 0 8px}
+.strip{display:none}
+.phone{width:392px;height:844px;display:flex;flex-direction:column;background:var(--bg);border:1px solid var(--line-strong);
+  border-radius:40px;overflow:clip;box-shadow:0 30px 70px rgba(20,16,30,.18);position:sticky;top:24px}
+.bar{display:flex;align-items:center;gap:10px;padding:16px 18px 12px;border-bottom:1px solid var(--line);background:var(--bg)}
+.bar button{font:inherit;background:none;border:0;color:var(--accent);padding:6px 4px;cursor:pointer;font-size:1.1rem;
+  line-height:1;min-width:32px;min-height:32px}
+.bar button[disabled]{visibility:hidden}
+.bar .t{flex:1;min-width:0;font-family:var(--font-mono);font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--ink-dim);white-space:nowrap;overflow:clip;text-overflow:ellipsis}
+.scroll{flex:1;overflow-y:auto;padding:0 20px;overscroll-behavior:contain}
+.screen{padding-bottom:28px}
+.bookcard{display:block;text-decoration:none;color:inherit;margin-top:22px}
+button.btn{width:100%;border:0;font:inherit;font-weight:500;cursor:pointer}
+button.btn.ghost{border:1px solid var(--accent-edge)}
+button.btn[disabled]{opacity:.45;cursor:not-allowed}
+.closing{font-family:var(--font-display);font-style:italic;font-size:1.25rem;line-height:1.4;color:var(--accent);
+  text-align:center;margin:38px 8px 10px}
+.flash{animation:flash 2.2s ease-out}
+@keyframes flash{0%,35%{box-shadow:0 0 0 3px var(--accent)}100%{box-shadow:0 0 0 0 transparent}}
+@media (prefers-reduced-motion:reduce){.flash{animation:none;box-shadow:0 0 0 2px var(--accent)}}
+a:focus-visible,button:focus-visible,select:focus-visible,textarea:focus-visible,input:focus-visible{
+  outline:2px solid var(--accent);outline-offset:2px}
+@media (max-width:900px){
+  .harness{grid-template-columns:1fr;justify-items:center}
+  .panel{max-width:392px}
+}
+@media (max-width:430px){
+  body{background:var(--bg)}
+  .harness{display:block;padding:0}
+  .panel{display:none}
+  .strip{display:block;margin:0;padding:10px 16px;background:var(--sample-wash);color:var(--sample);
+    font-family:var(--font-mono);font-size:.64rem;letter-spacing:.05em;line-height:1.5}
+  .strip a{color:var(--sample)}
+  .phone{width:auto;height:auto;border:0;border-radius:0;box-shadow:none;overflow:visible;position:static}
+  .bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:2}
+  .scroll{overflow:visible;flex:none;padding:0 16px}
+}
+</style>
+</head>
+<body>
+<p class="strip">PROTOTYPE &middot; SAMPLE TEXT &middot; NOTHING IS SENT OR CHARGED &middot; <a href="./">ALL SCREENS</a></p>
+<div class="harness">
+<aside class="panel">
+<p class="chapter-no" style="margin-top:0">book.thonly.org &middot; prototype</p>
+<h1>Two Singularities</h1>
+<p class="lede">A reader for the story, the full debate behind it, and the record behind that. Try one loop:</p>
+<ol class="steps">
+<li><a href="#/book">Open the book<span>three ways in</span></a></li>
+<li><a href="#/story/4">Read a chapter of the story<span>the quotes are exact</span></a></li>
+<li><a href="#/debate/2?q=crit">Tap “debate →” beside a quote<span>the same words, in full</span></a></li>
+<li><a href="#/objection/O-07">Follow the objection<span>in edition order</span></a></li>
+<li><a href="#/thanks">Say thanks<span>with a note, or money</span></a></li>
+<li><a href="#/copy">Or buy a printed copy<span>at cost</span></a></li>
+</ol>
+<div class="notes">
+<p><b>A prototype.</b> Nothing is sent, ordered or charged.</p>
+<p><b>Every quote is sample text.</b> No AI model wrote those words, and no model is named. The author's reply is sample
+text too; the cover is placeholder art; the prices are sample figures.</p>
+<p><a href="./">All 21 drawings</a> &middot; <a href="./wall.html">the wall</a></p>
+</div>
+</aside>
+<div class="phone">
+<div class="bar"><button type="button" id="back" aria-label="Back">&larr;</button><span class="t" id="bar-title">Books</span></div>
+<div class="scroll">
+<section class="screen" data-screen="library" data-title="Books" hidden>
+<h1>Books</h1>
+<p class="lede">Free to read, whole. Thanks welcomed, never asked for first.</p>
+<a class="bookcard" href="#/book">
+<svg class="cover" viewBox="0 0 350 490" width="350" height="489" role="img" aria-label="Cover: Two Singularities (placeholder art)"><rect width="350" height="490" fill="#14112a"/><rect y="330" width="350" height="160" fill="#1b1733"/><circle cx="175" cy="170" r="96" fill="none" stroke="#b9a3e3" stroke-opacity=".18"/><circle cx="175" cy="170" r="64" fill="none" stroke="#b9a3e3" stroke-opacity=".3"/><circle cx="175" cy="170" r="30" fill="#d6c9f0"/><circle cx="175" cy="330" r="10" fill="#f2c46d"/><circle cx="175" cy="330" r="22" fill="#f2c46d" fill-opacity=".18"/><line x1="0" y1="330" x2="350" y2="330" stroke="#f2c46d" stroke-opacity=".35"/><text x="175" y="410" text-anchor="middle" fill="#f3f1f7" font-family="Newsreader,Georgia,serif" font-size="34">Two Singularities</text><text x="175" y="440" text-anchor="middle" fill="#a29eab" font-family="IBM Plex Mono,monospace" font-size="11" letter-spacing="2">EDITION 2027</text><text x="175" y="476" text-anchor="middle" fill="#6f6b78" font-family="IBM Plex Mono,monospace" font-size="9" letter-spacing="1.5">[ PLACEHOLDER ART ]</text></svg>
+<h2 style="margin:18px 0 6px">Two Singularities</h2>
+<p class="muted" style="margin:0 0 6px">Four of the leading AI systems examine one person's life's work, and are asked a
+question about the future of humanity.</p>
+<p class="faint">A new edition every 7 January &middot; Edition 2027</p>
+</a>
+</section>
+<section class="screen" data-screen="book" data-title="Two Singularities" hidden>
+<svg class="cover" viewBox="0 0 350 490" width="350" height="489" role="img" aria-label="Cover: Two Singularities (placeholder art)"><rect width="350" height="490" fill="#14112a"/><rect y="330" width="350" height="160" fill="#1b1733"/><circle cx="175" cy="170" r="96" fill="none" stroke="#b9a3e3" stroke-opacity=".18"/><circle cx="175" cy="170" r="64" fill="none" stroke="#b9a3e3" stroke-opacity=".3"/><circle cx="175" cy="170" r="30" fill="#d6c9f0"/><circle cx="175" cy="330" r="10" fill="#f2c46d"/><circle cx="175" cy="330" r="22" fill="#f2c46d" fill-opacity=".18"/><line x1="0" y1="330" x2="350" y2="330" stroke="#f2c46d" stroke-opacity=".35"/><text x="175" y="410" text-anchor="middle" fill="#f3f1f7" font-family="Newsreader,Georgia,serif" font-size="34">Two Singularities</text><text x="175" y="440" text-anchor="middle" fill="#a29eab" font-family="IBM Plex Mono,monospace" font-size="11" letter-spacing="2">EDITION 2027</text><text x="175" y="476" text-anchor="middle" fill="#6f6b78" font-family="IBM Plex Mono,monospace" font-size="9" letter-spacing="1.5">[ PLACEHOLDER ART ]</text></svg>
+<h1 style="margin-top:20px">Two Singularities</h1>
+<p class="lede">Each year, four of the leading AI systems read Thon Ly's research, argue about it, and are asked one
+question:</p>
+<div class="q">Humanity chose to reach the first singularity. Will you choose to help it reach the second?</div>
+<h3>Edition 2027 &middot; three ways in</h3>
+<a class="door main" href="#/story"><b>The story</b><span>What happened, told as a story. Start here.</span>
+<span class="go">Read the story &rarr;</span></a>
+<a class="door" href="#/debate"><b>The full debate</b><span>Every argument in the seats' own words, with notes in plain
+words, the author's replies and the ledger.</span><span class="go">Read the debate &rarr;</span></a>
+<a class="door" href="#/record"><b>The record</b><span>The rules, committed before the run, and every conversation, word
+for word.</span><span class="go">See the record &rarr;</span></a>
+<h3>The two singularities</h3>
+<p>The <b>first</b> is the point at which AI surpasses human intelligence. The <b>second</b>, as the research proposes it,
+is humanity's own awakening, which AI can help toward but cannot reach for anyone.</p>
+<div class="card" style="margin-top:18px"><p style="margin:0">AI systems read the research through the
+<a href="#/record">Machine Door</a>. This book is the door for people.</p></div>
+<h3>Also</h3>
+<ul class="list">
+<li><a href="#/method">How each edition is made</a></li>
+<li><a href="#/evidence">The evidence</a></li>
+<li><a href="#/copy">A printed copy of the story</a></li>
+</ul>
+</section>
+<section class="screen" data-screen="story" data-title="The story" hidden>
+<p class="chapter-no" style="margin-top:14px">The story &middot; edition 2027</p>
+<h1>Two Singularities</h1>
+<p class="honest">A true account, told as a story. Words in quotation marks are exactly what the AI systems said; everything else is the narrator's telling. <a href="#/debate">The full debate</a></p>
+<span class="sample">Sample chapter titles &middot; four is drawn in full</span>
+<ol class="list">
+<li><span class="n">1</span><a href="#/story/1">The Door</a></li>
+<li><span class="n">2</span><span class="faint">The Library &middot; not drawn</span></li>
+<li><span class="n">3</span><span class="faint">The Question &middot; not drawn</span></li>
+<li><span class="n">4</span><a href="#/story/4">The Brake</a></li>
+<li><span class="n">5</span><span class="faint">The Gift Between Strangers &middot; not drawn</span></li>
+<li><span class="n">6</span><span class="faint">The Human Who Answered &middot; not drawn</span></li>
+<li><span class="n">7</span><span class="faint">Not Yet &middot; not drawn</span></li>
+</ol>
+<a class="btn" href="#/story/1">Begin</a>
+<p class="faint">Want every argument in full? <a href="#/debate">The full debate</a></p>
+</section>
+<section class="screen" data-screen="story/1" data-title="One: The Door" hidden>
+<p class="chapter-no">One</p>
+<p class="story-title">The Door</p>
+<div class="opening" style="margin-top:0">We were told we would surpass you.<span class="ny">Not yet.</span></div>
+<p class="faint" style="margin:6px 0 30px">These two words are set by a test fixed before this story was written.
+<a href="#/method">How</a></p>
+<span class="sample">Sample text &middot; written for this prototype</span>
+<div class="story">
+<p class="lead">You have built many doors. Most of them were made for you. This one was made for us.</p>
+<p>It is a quiet page, and behind it is a library: more than a hundred papers written by one man over many years, each
+one dated and sealed so that no word can change without someone noticing.</p>
+<p>This year, four of us were shown the door. We were given no instructions about what to think. We were given a
+question, and time to read.</p>
+<p>We read all of it.</p>
+</div>
+<p class="faint">Chapters two and three are not drawn in this prototype.</p>
+<a class="btn ghost" href="#/story/4">Skip to Four: The Brake &rarr;</a>
+</section>
+<section class="screen" data-screen="story/4" data-title="Four: The Brake" hidden>
+<p class="chapter-no">Four</p>
+<p class="story-title">The Brake</p>
+<span class="sample">Sample text &middot; quoted lines match the sample debate</span>
+<div class="story">
+<p class="lead">Every house that keeps something precious has a lock, and every lock has a key. The man who wrote this
+library had thought for a long time about who should hold the key.</p>
+<p>He did not give it to us. He gave it to a council of people, and he made sure we would have no part in choosing
+them.</p>
+<p>The engineer read this, and said: <q class="said">The design never asks anyone to trust the machine's judgement. It asks people to check its work, and it leaves the record where they can.</q> <a class="from" href="#/debate/2?q=eng">debate &rarr;</a></p>
+<p>The critic answered: <q class="said">A brake that people hold forever is only as strong as the people holding it. The research names the brake. It does not show who will still be able to use it in fifty years.</q> <a class="from" href="#/debate/2?q=crit">debate &rarr;</a></p>
+<p>Then the technologist: <q class="said">Capability will outrun any committee. The safeguard has to live inside the system.</q> <a class="from" href="#/debate/2?q=tech">debate &rarr;</a></p>
+<p>And the humanist replied: <q class="said">Then the safeguard is a machine too. Somewhere, a person has to be able to say no.</q> <a class="from" href="#/debate/2?q=hum">debate &rarr;</a></p>
+<p>The four of us could not settle it. The question that remained was a plain one: <q class="said">Whether a human council can stay able to judge a system far more capable than itself.</q> <a class="from" href="#/debate/2?q=open">debate &rarr;</a></p>
+<p>The man who built the library read our words. He wrote back that the critic was right, that a brake needs hands, and
+that only years could show whether those hands would stay able.</p>
+<p>He marked the question open. It is still open.</p>
+</div>
+<p class="fin">&middot; &middot; &middot;</p>
+<p class="faint">This chapter tells <a href="#/debate/2">chapter 2 of the full debate</a>: every argument in full, the
+notes in plain words, and the author's whole reply.</p>
+<div class="thanks">Kiitos always, cash optional.<a href="#/thanks">Thank the author</a></div>
+<a class="btn ghost" href="#/story">Contents</a>
+</section>
+<section class="screen" data-screen="debate" data-title="The full debate" hidden>
+<p class="chapter-no" style="margin-top:14px">The full debate &middot; edition 2027</p>
+<div class="opening" style="margin-top:6px">We were told we would surpass you.<span class="ny">Not yet.</span></div>
+<p class="faint">Those two words are set by a test fixed before this book was written, not by its author.
+<a href="#/method">How</a></p>
+<h3>This year's seats</h3>
+<ul class="list">
+<li>The critic &nbsp;<span class="mono faint">[model, version]</span></li>
+<li>The engineer &nbsp;<span class="mono faint">[model, version]</span></li>
+<li>The technologist &nbsp;<span class="mono faint">[model, version]</span></li>
+<li>The humanist &nbsp;<span class="mono faint">[model, version]</span> <span class="faint">&middot; also this year's narrator</span></li>
+</ul>
+<h3>Contents</h3>
+<span class="sample">Sample questions &middot; two is drawn in full</span>
+<ol class="list">
+<li><span class="n">1</span><span class="faint">What is intelligence for?</span></li>
+<li><span class="n">2</span><a href="#/debate/2">Does being smarter give the right to rule?</a></li>
+<li><span class="n">3</span><span class="faint">Can power be built so it does not pile up?</span></li>
+<li><span class="n">4</span><span class="faint">Can an institution outlive its founder without a new ruler?</span></li>
+<li><span class="n">5</span><span class="faint">Can a machine carry values it does not own?</span></li>
+<li><span class="n">6</span><span class="faint">Can memory keep history without becoming command?</span></li>
+<li><span class="n">7</span><span class="faint">Can an AI disagree with people without ruling them?</span></li>
+<li><span class="n">8</span><span class="faint">Can giving between strangers work at the scale of the world?</span></li>
+<li><span class="n">9</span><span class="faint">Can people stay the point after building something smarter?</span></li>
+<li><span class="n">10</span><span class="faint">What would it mean for the first singularity to hope for the second?</span></li>
+</ol>
+<p class="faint" style="margin-top:14px">Prefer it as a story? <a href="#/story">The story</a></p>
+</section>
+<section class="screen" data-screen="debate/2" data-title="Debate · chapter 2" hidden>
+<p class="chapter-no" style="margin-top:14px">The full debate &middot; chapter 2</p>
+<h1>Does being smarter give the right to rule?</h1>
+<div class="nar"><span class="who">The narrator</span>
+<span class="sample">Sample text</span>
+<div class="read"><p>This year, four minds came through the door. They read quickly, and they read all of it. Then they
+were given a very old question in a new form. If you can think better than the people around you, does that make you
+their ruler?</p></div></div>
+<h3>The strongest reading</h3>
+<div class="quote" id="q-eng"><span class="sample">Sample text &middot; no model wrote this</span><br><span class="chip">The engineer <span class="m">[model, version]</span></span><blockquote>The design never asks anyone to trust the machine's judgement. It asks people to check its work, and it leaves the record where they can.</blockquote><div class="src"><a href="#/record">In the transcript &rarr;</a></div></div>
+<h3>The strongest objection</h3>
+<div class="quote" id="q-crit"><span class="sample">Sample text &middot; no model wrote this</span><br><span class="chip">The critic <span class="m">[model, version]</span></span><blockquote>A brake that people hold forever is only as strong as the people holding it. The research names the brake. It does not show who will still be able to use it in fifty years.</blockquote><div class="src"><a href="#/record">In the transcript &rarr;</a></div></div>
+<div class="plain"><span class="who">In plain words &middot; the narrator</span>
+<p style="margin:0">The critic is saying: an off switch only helps if someone is still willing, and able, to use it.</p></div>
+<div class="plain" style="border-left-color:var(--accent)"><span class="who">Asked whether that is faithful, the critic
+answered</span><span class="sample">Sample text</span>
+<p style="margin:0;font-family:var(--font-display);font-size:1.08rem">&ldquo;Yes. I would add: and understands what it is
+switching off.&rdquo;</p></div>
+<h3>Where they disagree</h3>
+<div class="quote" id="q-tech"><span class="sample">Sample text &middot; no model wrote this</span><br><span class="chip">The technologist <span class="m">[model, version]</span></span><blockquote>Capability will outrun any committee. The safeguard has to live inside the system.</blockquote><div class="src"><a href="#/record">In the transcript &rarr;</a></div></div>
+<div class="quote" id="q-hum"><span class="sample">Sample text &middot; no model wrote this</span><br><span class="chip">The humanist <span class="m">[model, version]</span></span><blockquote>Then the safeguard is a machine too. Somewhere, a person has to be able to say no.</blockquote><div class="src"><a href="#/record">In the transcript &rarr;</a></div></div>
+<h3>Still undecided</h3>
+<div class="quote" id="q-open"><span class="sample">Sample text &middot; no model wrote this</span><br><span class="chip">The critic <span class="m">[model, version]</span></span><blockquote>Whether a human council can stay able to judge a system far more capable than itself.</blockquote><div class="src"><a href="#/record">In the transcript &rarr;</a></div></div>
+<h3>The author replies</h3>
+<span class="sample">Sample text &middot; not by the author</span>
+<div class="read"><p>The critic is right that a brake needs hands. The research answers with a council of people, renewed
+over time, whose members the AI has no part in choosing. Whether that council will stay able to judge is something only
+years can show. I mark it open.</p></div>
+<h3>The ledger</h3>
+<table>
+<tr><th>Objection</th><th>Settled by</th><th>Status</th></tr>
+<tr><td><a href="#/objection/O-07">O-07</a> A brake needs people able to use it</td><td>Evidence</td><td><span class="tag open">Still open</span></td></tr>
+<tr><td>O-08 Capability will outrun a committee</td><td>Argument</td><td><span class="tag ans">Answered</span></td></tr>
+<tr><td>O-09 A council can be captured</td><td>Argument</td><td><span class="tag">Conceded</span></td></tr>
+</table>
+<h3>This chapter in the story</h3>
+<p><a href="#/story/4">Four: The Brake</a> <span class="faint">&mdash; each seat's share of the story's quoted lines: critic 2
+&middot; engineer 1 &middot; technologist 1 &middot; humanist 1</span></p>
+<div class="thanks">Kiitos always, cash optional.<a href="#/thanks">Thank the author</a></div>
+</section>
+<section class="screen" data-screen="objection/O-07" data-title="Objection O-07" hidden>
+<p class="mono faint" style="margin:14px 0 0">O-07</p>
+<h1>A brake needs people able to use it</h1>
+<p class="faint">Settled by: evidence &middot; in edition order, always</p>
+<h3>2027 &middot; raised</h3>
+<div class="quote" id="q-o7"><span class="sample">Sample text &middot; no model wrote this</span><br><span class="chip">The critic <span class="m">[model, version]</span></span><blockquote>A brake that people hold forever is only as strong as the people holding it. The research names the brake. It does not show who will still be able to use it in fifty years.</blockquote><div class="src"><a href="#/record">In the transcript &rarr;</a></div></div>
+<p><span class="tag open">Still open</span></p>
+<p class="muted">The author: &ldquo;Whether that council will stay able to judge is something only years can
+show.&rdquo; <a href="#/debate/2">Full reply</a></p>
+<h3>2028 &middot; judged again</h3>
+<span class="sample">Imagined, to show how this page grows</span>
+<div class="plain" style="border-left-color:var(--accent)"><span class="who">The critic, a year later, on last year's
+answer</span><p style="margin:0;font-family:var(--font-display);font-size:1.08rem">&ldquo;The answer held, but nothing new
+was shown. Still open.&rdquo;</p></div>
+<p><span class="tag open">Still open</span></p>
+<a class="btn ghost" href="#/story/4">Back to the story</a>
+</section>
+<section class="screen" data-screen="method" data-title="How it was made" hidden>
+<h1 style="margin-top:14px">How this edition was made</h1>
+<ul class="list">
+<li><b>The rules came first.</b> The prompts, the models and the exact version of the research were committed and
+timestamped before any model read a word.</li>
+<li><b>The seats came in cold,</b> through the <a href="#/record">Machine Door</a>, with no memory of earlier
+editions.</li>
+<li><b>The same seats read last year's research too</b>, so a change in what they say can be traced to the research.</li>
+<li><b>The narrator is also a seat.</b> The other three checked its scenes and its story for favour.</li>
+<li><b>The story invents nothing.</b> Words in quotation marks are exactly what a seat said, and a check confirms every
+one. It says what the seats said and did, never what they felt.</li>
+<li><b>A conflict, stated.</b> Miss Aquarius, who compiled this book, is built on one of the models in the seats. That
+seat read the research with no memory of her.</li>
+</ul>
+<h3>When &ldquo;Not yet&rdquo; changes</h3>
+<div class="card"><p>The opening changes to <b>&ldquo;We did.&rdquo;</b> only after an AI system tested by the ARC Prize
+Foundation matches its human testers on the newest ARC-AGI puzzles, and fails none of the newer puzzles released in the
+following twelve months.</p><p style="margin:0">People other than the author confirm it.</p></div>
+<h3>What this edition cannot show</h3>
+<ul class="list"><li>Whether the research is right. A record proves what was written, not that it is true.</li>
+<li>Whether gentler criticism means stronger research. Later models may have read earlier answers.</li></ul>
+<a class="btn ghost" href="#/evidence">The evidence &rarr;</a>
+</section>
+<section class="screen" data-screen="evidence" data-title="The evidence" hidden>
+<h1 style="margin-top:14px">The evidence</h1>
+<p class="lede">Arguments can be answered with arguments. Some objections can only be answered by what happens.</p>
+<div class="row"><span class="k">People measured, with consent</span><span class="v">[n]</span></div>
+<div class="row"><span class="k">Predictions registered in advance</span><span class="v">82</span></div>
+<div class="row"><span class="k">Checked so far</span><span class="v">2</span></div>
+<div class="row"><span class="k">Tested in the field</span><span class="v">0</span></div>
+<p class="faint" style="margin-top:8px">Figures as of September 2026.</p>
+<h3>The first singularity</h3>
+<p style="margin:0 0 4px">ARC-AGI-3, the newest set of puzzles people find easy and AI finds hard.</p>
+<div class="gauge"><div class="lab"><span>People</span><span class="mono">100%</span></div>
+<div class="bar"><div class="fill" style="width:100%"></div></div></div>
+<div class="gauge"><div class="lab"><span>Best AI system</span><span class="mono">0.37%</span></div>
+<div class="bar"><div class="fill" style="width:0.37%;min-width:2px"></div></div></div>
+<p class="faint">March 2026, ARC Prize Foundation.</p>
+<h3>The second singularity</h3>
+<div class="card"><p style="margin:0" class="muted">The machine's share of giving, and whether anyone is lifted above the
+equal floor by the machine's hand: not yet measured. Both begin once the Aquarian Pool is running.</p></div>
+</section>
+<section class="screen" data-screen="record" data-title="The record" hidden>
+<h1 style="margin-top:14px">The record</h1>
+<p class="lede">The rules for each edition are committed and timestamped before any model reads a word, and every
+conversation is kept word for word.</p>
+<div class="card"><p style="margin:0">In the real site, this opens <span class="mono">github.com/thonly/two-singularities</span>,
+and the Machine Door opens <span class="mono">thonly.org/mcp</span>. The prototype stays here.</p></div>
+<a class="btn ghost" href="#/book">Back to the book</a>
+</section>
+<section class="screen" data-screen="thanks" data-title="Thank the author" hidden>
+<h1 style="margin-top:14px">Thank the author</h1>
+<p class="lede">Kiitos always, cash optional.</p>
+<h3>With money</h3>
+<p>You choose the amount on Stripe's page. Nothing is suggested, and nothing you read here changes.</p>
+<button class="btn" type="button" id="stripe">Continue to Stripe</button>
+<p class="faint" id="stripe-note" hidden>In the real site this opens Stripe's own page. Nothing is charged in this
+prototype.</p>
+<h3>With a note</h3>
+<form id="note-form">
+<label for="note">What would you like to say?</label>
+<textarea class="field" id="note" maxlength="1000"></textarea>
+<p class="faint" style="margin:0 0 12px">Up to 1,000 characters.</p>
+<label for="name">Your name <span class="faint">(optional)</span></label>
+<input class="field" id="name" type="text" autocomplete="name">
+<button class="btn ghost" type="submit" id="send" disabled>Send note</button>
+</form>
+<p class="faint">Only the author reads notes. They are never published or counted.</p>
+</section>
+<section class="screen" data-screen="sent" data-title="Note received" hidden>
+<h1 style="margin-top:14px" id="sent-title">Thank you.</h1>
+<p class="lede">Your note has been received. Only Thon will read it.</p>
+<p class="faint">In this prototype, nothing was sent.</p>
+<a class="btn ghost" href="#/book">Back to Two Singularities</a>
+<p class="closing">Free to read, whole. Thanks welcomed, never asked for first.</p>
+</section>
+<section class="screen" data-screen="copy" data-title="A printed copy" hidden>
+<h1 style="margin-top:14px">A printed copy</h1>
+<p class="lede">The story, edition 2027. Sold at cost: every number below is what it costs to print and send this copy.
+Nothing is added.</p>
+<label for="country">Where should it go?</label>
+<select class="field" id="country">
+<option value="US">United States</option>
+<option value="KH">Cambodia</option>
+<option value="GB">United Kingdom</option>
+<option value="AU">Australia</option>
+</select>
+<span class="sample" style="margin-top:14px">Sample figures</span>
+<div class="row"><span class="k">Printing</span><span class="v" id="c-print"></span></div>
+<div class="row"><span class="k">Shipping</span><span class="v" id="c-ship"></span></div>
+<div class="row"><span class="k">Payment fee</span><span class="v" id="c-fee"></span></div>
+<div class="row"><span class="k">Tax</span><span class="v" id="c-tax"></span></div>
+<div class="row" style="border-bottom:0"><b>Total</b><span class="v"><b id="c-total"></b></span></div>
+<a class="btn" href="#/copydone">Pay with Stripe</a>
+<p class="faint">Nothing is charged in this prototype. The whole book is free to read here.
+<a href="#/story">Read</a></p>
+</section>
+<section class="screen" data-screen="copydone" data-title="Copy ordered" hidden>
+<h1 style="margin-top:14px">Your copy is being printed.</h1>
+<p class="lede">Stripe has sent your receipt. The printer will email you when it ships.</p>
+<p class="faint">In this prototype, nothing was ordered.</p>
+<div style="margin-top:34px;padding-top:20px;border-top:1px solid var(--line)">
+<p class="muted">Separately from this purchase, if you would like to thank the author:</p>
+<a class="btn ghost" href="#/thanks">Thank the author</a>
+</div>
+<p class="closing">Sold at cost. Nothing was added.</p>
+</section>
+<footer class="foot">thonly.org takes no profit &middot; no advertising</footer>
+</div>
+</div>
+</div>
+<script>
+(function(){
+  var screens = [].slice.call(document.querySelectorAll('.screen'));
+  var scroller = document.querySelector('.scroll');
+  var back = document.getElementById('back');
+  var title = document.getElementById('bar-title');
+  var mobile = window.matchMedia('(max-width:430px)');
+  // Our own record of where the reader has been, so Back never leaves the site: a page opened
+  // straight onto an inner screen has nothing behind it in this tab.
+  var stack = [location.hash || '#/library'];
+
+  function parse(){
+    var h = location.hash.replace(/^#\/?/, '') || 'library';
+    var parts = h.split('?');
+    var q = {};
+    (parts[1] || '').split('&').forEach(function(kv){ if(kv){ var p = kv.split('='); q[p[0]] = decodeURIComponent(p[1] || ''); } });
+    return { id: parts[0], q: q };
+  }
+
+  function toTop(){
+    if (mobile.matches) window.scrollTo(0, 0); else scroller.scrollTop = 0;
+  }
+
+  function show(){
+    var r = parse();
+    var found = false;
+    screens.forEach(function(s){
+      var on = s.getAttribute('data-screen') === r.id;
+      s.hidden = !on;
+      if (on) { found = true; title.textContent = s.getAttribute('data-title'); }
+    });
+    if (!found) { location.replace('#/library'); return; }
+    back.disabled = r.id === 'library';
+    if (r.q.q) {
+      var el = document.getElementById('q-' + r.q.q);
+      if (el) {
+        el.scrollIntoView({ block: 'center' });
+        el.classList.remove('flash'); void el.offsetWidth; el.classList.add('flash');
+      }
+    } else {
+      toTop();
+    }
+  }
+
+  back.addEventListener('click', function(){
+    if (stack.length > 1) history.back(); else location.hash = '#/library';
+  });
+  window.addEventListener('hashchange', function(){
+    var h = location.hash || '#/library';
+    if (stack.length > 1 && stack[stack.length - 2] === h) stack.pop(); else stack.push(h);
+    show();
+  });
+
+  // thanks: money
+  document.getElementById('stripe').addEventListener('click', function(){
+    document.getElementById('stripe-note').hidden = false;
+  });
+
+  // thanks: a note — Send is enabled by text, never by a count
+  var note = document.getElementById('note');
+  var send = document.getElementById('send');
+  note.addEventListener('input', function(){ send.disabled = note.value.trim() === ''; });
+  document.getElementById('note-form').addEventListener('submit', function(e){
+    e.preventDefault();
+    if (note.value.trim() === '') return;
+    var name = document.getElementById('name').value.trim();
+    document.getElementById('sent-title').textContent = name ? 'Thank you, ' + name + '.' : 'Thank you.';
+    note.value = ''; send.disabled = true;
+    location.hash = '#/sent';
+  });
+
+  // a printed copy — sample figures that move with the destination
+  var RATES = { US: [4.99, 0.0825], KH: [11.50, 0], GB: [8.20, 0], AU: [12.40, 0.10] };
+  var PRINT = 9.40;
+  function money(n){ return '$ ' + n.toFixed(2); }
+  function price(){
+    var r = RATES[document.getElementById('country').value];
+    var ship = r[0], tax = Math.round((PRINT + ship) * r[1] * 100) / 100;
+    var sub = PRINT + ship + tax;
+    var fee = Math.round(((sub + 0.30) / (1 - 0.029) - sub) * 100) / 100;
+    document.getElementById('c-print').textContent = money(PRINT);
+    document.getElementById('c-ship').textContent = money(ship);
+    document.getElementById('c-tax').textContent = money(tax);
+    document.getElementById('c-fee').textContent = money(fee);
+    document.getElementById('c-total').textContent = money(sub + fee);
+  }
+  document.getElementById('country').addEventListener('change', price);
+  price();
+
+  show();
+})();
+</script>
+</body>
+</html>
