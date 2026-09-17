@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=390">
+<meta name="googlebot" content="noindex,nofollow">
+<meta name="bingbot" content="noindex,nofollow">
+<meta name="slurp" content="noindex,nofollow">
+<meta name="yandex" content="noindex,nofollow">
+<title>12 · Thanks — book.thonly.org design</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=IBM+Plex+Sans:wght@400;500&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+[hidden]{display:none!important}
+:root{
+  --bg:#fcfbfe; --surface:#f4f1fb; --surface-2:#ebe7f5;
+  --line:rgba(20,16,30,.12); --line-strong:rgba(20,16,30,.28);
+  --ink:#16141c; --ink-dim:#5b5766; --ink-faint:#8b8796;
+  --accent:#6b4fa0; --accent-soft:#563d85; --accent-ink:#ffffff;
+  --accent-wash:rgba(107,79,160,.09); --accent-edge:rgba(107,79,160,.28);
+  --sample:#9a6a12; --sample-wash:rgba(154,106,18,.09);
+  --font-display:"Newsreader",Georgia,serif;
+  --font-text:"IBM Plex Sans",ui-sans-serif,system-ui,sans-serif;
+  --font-mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0f0e14; --surface:#18171f; --surface-2:#211f2a;
+  --line:rgba(255,255,255,.08); --line-strong:rgba(255,255,255,.18);
+  --ink:#f3f1f7; --ink-dim:#a29eab; --ink-faint:#6f6b78;
+  --accent:#b9a3e3; --accent-soft:#d6c9f0; --accent-ink:#130f1c;
+  --accent-wash:rgba(185,163,227,.12); --accent-edge:rgba(185,163,227,.32);
+  --sample:#e0b04f; --sample-wash:rgba(224,176,79,.10);
+}}
+:root[data-theme="dark"]{
+  --bg:#0f0e14; --surface:#18171f; --surface-2:#211f2a;
+  --line:rgba(255,255,255,.08); --line-strong:rgba(255,255,255,.18);
+  --ink:#f3f1f7; --ink-dim:#a29eab; --ink-faint:#6f6b78;
+  --accent:#b9a3e3; --accent-soft:#d6c9f0; --accent-ink:#130f1c;
+  --accent-wash:rgba(185,163,227,.12); --accent-edge:rgba(185,163,227,.32);
+  --sample:#e0b04f; --sample-wash:rgba(224,176,79,.10);
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font-family:var(--font-text);font-size:16px;
+     line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:var(--accent);text-decoration-thickness:1px;text-underline-offset:3px}
+.page{padding:0 20px}
+.wide .page{padding:0 48px}
+.top{display:flex;justify-content:space-between;align-items:center;padding:18px 0 14px;
+     border-bottom:1px solid var(--line);font-size:.8rem;color:var(--ink-dim)}
+.top .home{font-family:var(--font-mono);letter-spacing:.08em;text-transform:uppercase;
+     font-size:.7rem;color:var(--ink-dim);text-decoration:none}
+.crumb{font-size:.8rem;color:var(--ink-faint);margin:20px 0 6px}
+.crumb a{color:var(--ink-dim);text-decoration:none}
+h1{font-family:var(--font-display);font-weight:500;font-size:2.15rem;line-height:1.12;
+   letter-spacing:-.018em;margin:6px 0 14px;text-wrap:balance}
+h2{font-family:var(--font-display);font-weight:500;font-size:1.4rem;line-height:1.25;margin:34px 0 10px}
+h3{font-family:var(--font-mono);font-weight:500;font-size:.72rem;letter-spacing:.09em;
+   text-transform:uppercase;color:var(--ink-faint);margin:30px 0 10px}
+p{margin:0 0 14px}
+.lede{font-size:1.06rem;color:var(--ink-dim)}
+.read{font-family:var(--font-display);font-size:1.18rem;line-height:1.7}
+.read p{margin:0 0 18px}
+.q{font-family:var(--font-display);font-style:italic;font-size:1.3rem;line-height:1.45;
+   border-left:3px solid var(--accent);padding:2px 0 2px 16px;margin:18px 0 22px}
+.chip{display:inline-flex;align-items:center;gap:8px;font-family:var(--font-mono);font-size:.68rem;
+   letter-spacing:.07em;text-transform:uppercase;color:var(--accent-soft);background:var(--accent-wash);
+   border:1px solid var(--accent-edge);border-radius:999px;padding:3px 10px}
+.chip .m{color:var(--ink-faint);text-transform:none;letter-spacing:0}
+.sample{display:inline-block;font-family:var(--font-mono);font-size:.62rem;letter-spacing:.08em;
+   text-transform:uppercase;color:var(--sample);background:var(--sample-wash);border-radius:4px;
+   padding:2px 7px;margin:0 0 10px}
+.card{border:1px solid var(--line);background:var(--surface);border-radius:16px;padding:18px}
+.quote{border:1px solid var(--line);border-radius:16px;padding:16px 16px 12px;margin:0 0 14px;background:var(--bg)}
+.quote blockquote{margin:10px 0 8px;font-family:var(--font-display);font-size:1.12rem;line-height:1.55}
+.quote .src{font-size:.78rem;color:var(--ink-faint)}
+.plain{border-left:3px solid var(--line-strong);padding:4px 0 4px 14px;margin:6px 0 16px}
+.plain .who{font-family:var(--font-mono);font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;
+   color:var(--ink-faint);display:block;margin-bottom:4px}
+.nar{background:var(--surface);border-radius:16px;padding:18px 18px 4px;margin:10px 0 18px}
+.nar .who{font-family:var(--font-mono);font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;
+   color:var(--accent-soft);display:block;margin-bottom:10px}
+.btn{display:block;text-align:center;background:var(--accent);color:var(--accent-ink);text-decoration:none;
+   font-weight:500;border-radius:14px;padding:14px 16px;margin:14px 0 8px}
+.btn.ghost{background:transparent;color:var(--accent);border:1px solid var(--accent-edge)}
+.row{display:flex;justify-content:space-between;gap:12px;padding:11px 0;border-bottom:1px solid var(--line)}
+.row .k{color:var(--ink-dim)}
+.row .v{font-family:var(--font-mono);font-variant-numeric:tabular-nums}
+.list{list-style:none;padding:0;margin:0}
+.list li{border-bottom:1px solid var(--line);padding:12px 0}
+.list .n{font-family:var(--font-mono);color:var(--ink-faint);font-size:.8rem}
+ol.list li{display:grid;grid-template-columns:28px 1fr;align-items:baseline}
+.muted{color:var(--ink-dim)}
+.faint{color:var(--ink-faint);font-size:.85rem}
+.mono{font-family:var(--font-mono);font-variant-numeric:tabular-nums}
+.tag{font-family:var(--font-mono);font-size:.7rem;border-radius:999px;padding:2px 9px;border:1px solid var(--line-strong);color:var(--ink-dim);white-space:nowrap}
+.tag.open{border-style:dashed;border-color:var(--ink-faint);color:var(--ink-dim)}  /* never the sample amber: a status must not read as a drawing marker */
+.tag.ans{border-color:var(--accent-edge);color:var(--accent-soft)}
+table{width:100%;border-collapse:collapse;font-size:.88rem}
+th{text-align:left;font-weight:500;color:var(--ink-faint);font-size:.72rem;font-family:var(--font-mono);
+   letter-spacing:.06em;text-transform:uppercase;padding:0 0 8px;border-bottom:1px solid var(--line-strong)}
+td{padding:11px 8px 11px 0;border-bottom:1px solid var(--line);vertical-align:top}
+.thanks{margin:34px 0 8px;padding:18px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+   text-align:center;color:var(--ink-dim);font-family:var(--font-display);font-size:1.05rem}
+.thanks a{display:block;margin-top:4px;font-family:var(--font-text);font-size:.92rem}
+.opening{font-family:var(--font-display);font-size:1.9rem;line-height:1.3;margin:26px 0 6px}
+.opening .ny{display:block;color:var(--accent);margin-top:10px}
+.gauge{margin:10px 0 4px}
+.gauge .lab{display:flex;justify-content:space-between;font-size:.84rem;margin-bottom:5px}
+.gauge .bar{height:10px;border-radius:5px;background:var(--surface-2);overflow:clip}
+.gauge .fill{height:10px;border-radius:5px;background:var(--accent)}
+.field{display:block;width:100%;border:1px solid var(--line-strong);border-radius:12px;background:var(--bg);
+   color:var(--ink);font:inherit;padding:12px 14px;margin:6px 0 4px}
+textarea.field{min-height:150px;resize:vertical}
+label{font-size:.86rem;color:var(--ink-dim)}
+.cover{display:block;width:100%;height:auto;border-radius:10px}
+.foot{margin:44px 0 0;padding:18px 0 22px;border-top:1px solid var(--line);font-size:.78rem;color:var(--ink-faint)}
+.foot a{color:var(--ink-dim)}
+.caption{margin:0;padding:12px 20px 16px;background:var(--sample-wash);color:var(--sample);
+   font-family:var(--font-mono);font-size:.64rem;letter-spacing:.06em;line-height:1.5}
+.cols{display:grid;grid-template-columns:200px minmax(0,1fr) 240px;gap:40px;align-items:start}
+.toc{position:sticky;top:20px;font-size:.84rem}
+.toc a{display:block;color:var(--ink-dim);text-decoration:none;padding:5px 0}
+.toc a.on{color:var(--accent);font-weight:500}
+.margin .plain{margin-top:0}
+</style>
+</head>
+<body class="" style="width:390px">
+<div class="page">
+<div class="top"><a class="home" href="#">Books by Thon Ly</a><a href="#" style="text-decoration:none;color:var(--ink-dim)">Two Singularities</a></div>
+
+<p class="crumb"><a href="#">Books</a></p>
+<h1>Thank the author</h1>
+<p class="lede">Kiitos always, cash optional.</p>
+<h3>With money</h3>
+<p>You choose the amount on Stripe's page. Nothing is suggested, and nothing you read here changes.</p>
+<a class="btn" href="#">Continue to Stripe</a>
+<h3>With a note</h3>
+<label for="n">What would you like to say?</label>
+<textarea class="field" id="n" maxlength="1000"></textarea>
+<p class="faint" style="margin:0 0 12px">Up to 1,000 characters.</p>
+<label for="m">Your name <span class="faint">(optional)</span></label>
+<input class="field" id="m" type="text">
+<a class="btn ghost" href="#" style="margin-top:16px">Send note</a>
+<p class="faint">Only the author reads notes. They are never published or counted.</p>
+
+<footer class="foot">thonly.org takes no profit &middot; no advertising &middot; <a href="#">Privacy</a></footer>
+</div>
+<p class="caption">DRAWING &middot; 12 · Thanks &middot; SAMPLE TEXT AND FIGURES &middot; NOTHING HERE IS LIVE AND NO MONEY MOVES</p>
+</body>
+</html>

@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<!-- Out of SEARCH by naming the search crawlers, never a blanket robots meta: that form also reaches
+     link-preview crawlers and the card disappears. There is deliberately no robots.txt on this host. -->
+<meta name="googlebot" content="noindex,nofollow">
+<meta name="bingbot" content="noindex,nofollow">
+<meta name="slurp" content="noindex,nofollow">
+<meta name="yandex" content="noindex,nofollow">
+<title>Two Singularities — design</title>
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://book.thonly.org/demo/">
+<meta property="og:site_name" content="Books by Thon Ly">
+<meta property="og:title" content="Two Singularities — the design">
+<meta property="og:description" content="The reading site for Two Singularities, drawn screen by screen: the library, a chapter, the evidence, thanks and printed copies.">
+<meta property="og:image" content="https://book.thonly.org/demo/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Two Singularities, on a dark ground with two lights.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#6b4fa0">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500&family=IBM+Plex+Sans:wght@400;500&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+  [hidden]{display:none!important}
+  :root{
+    --bg:#fcfbfe; --surface:#f4f1fb; --line:rgba(20,16,30,.12); --line-strong:rgba(20,16,30,.28);
+    --ink:#16141c; --ink-dim:#5b5766; --ink-faint:#8b8796;
+    --accent:#6b4fa0; --accent-soft:#563d85; --accent-wash:rgba(107,79,160,.09); --accent-edge:rgba(107,79,160,.28);
+    --font-display:"Newsreader",Georgia,serif; --font-text:"IBM Plex Sans",ui-sans-serif,system-ui,sans-serif;
+    --font-mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  }
+  @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+    --bg:#0f0e14; --surface:#18171f; --line:rgba(255,255,255,.08); --line-strong:rgba(255,255,255,.18);
+    --ink:#f3f1f7; --ink-dim:#a29eab; --ink-faint:#6f6b78;
+    --accent:#b9a3e3; --accent-soft:#d6c9f0; --accent-wash:rgba(185,163,227,.12); --accent-edge:rgba(185,163,227,.32);
+  }}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font-text);font-size:16px;line-height:1.6}
+  .mono{font-family:var(--font-mono);font-variant-numeric:tabular-nums}
+  a{color:inherit}
+  .wrap{max-width:860px;margin:0 auto;padding:48px 22px 72px}
+  @media (max-width:430px){.wrap{padding:28px 16px 44px}}
+  h1{font-family:var(--font-display);font-size:clamp(2rem,6vw,2.8rem);font-weight:500;margin:0 0 10px;
+     letter-spacing:-.02em;line-height:1.1}
+  .sub{margin:0 0 30px;color:var(--ink-dim);max-width:58ch}
+  .wall-link{display:block;text-decoration:none;border:2px solid var(--accent);background:var(--accent-wash);
+     border-radius:20px;padding:20px 22px;margin:0 0 40px}
+  .wall-link .kicker{font-family:var(--font-mono);font-size:.68rem;letter-spacing:.09em;text-transform:uppercase;
+     color:var(--accent-soft);display:block;margin-bottom:6px}
+  .wall-link h2{font-family:var(--font-display);font-size:1.45rem;font-weight:500;margin:0 0 6px}
+  .wall-link p{margin:0;color:var(--ink-dim);font-size:.94rem}
+  .surface{margin-bottom:36px}
+  .surface h2{font-size:.8rem;font-weight:500;letter-spacing:.06em;margin:0 0 5px;color:var(--accent-soft)}
+  .blurb{margin:0 0 14px;color:var(--ink-dim);font-size:.9rem;max-width:64ch}
+  .board{display:flex;align-items:center;justify-content:space-between;gap:14px;text-decoration:none;
+     padding:12px 16px;border:1px solid var(--line);border-radius:14px;margin-bottom:7px}
+  .board:hover{border-color:var(--accent);background:var(--surface)}
+  .board .t{font-size:.96rem;font-weight:500}
+  .board .d{font-size:.74rem;color:var(--ink-faint);flex:none}
+  footer{margin-top:48px;padding-top:22px;border-top:1px solid var(--line);color:var(--ink-faint);font-size:.84rem}
+  footer p{margin:0 0 9px;max-width:66ch}
+  footer b{color:var(--ink-dim);font-weight:500}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Two Singularities &mdash; the design</h1>
+  <p class="sub">The reading site at <span class="mono">book.thonly.org</span>, drawn screen by screen:
+    16 artboards across five surfaces. Phase 2 of 4; a clickable prototype comes next.</p>
+
+  <a class="wall-link" href="./wall.html">
+    <span class="kicker">All of it at once</span>
+    <h2>The wall</h2>
+    <p>Every screen on one pan-and-zoom surface, grouped by what the reader is doing.</p>
+  </a>
+
+    <section class="surface">
+      <h2 class="mono">The library</h2>
+      <p class="blurb">The front of the library, the book, and one edition, including the opening line the arrival test sets.</p>
+      <a class="board" href="./Library.dc.html"><span class="t">1 · The library</span><span class="d mono">390&times;1039</span></a>
+      <a class="board" href="./Book.dc.html"><span class="t">2 · The book</span><span class="d mono">390&times;2170</span></a>
+      <a class="board" href="./Edition.dc.html"><span class="t">3 · An edition</span><span class="d mono">390&times;1663</span></a>
+    </section>
+
+    <section class="surface">
+      <h2 class="mono">Reading a chapter</h2>
+      <p class="blurb">One chapter, in the order a reader meets it: the narrator&#x27;s scene, the four moves in the seats&#x27; own words, a note in plain words checked by the seat it explains, the author&#x27;s reply and the ledger.</p>
+      <a class="board" href="./ChapterScene.dc.html"><span class="t">4 · A chapter: the scene</span><span class="d mono">390&times;1074</span></a>
+      <a class="board" href="./ChapterMoves.dc.html"><span class="t">5 · A chapter: the four moves</span><span class="d mono">390&times;1671</span></a>
+      <a class="board" href="./ChapterPlain.dc.html"><span class="t">6 · A chapter: in plain words</span><span class="d mono">390&times;1169</span></a>
+      <a class="board" href="./ChapterLedger.dc.html"><span class="t">7 · A chapter: the reply and the ledger</span><span class="d mono">390&times;1267</span></a>
+      <a class="board" href="./Glossary.dc.html"><span class="t">8 · Glossary</span><span class="d mono">390&times;1375</span></a>
+    </section>
+
+    <section class="surface">
+      <h2 class="mono">Following the argument</h2>
+      <p class="blurb">Where a reader follows one objection across the years, sees how an edition was made, and reads the evidence and the two gauges.</p>
+      <a class="board" href="./Objection.dc.html"><span class="t">9 · One objection, over the years</span><span class="d mono">390&times;1036</span></a>
+      <a class="board" href="./Method.dc.html"><span class="t">10 · How this edition was made</span><span class="d mono">390&times;1572</span></a>
+      <a class="board" href="./Evidence.dc.html"><span class="t">11 · The evidence</span><span class="d mono">390&times;1371</span></a>
+    </section>
+
+    <section class="surface">
+      <h2 class="mono">Thanks and printed copies</h2>
+      <p class="blurb">Thanks, with money or with a note, and a printed copy sold at cost. The thanks on a purchase comes after it, separately.</p>
+      <a class="board" href="./Thanks.dc.html"><span class="t">12 · Thanks</span><span class="d mono">390&times;1030</span></a>
+      <a class="board" href="./NoteSent.dc.html"><span class="t">13 · Note received</span><span class="d mono">390&times;440</span></a>
+      <a class="board" href="./Copy.dc.html"><span class="t">14 · A printed copy</span><span class="d mono">390&times;900</span></a>
+      <a class="board" href="./CopyOrdered.dc.html"><span class="t">15 · Copy ordered</span><span class="d mono">390&times;591</span></a>
+    </section>
+
+    <section class="surface">
+      <h2 class="mono">On a wide screen</h2>
+      <p class="blurb">The same chapter on a wide screen, with the plain-words note in the margin.</p>
+      <a class="board" href="./ChapterWide.dc.html"><span class="t">16 · A chapter on a wide screen</span><span class="d mono">desktop &middot; 1280&times;1038</span></a>
+    </section>
+
+  <footer>
+    <p><b>These are drawings, not the site.</b> Nothing here is live, nobody is charged, and no note is sent.</p>
+    <p><b>Every quote is sample text.</b> No AI model wrote these words, and no model is named: the seats appear by
+      role, and the model slot is left blank. The author's reply is sample text too.</p>
+    <p><b>The cover is placeholder art</b>, and the printed-copy prices are sample figures.</p>
+  </footer>
+</div>
+</body>
+</html>

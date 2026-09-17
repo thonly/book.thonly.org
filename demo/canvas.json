@@ -1,0 +1,171 @@
+{
+  "pages": [
+    {
+      "id": "page-1",
+      "name": "The library"
+    },
+    {
+      "id": "page-2",
+      "name": "Reading a chapter"
+    },
+    {
+      "id": "page-3",
+      "name": "Following the argument"
+    },
+    {
+      "id": "page-4",
+      "name": "Thanks and printed copies"
+    },
+    {
+      "id": "page-5",
+      "name": "On a wide screen"
+    }
+  ],
+  "artboards": [
+    {
+      "file": "Library.dc.html",
+      "x": 0,
+      "y": 0,
+      "w": 390,
+      "h": 1039,
+      "title": "1 · The library",
+      "page": "page-1"
+    },
+    {
+      "file": "Book.dc.html",
+      "x": 490,
+      "y": 0,
+      "w": 390,
+      "h": 2170,
+      "title": "2 · The book",
+      "page": "page-1"
+    },
+    {
+      "file": "Edition.dc.html",
+      "x": 980,
+      "y": 0,
+      "w": 390,
+      "h": 1663,
+      "title": "3 · An edition",
+      "page": "page-1"
+    },
+    {
+      "file": "ChapterScene.dc.html",
+      "x": 0,
+      "y": 0,
+      "w": 390,
+      "h": 1074,
+      "title": "4 · A chapter: the scene",
+      "page": "page-2"
+    },
+    {
+      "file": "ChapterMoves.dc.html",
+      "x": 490,
+      "y": 0,
+      "w": 390,
+      "h": 1671,
+      "title": "5 · A chapter: the four moves",
+      "page": "page-2"
+    },
+    {
+      "file": "ChapterPlain.dc.html",
+      "x": 980,
+      "y": 0,
+      "w": 390,
+      "h": 1169,
+      "title": "6 · A chapter: in plain words",
+      "page": "page-2"
+    },
+    {
+      "file": "ChapterLedger.dc.html",
+      "x": 1470,
+      "y": 0,
+      "w": 390,
+      "h": 1267,
+      "title": "7 · A chapter: the reply and the ledger",
+      "page": "page-2"
+    },
+    {
+      "file": "Glossary.dc.html",
+      "x": 1960,
+      "y": 0,
+      "w": 390,
+      "h": 1375,
+      "title": "8 · Glossary",
+      "page": "page-2"
+    },
+    {
+      "file": "Objection.dc.html",
+      "x": 0,
+      "y": 0,
+      "w": 390,
+      "h": 1036,
+      "title": "9 · One objection, over the years",
+      "page": "page-3"
+    },
+    {
+      "file": "Method.dc.html",
+      "x": 490,
+      "y": 0,
+      "w": 390,
+      "h": 1572,
+      "title": "10 · How this edition was made",
+      "page": "page-3"
+    },
+    {
+      "file": "Evidence.dc.html",
+      "x": 980,
+      "y": 0,
+      "w": 390,
+      "h": 1371,
+      "title": "11 · The evidence",
+      "page": "page-3"
+    },
+    {
+      "file": "Thanks.dc.html",
+      "x": 0,
+      "y": 0,
+      "w": 390,
+      "h": 1030,
+      "title": "12 · Thanks",
+      "page": "page-4"
+    },
+    {
+      "file": "NoteSent.dc.html",
+      "x": 490,
+      "y": 0,
+      "w": 390,
+      "h": 440,
+      "title": "13 · Note received",
+      "page": "page-4"
+    },
+    {
+      "file": "Copy.dc.html",
+      "x": 980,
+      "y": 0,
+      "w": 390,
+      "h": 900,
+      "title": "14 · A printed copy",
+      "page": "page-4"
+    },
+    {
+      "file": "CopyOrdered.dc.html",
+      "x": 1470,
+      "y": 0,
+      "w": 390,
+      "h": 591,
+      "title": "15 · Copy ordered",
+      "page": "page-4"
+    },
+    {
+      "file": "ChapterWide.dc.html",
+      "x": 0,
+      "y": 0,
+      "w": 1280,
+      "h": 1038,
+      "title": "16 · A chapter on a wide screen",
+      "page": "page-5"
+    }
+  ],
+  "annotations": []
+}
