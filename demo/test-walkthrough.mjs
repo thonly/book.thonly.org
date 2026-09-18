@@ -75,7 +75,18 @@ async function page(width) {
         if (r.exceptionDetails) throw new Error(`in page: ${r.exceptionDetails.exception?.description || r.exceptionDetails.text}`);
         return r.result.value;
     };
-    const go = async (url) => { await send("Page.navigate", { url }, sessionId); await sleep(900); };
+    // ⚠️ WAIT FOR THE APP, NEVER FOR A CLOCK. A fixed delay passed until an image made the load slower, and then the
+    // first two screens read as "none visible" — the page was fine; the test had looked too early.
+    const go = async (url) => {
+        await send("Page.navigate", { url }, sessionId);
+        if (!url.includes("walkthrough.html")) { await sleep(200); return; }   // about:blank has no app to wait for
+        for (let i = 0; i < 60; i++) {
+            const ready = await ev(`!!document.querySelector('.screen:not([hidden])')`).catch(() => false);
+            if (ready) return;
+            await sleep(100);
+        }
+        throw new Error(`the app never became ready at ${url}`);
+    };
     return { targetId, ev, go, errors };
 }
 

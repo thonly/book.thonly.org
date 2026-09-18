@@ -70,6 +70,12 @@ for word.</span><span class="go">See the record &rarr;</span></a>
 is humanity's own awakening, which AI can help toward but cannot reach for anyone.</p>
 <div class="card" style="margin-top:18px"><p style="margin:0">AI systems read the research through the
 <a href="#/record">Machine Door</a>. This book is the door for people.</p></div>
+<h3>The author</h3>
+<div class="about">
+<img src="./thonly.jpg" alt="Thon Ly">
+<div><b>Thon Ly</b><span class="muted"> writes the research this book examines. He answers in it, and marks what he
+cannot answer.</span></div>
+</div>
 <h3>Also</h3>
 <ul class="list">
 <li><a href="#/method">How each edition is made</a></li>
@@ -185,6 +191,8 @@ switching off.&rdquo;</p></div>
 <h3>Still undecided</h3>
 %s
 <h3>The author replies</h3>
+<div class="author"><img src="./thonly.jpg" alt="Thon Ly"><div><b>Thon Ly</b>
+<span class="faint">the author of the research</span></div></div>
 <span class="sample">Sample text &middot; not by the author</span>
 <div class="read"><p>The critic is right that a brake needs hands. The research answers with a council of people, renewed
 over time, whose members the AI has no part in choosing. Whether that council will stay able to judge is something only

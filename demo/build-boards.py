@@ -158,6 +158,11 @@ q.said{quotes:"\201C" "\201D" "\2018" "\2019"}
 .fin{text-align:center;color:var(--ink-faint);letter-spacing:.5em;margin:10px 0 24px}
 .story-wide{max-width:640px;margin:0 auto}
 .story-cols{display:grid;grid-template-columns:minmax(0,640px) 220px;gap:56px;justify-content:center;align-items:start}
+.author{display:flex;gap:12px;align-items:center;margin:0 0 10px}
+.author img{width:54px;height:54px;border-radius:50%;object-fit:cover;border:1px solid var(--line-strong);flex:none}
+.author b{display:block;font-weight:500}
+.about{display:flex;gap:16px;align-items:center;border-top:1px solid var(--line);padding-top:18px;margin-top:8px}
+.about img{width:88px;height:88px;border-radius:50%;object-fit:cover;border:1px solid var(--line-strong);flex:none}
 .side .from{display:block;margin:0 0 10px;width:max-content}
 """
 
@@ -306,6 +311,12 @@ is humanity's own awakening, which AI can help toward but cannot reach for anyon
 <div class="card" style="margin-top:18px">
 <p style="margin:0">AI systems read the research through the <a href="#">Machine Door</a>.
 This book is the door for people.</p>
+</div>
+<h3>The author</h3>
+<div class="about">
+<img src="./thonly.jpg" alt="Thon Ly">
+<div><b>Thon Ly</b><span class="muted"> writes the research this book examines. He answers in it, and marks what he
+cannot answer.</span><br><a class="faint" href="#">thonly.org</a></div>
 </div>
 <h3>Also</h3>
 <ul class="list">
@@ -466,6 +477,8 @@ and essays. <a href="#">Glossary</a></p>
 
 board("ChapterLedger.dc.html", "11 · Debate chapter: the reply and the ledger", "page-3", DEB_HEAD + """
 <h3>The author replies</h3>
+<div class="author"><img src="./thonly.jpg" alt="Thon Ly"><div><b>Thon Ly</b>
+<span class="faint">the author of the research</span></div></div>
 <span class="sample">Sample text &middot; written for this drawing, not by the author</span>
 <div class="read">
 <p>The critic is right that a brake needs hands. The research answers with a council of people, renewed over time,
