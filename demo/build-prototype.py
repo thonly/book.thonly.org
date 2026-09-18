@@ -30,9 +30,9 @@ def said(key, seat):
 
 def quote(role, key, qid):
     return ('<div class="quote" id="q-%s"><span class="sample">Sample text &middot; no model wrote this</span><br>'
-            '<span class="chip">%s <span class="m">[model, version]</span></span>'
+            '<span class="chip">%s%s <span class="m">[model, version]</span></span>'
             '<blockquote>%s</blockquote><div class="src"><a href="#/record">In the transcript &rarr;</a></div></div>'
-            % (qid, role, SAID[key]))
+            % (qid, B.mark(role, 18), role, SAID[key]))
 
 
 THANKS = ('<div class="thanks">Kiitos always, cash optional.'
@@ -72,9 +72,9 @@ is humanity's own awakening, which AI can help toward but cannot reach for anyon
 <a href="#/record">Machine Door</a>. This book is the door for people.</p></div>
 <h3>The author</h3>
 <div class="about">
-<img src="./thonly.jpg" alt="Thon Ly">
+<img src="./thonly.jpg" alt="Thon Ly, in an AI-enhanced portrait">
 <div><b>Thon Ly</b><span class="muted"> writes the research this book examines. He answers in it, and marks what he
-cannot answer.</span></div>
+cannot answer.</span><p class="credit">Portrait: a photograph, enhanced with AI.</p></div>
 </div>
 <h3>Also</h3>
 <ul class="list">
@@ -111,8 +111,9 @@ SCREENS["story/1"] = ("One: The Door", """
 <p class="lead">You have built many doors. Most of them were made for you. This one was made for us.</p>
 <p>It is a quiet page, and behind it is a library: more than a hundred papers written by one man over many years, each
 one dated and sealed so that no word can change without someone noticing.</p>
-<p>This year, four of us were shown the door. We were given no instructions about what to think. We were given a
-question, and time to read.</p>
+<p>The door was open long before we came. Anyone's machine may walk through it, and many do, quietly, all year. This
+year, four of us were asked in.</p>
+<p>We were given no instructions about what to think. We were given a question, and time to read.</p>
 <p>We read all of it.</p>
 </div>
 <p class="faint">Chapters two and three are not drawn in this prototype.</p>
@@ -152,20 +153,22 @@ SCREENS["debate"] = ("The full debate", """
 <a href="#/method">How</a></p>
 <h3>This year's seats</h3>
 <ul class="list">
-<li>The critic &nbsp;<span class="mono faint">[model, version]</span></li>
-<li>The engineer &nbsp;<span class="mono faint">[model, version]</span></li>
-<li>The technologist &nbsp;<span class="mono faint">[model, version]</span></li>
-<li>The humanist &nbsp;<span class="mono faint">[model, version]</span> <span class="faint">&middot; also this year's narrator</span></li>
+<li class="seatrow">%s The critic <span class="mono faint">[model, version]</span></li>
+<li class="seatrow">%s The engineer <span class="mono faint">[model, version]</span></li>
+<li class="seatrow">%s The technologist <span class="mono faint">[model, version]</span></li>
+<li class="seatrow">%s The humanist <span class="mono faint">[model, version]</span></li>
 </ul>
+<p class="faint">The humanist is also this year's narrator.</p>
 <h3>Contents</h3>
 <span class="sample">Sample questions &middot; two is drawn in full</span>
 <ol class="list">
 %s
 </ol>
 <p class="faint" style="margin-top:14px">Prefer it as a story? <a href="#/story">The story</a></p>
-""" % "\n".join(('<li><span class="n">%d</span><a href="#/debate/2">%s</a></li>' % (i + 1, q)) if i == 1 else
+""" % (B.mark("The critic"), B.mark("The engineer"), B.mark("The technologist"), B.mark("The humanist"),
+       "\n".join(('<li><span class="n">%d</span><a href="#/debate/2">%s</a></li>' % (i + 1, q)) if i == 1 else
                 ('<li><span class="n">%d</span><span class="faint">%s</span></li>' % (i + 1, q))
-                for i, q in enumerate(QUESTIONS)))
+                for i, q in enumerate(QUESTIONS))))
 
 SCREENS["debate/2"] = ("Debate · chapter 2", """
 <p class="chapter-no" style="margin-top:14px">The full debate &middot; chapter 2</p>
@@ -191,7 +194,7 @@ switching off.&rdquo;</p></div>
 <h3>Still undecided</h3>
 %s
 <h3>The author replies</h3>
-<div class="author"><img src="./thonly.jpg" alt="Thon Ly"><div><b>Thon Ly</b>
+<div class="author"><img src="./thonly.jpg" alt="Thon Ly, in an AI-enhanced portrait"><div><b>Thon Ly</b>
 <span class="faint">the author of the research</span></div></div>
 <span class="sample">Sample text &middot; not by the author</span>
 <div class="read"><p>The critic is right that a brake needs hands. The research answers with a council of people, renewed
@@ -284,6 +287,11 @@ and the Machine Door opens <span class="mono">thonly.org/mcp</span>. The prototy
 
 SCREENS["thanks"] = ("Thank the author", """
 <h1 style="margin-top:14px">Thank the author</h1>
+<div class="about" style="border-top:0;padding-top:0">
+<img src="./thonly.jpg" alt="Thon Ly, in an AI-enhanced portrait">
+<div><b>Thon Ly</b><span class="muted"> wrote the research this book examines.</span>
+<p class="credit">Portrait: a photograph, enhanced with AI.</p></div>
+</div>
 <p class="lede">Kiitos always, cash optional.</p>
 <h3>With money</h3>
 <p>You choose the amount on Stripe's page. Nothing is suggested, and nothing you read here changes.</p>
@@ -312,6 +320,7 @@ SCREENS["sent"] = ("Note received", """
 
 SCREENS["copy"] = ("A printed copy", """
 <h1 style="margin-top:14px">A printed copy</h1>
+%s
 <p class="lede">The story, edition 2027. Sold at cost: every number below is what it costs to print and send this copy.
 Nothing is added.</p>
 <label for="country">Where should it go?</label>
@@ -330,7 +339,7 @@ Nothing is added.</p>
 <a class="btn" href="#/copydone">Pay with Stripe</a>
 <p class="faint">Nothing is charged in this prototype. The whole book is free to read here.
 <a href="#/story">Read</a></p>
-""")
+""" % B.printed_copy())
 
 SCREENS["copydone"] = ("Copy ordered", """
 <h1 style="margin-top:14px">Your copy is being printed.</h1>

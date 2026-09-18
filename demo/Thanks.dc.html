@@ -150,6 +150,10 @@ q.said{quotes:"\201C" "\201D" "\2018" "\2019"}
 .author b{display:block;font-weight:500}
 .about{display:flex;gap:16px;align-items:center;border-top:1px solid var(--line);padding-top:18px;margin-top:8px}
 .about img{width:88px;height:88px;border-radius:50%;object-fit:cover;border:1px solid var(--line-strong);flex:none}
+.chip .mark{margin:-3px 2px -3px -4px;vertical-align:middle}
+.seatrow{display:flex;align-items:center;gap:10px}
+.copyart{display:block;width:100%;height:auto;margin:6px 0 10px}
+.credit{font-size:.72rem;color:var(--ink-faint);margin:6px 0 0}
 .side .from{display:block;margin:0 0 10px;width:max-content}
 </style>
 </head>
@@ -159,6 +163,11 @@ q.said{quotes:"\201C" "\201D" "\2018" "\2019"}
 
 <p class="crumb"><a href="#">Books</a></p>
 <h1>Thank the author</h1>
+<div class="about" style="border-top:0;padding-top:0">
+<img src="./thonly.jpg" alt="Thon Ly, in an AI-enhanced portrait">
+<div><b>Thon Ly</b><span class="muted"> wrote the research this book examines.</span>
+<p class="credit">Portrait: a photograph, enhanced with AI.</p></div>
+</div>
 <p class="lede">Kiitos always, cash optional.</p>
 <h3>With money</h3>
 <p>You choose the amount on Stripe's page. Nothing is suggested, and nothing you read here changes.</p>

@@ -150,6 +150,10 @@ q.said{quotes:"\201C" "\201D" "\2018" "\2019"}
 .author b{display:block;font-weight:500}
 .about{display:flex;gap:16px;align-items:center;border-top:1px solid var(--line);padding-top:18px;margin-top:8px}
 .about img{width:88px;height:88px;border-radius:50%;object-fit:cover;border:1px solid var(--line-strong);flex:none}
+.chip .mark{margin:-3px 2px -3px -4px;vertical-align:middle}
+.seatrow{display:flex;align-items:center;gap:10px}
+.copyart{display:block;width:100%;height:auto;margin:6px 0 10px}
+.credit{font-size:.72rem;color:var(--ink-faint);margin:6px 0 0}
 .side .from{display:block;margin:0 0 10px;width:max-content}
 </style>
 </head>
@@ -164,11 +168,12 @@ q.said{quotes:"\201C" "\201D" "\2018" "\2019"}
 <a href="#">How</a></p>
 <h3>This year's seats</h3>
 <ul class="list">
-<li>The critic &nbsp;<span class="mono faint">[model, version]</span></li>
-<li>The engineer &nbsp;<span class="mono faint">[model, version]</span></li>
-<li>The technologist &nbsp;<span class="mono faint">[model, version]</span></li>
-<li>The humanist &nbsp;<span class="mono faint">[model, version]</span> <span class="faint">&middot; also this year's narrator</span></li>
+<li class="seatrow"><svg class="mark" width="22" height="22" viewBox="0 0 24 24" role="img" aria-label="The critic" style="color:#8aa4d6"><circle cx="12" cy="12" r="12" fill="#1b1733"/><circle cx="12" cy="13" r="7.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-dasharray="30 8" transform="rotate(-40 12 13)"/><circle cx="19.5" cy="4.5" r="1.8" fill="currentColor"/></svg> The critic <span class="mono faint">[model, version]</span></li>
+<li class="seatrow"><svg class="mark" width="22" height="22" viewBox="0 0 24 24" role="img" aria-label="The engineer" style="color:#7fb59b"><circle cx="12" cy="12" r="12" fill="#1b1733"/><path d="M4 18 L12 6 L20 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M7.5 13.5 H16.5" stroke="currentColor" stroke-width="1.6"/><path d="M4 18 H20" stroke="currentColor" stroke-width="1.6"/></svg> The engineer <span class="mono faint">[model, version]</span></li>
+<li class="seatrow"><svg class="mark" width="22" height="22" viewBox="0 0 24 24" role="img" aria-label="The technologist" style="color:#b9a3e3"><circle cx="12" cy="12" r="12" fill="#1b1733"/><circle cx="6" cy="18" r="1.8" fill="currentColor"/><path d="M6 13.5 A4.5 4.5 0 0 1 10.5 18" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M6 9 A9 9 0 0 1 15 18" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M6 4.5 A13.5 13.5 0 0 1 19.5 18" fill="none" stroke="currentColor" stroke-width="1.5"/></svg> The technologist <span class="mono faint">[model, version]</span></li>
+<li class="seatrow"><svg class="mark" width="22" height="22" viewBox="0 0 24 24" role="img" aria-label="The humanist" style="color:#d79a92"><circle cx="12" cy="12" r="12" fill="#1b1733"/><path d="M9.5 5 A7 7 0 0 0 9.5 19" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M14.5 5 A7 7 0 0 1 14.5 19" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="1.7" fill="currentColor"/></svg> The humanist <span class="mono faint">[model, version]</span></li>
 </ul>
+<p class="faint">The humanist is also this year's narrator.</p>
 <h3>Contents</h3>
 <span class="sample">Sample questions &middot; the fixed set is chosen with the pilot</span>
 <ol class="list">

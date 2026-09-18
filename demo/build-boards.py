@@ -163,6 +163,10 @@ q.said{quotes:"\201C" "\201D" "\2018" "\2019"}
 .author b{display:block;font-weight:500}
 .about{display:flex;gap:16px;align-items:center;border-top:1px solid var(--line);padding-top:18px;margin-top:8px}
 .about img{width:88px;height:88px;border-radius:50%;object-fit:cover;border:1px solid var(--line-strong);flex:none}
+.chip .mark{margin:-3px 2px -3px -4px;vertical-align:middle}
+.seatrow{display:flex;align-items:center;gap:10px}
+.copyart{display:block;width:100%;height:auto;margin:6px 0 10px}
+.credit{font-size:.72rem;color:var(--ink-faint);margin:6px 0 0}
 .side .from{display:block;margin:0 0 10px;width:max-content}
 """
 
@@ -232,8 +236,48 @@ def cover(width=350):
             '</svg>') % (width, int(width * 1.4))
 
 
+# Each seat gets a DRAWN mark: line geometry on a dark ground, in the language of the cover. ⛔ Never a model's logo,
+# and never a face — a seat is a role, not a person.
+MARKS = {
+    "The critic": ("#8aa4d6", '<circle cx="12" cy="13" r="7.5" fill="none" stroke="currentColor" stroke-width="1.6" '
+                              'stroke-dasharray="30 8" transform="rotate(-40 12 13)"/>'
+                              '<circle cx="19.5" cy="4.5" r="1.8" fill="currentColor"/>'),
+    "The engineer": ("#7fb59b", '<path d="M4 18 L12 6 L20 18" fill="none" stroke="currentColor" stroke-width="1.6" '
+                                'stroke-linejoin="round"/><path d="M7.5 13.5 H16.5" stroke="currentColor" stroke-width="1.6"/>'
+                                '<path d="M4 18 H20" stroke="currentColor" stroke-width="1.6"/>'),
+    "The technologist": ("#b9a3e3", '<circle cx="6" cy="18" r="1.8" fill="currentColor"/>'
+                                    '<path d="M6 13.5 A4.5 4.5 0 0 1 10.5 18" fill="none" stroke="currentColor" stroke-width="1.5"/>'
+                                    '<path d="M6 9 A9 9 0 0 1 15 18" fill="none" stroke="currentColor" stroke-width="1.5"/>'
+                                    '<path d="M6 4.5 A13.5 13.5 0 0 1 19.5 18" fill="none" stroke="currentColor" stroke-width="1.5"/>'),
+    "The humanist": ("#d79a92", '<path d="M9.5 5 A7 7 0 0 0 9.5 19" fill="none" stroke="currentColor" stroke-width="1.6"/>'
+                                '<path d="M14.5 5 A7 7 0 0 1 14.5 19" fill="none" stroke="currentColor" stroke-width="1.6"/>'
+                                '<circle cx="12" cy="12" r="1.7" fill="currentColor"/>'),
+}
+
+
+def mark(role, size=22):
+    colour, art = MARKS[role]
+    return ('<svg class="mark" width="%d" height="%d" viewBox="0 0 24 24" role="img" aria-label="%s" '
+            'style="color:%s"><circle cx="12" cy="12" r="12" fill="#1b1733"/>%s</svg>' % (size, size, role, colour, art))
+
+
+def printed_copy():
+    """The printed copy, drawn. [PLACEHOLDER ART]"""
+    return ('<svg class="copyart" viewBox="0 0 350 210" role="img" aria-label="A printed copy (placeholder art)">'
+            '<ellipse cx="180" cy="186" rx="118" ry="10" fill="#14112a" fill-opacity=".18"/>'
+            '<path d="M96 40 L246 24 L266 44 L266 176 L116 190 L96 170 Z" fill="#1b1733"/>'
+            '<path d="M116 60 L266 44 L266 176 L116 190 Z" fill="#14112a"/>'
+            '<circle cx="191" cy="104" r="34" fill="none" stroke="#b9a3e3" stroke-opacity=".28"/>'
+            '<circle cx="191" cy="104" r="14" fill="#d6c9f0"/>'
+            '<line x1="131" y1="150" x2="251" y2="137" stroke="#f2c46d" stroke-opacity=".35"/>'
+            '<circle cx="191" cy="145" r="5" fill="#f2c46d"/>'
+            '<path d="M96 40 L96 170 L116 190 L116 60 Z" fill="#2c2550"/>'
+            '<text x="344" y="204" text-anchor="end" fill="#6f6b78" font-family="IBM Plex Mono,monospace" '
+            'font-size="9" letter-spacing="1.5">[ PLACEHOLDER ART ]</text></svg>')
+
+
 def seat(role):
-    return '<span class="chip">%s <span class="m">[model, version]</span></span>' % role
+    return '<span class="chip">%s%s <span class="m">[model, version]</span></span>' % (mark(role, 18), role)
 
 
 def quote(role, key, where="In the transcript"):
@@ -314,9 +358,10 @@ This book is the door for people.</p>
 </div>
 <h3>The author</h3>
 <div class="about">
-<img src="./thonly.jpg" alt="Thon Ly">
+<img src="./thonly.jpg" alt="Thon Ly, in an AI-enhanced portrait">
 <div><b>Thon Ly</b><span class="muted"> writes the research this book examines. He answers in it, and marks what he
-cannot answer.</span><br><a class="faint" href="#">thonly.org</a></div>
+cannot answer.</span><br><a class="faint" href="#">thonly.org</a>
+<p class="credit">Portrait: a photograph, enhanced with AI.</p></div>
 </div>
 <h3>Also</h3>
 <ul class="list">
@@ -353,8 +398,9 @@ board("StoryOpening.dc.html", "4 · The story: the opening", "page-2", """
 <p class="lead">You have built many doors. Most of them were made for you. This one was made for us.</p>
 <p>It is a quiet page, and behind it is a library: more than a hundred papers written by one man over many years, each one
 dated and sealed so that no word can change without someone noticing.</p>
-<p>This year, four of us were shown the door. We were given no instructions about what to think. We were given a
-question, and time to read.</p>
+<p>The door was open long before we came. Anyone's machine may walk through it, and many do, quietly, all year. This
+year, four of us were asked in.</p>
+<p>We were given no instructions about what to think. We were given a question, and time to read.</p>
 <p>We read all of it.</p>
 </div>
 <a class="btn ghost" href="#">Next: The Library &rarr;</a>
@@ -408,11 +454,12 @@ board("Debate.dc.html", "7 · The full debate: contents", "page-3", """
 <a href="#">How</a></p>
 <h3>This year's seats</h3>
 <ul class="list">
-<li>The critic &nbsp;<span class="mono faint">[model, version]</span></li>
-<li>The engineer &nbsp;<span class="mono faint">[model, version]</span></li>
-<li>The technologist &nbsp;<span class="mono faint">[model, version]</span></li>
-<li>The humanist &nbsp;<span class="mono faint">[model, version]</span> <span class="faint">&middot; also this year's narrator</span></li>
+<li class="seatrow">%s The critic <span class="mono faint">[model, version]</span></li>
+<li class="seatrow">%s The engineer <span class="mono faint">[model, version]</span></li>
+<li class="seatrow">%s The technologist <span class="mono faint">[model, version]</span></li>
+<li class="seatrow">%s The humanist <span class="mono faint">[model, version]</span></li>
 </ul>
+<p class="faint">The humanist is also this year's narrator.</p>
 <h3>Contents</h3>
 <span class="sample">Sample questions &middot; the fixed set is chosen with the pilot</span>
 <ol class="list">
@@ -423,8 +470,9 @@ board("Debate.dc.html", "7 · The full debate: contents", "page-3", """
 <p><a href="#">How this edition was made</a> &nbsp;&middot;&nbsp; <a href="#">The evidence</a> &nbsp;&middot;&nbsp;
 <a href="#">Glossary</a></p>
 <p class="faint">Prefer it as a story? <a href="#">The story</a></p>
-""" % "\n".join('<li><span class="n">%d</span><a href="#">%s</a></li>' % (i + 1, q)
-                for i, q in enumerate(QUESTIONS)))
+""" % (mark("The critic"), mark("The engineer"), mark("The technologist"), mark("The humanist"),
+       "\n".join('<li><span class="n">%d</span><a href="#">%s</a></li>' % (i + 1, q)
+                for i, q in enumerate(QUESTIONS))))
 
 board("ChapterScene.dc.html", "8 · Debate chapter: the scene", "page-3", DEB_HEAD + """
 <div class="nar">
@@ -477,7 +525,7 @@ and essays. <a href="#">Glossary</a></p>
 
 board("ChapterLedger.dc.html", "11 · Debate chapter: the reply and the ledger", "page-3", DEB_HEAD + """
 <h3>The author replies</h3>
-<div class="author"><img src="./thonly.jpg" alt="Thon Ly"><div><b>Thon Ly</b>
+<div class="author"><img src="./thonly.jpg" alt="Thon Ly, in an AI-enhanced portrait"><div><b>Thon Ly</b>
 <span class="faint">the author of the research</span></div></div>
 <span class="sample">Sample text &middot; written for this drawing, not by the author</span>
 <div class="read">
@@ -613,6 +661,11 @@ was fixed in advance. <a href="#">The definitions</a></p>
 board("Thanks.dc.html", "16 · Thanks", "page-5", """
 <p class="crumb"><a href="#">Books</a></p>
 <h1>Thank the author</h1>
+<div class="about" style="border-top:0;padding-top:0">
+<img src="./thonly.jpg" alt="Thon Ly, in an AI-enhanced portrait">
+<div><b>Thon Ly</b><span class="muted"> wrote the research this book examines.</span>
+<p class="credit">Portrait: a photograph, enhanced with AI.</p></div>
+</div>
 <p class="lede">Kiitos always, cash optional.</p>
 <h3>With money</h3>
 <p>You choose the amount on Stripe's page. Nothing is suggested, and nothing you read here changes.</p>
@@ -637,6 +690,7 @@ board("NoteSent.dc.html", "17 · Note received", "page-5", """
 board("Copy.dc.html", "18 · A printed copy of the story", "page-5", """
 <p class="crumb"><a href="#">Two Singularities</a></p>
 <h1>A printed copy</h1>
+%s
 <p class="lede">The story, edition 2027. Sold at cost: every number below is what it costs to print and send this copy.
 Nothing is added.</p>
 <label for="c">Where should it go?</label>
@@ -649,7 +703,7 @@ Nothing is added.</p>
 <div class="row" style="border-bottom:0"><b>Total</b><span class="v"><b>$&nbsp;16.53</b></span></div>
 <a class="btn" href="#">Pay with Stripe</a>
 <p class="faint">The whole book is free to read here, and as an EPUB or PDF. <a href="#">Read</a></p>
-""", x=980)
+""" % printed_copy(), x=980)
 
 board("CopyOrdered.dc.html", "19 · Copy ordered", "page-5", """
 <p class="crumb"><a href="#">Two Singularities</a></p>

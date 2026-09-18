@@ -40,7 +40,7 @@
       "x": 490,
       "y": 0,
       "w": 390,
-      "h": 2336,
+      "h": 2360,
       "title": "2 · The book: three doors",
       "page": "page-1"
     },
@@ -58,7 +58,7 @@
       "x": 0,
       "y": 0,
       "w": 390,
-      "h": 1186,
+      "h": 1311,
       "title": "4 · The story: the opening",
       "page": "page-2"
     },
@@ -85,7 +85,7 @@
       "x": 0,
       "y": 0,
       "w": 390,
-      "h": 1724,
+      "h": 1720,
       "title": "7 · The full debate: contents",
       "page": "page-3"
     },
@@ -103,7 +103,7 @@
       "x": 980,
       "y": 0,
       "w": 390,
-      "h": 1671,
+      "h": 1681,
       "title": "9 · Debate chapter: the four moves",
       "page": "page-3"
     },
@@ -112,7 +112,7 @@
       "x": 1470,
       "y": 0,
       "w": 390,
-      "h": 1169,
+      "h": 1171,
       "title": "10 · Debate chapter: in plain words",
       "page": "page-3"
     },
@@ -139,7 +139,7 @@
       "x": 0,
       "y": 0,
       "w": 390,
-      "h": 1092,
+      "h": 1093,
       "title": "13 · One objection, over the years",
       "page": "page-4"
     },
@@ -166,7 +166,7 @@
       "x": 0,
       "y": 0,
       "w": 390,
-      "h": 1030,
+      "h": 1118,
       "title": "16 · Thanks",
       "page": "page-5"
     },
@@ -184,7 +184,7 @@
       "x": 980,
       "y": 0,
       "w": 390,
-      "h": 915,
+      "h": 1135,
       "title": "18 · A printed copy of the story",
       "page": "page-5"
     },
@@ -211,7 +211,7 @@
       "x": 1380,
       "y": 0,
       "w": 1280,
-      "h": 1065,
+      "h": 1067,
       "title": "21 · A debate chapter on a wide screen",
       "page": "page-6"
     }
