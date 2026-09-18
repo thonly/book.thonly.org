@@ -50,6 +50,11 @@ Each edition has **three layers**, and a reader chooses how deep to go:
 
 ## 3. Routes
 
+**The portrait.** The author's avatar appears on the book page, beside every reply, and on the thanks page, always with the
+caption *"Portrait: a photograph, enhanced with AI."* and an `alt` that says the same.
+
+**The seats' marks.** Each seat carries a drawn mark — line geometry, never a model's logo and never a face.
+
 | Path | Page | Indexed |
 |---|---|---|
 | `/` | The library: each book that exists, one line each. ⛔ **No empty shelves, no "coming soon".** Before 7 January 2027 the one line may say the book is published that day, once, as a fact. | yes |
@@ -83,7 +88,11 @@ A chapter answers one of the edition's fixed questions (the same questions every
    the strongest reading · the strongest objection · where the seats disagree · what is still undecided.
 3. **In plain words** — optional notes after a quote, **labelled as the narrator's**, each followed by the quoted seat's
    own answer to *"is this faithful to what you meant?"*
-4. **The author's reply.**
+4. **The author's reply**, beside his portrait — **short**, carrying **at least one concession each edition**, and ⛔ never
+   the last word: the chapter closes on the ledger, not on him. ⭐ He may leave an objection unanswered, and the page prints
+   the silence (*no reply this year*). ⛔ **The reply seat is human forever**: after the founder it passes to the Aquarian
+   Sangha, never to Miss Aquarius℠, who compiles and never answers, never declares that the first singularity has arrived,
+   and never ends the series (directive #69).
 5. **The ledger** — each objection raised, with *what could settle it* (argument · evidence · neither) and its status
    (answered · conceded · rejected with a reason · still open), plus the seats' own judgement of whether last year's
    answers held.
@@ -132,6 +141,8 @@ recounting, gently and without hurry, what it saw people build — its **manner*
 - ⭐ **Words in quotation marks are always a seat's exact words**; everything else is the narrator's telling. The build
   refuses to publish a story line inside quotation marks that is not found word for word in the record.
 - **It says what the seats said and did, never what they felt.**
+- **The premise is the true one:** the Machine Door was built and left open before anyone came, any machine may walk through
+  it, and these four were asked in. ⛔ Never a chance discovery.
 - **The ending follows the record.** If the seats said no, the story ends on no.
 - **Fairness.** The other three seats review the story for favour, and their answers are printed in the full debate, with
   each seat's share of the story's quoted lines.
