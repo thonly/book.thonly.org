@@ -66,6 +66,15 @@ def main():
                             "--virtual-time-budget=4000", "--screenshot=" + out, "file://" + src],
                            check=True, capture_output=True)
             print("%s %d bytes" % (name, os.path.getsize(out)))
+            # ⭐ THE GENERATOR STAMPS ITS OWN OUTPUT. A card rebuilt without this is an undeclared file the
+            # next commit would (rightly) refuse — and the fix would be a human remembering. This is drawn
+            # from the site's own tokens by headless Chrome: no AI in the image itself.
+            subprocess.run(["python3", os.path.join(HERE, "..", "..", "..", "..",
+                                                    ".claude/skills/media/scripts/stamp.py"), out,
+                            "--source", "drawn", "--rights", "cc0", "--register", "M-0003",
+                            "--disclosure", "https://book.thonly.org/demo/",
+                            "--note", "a link-preview card drawn from the site's own tokens"],
+                           check=True, capture_output=True)
 
 
 if __name__ == "__main__":
