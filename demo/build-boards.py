@@ -361,7 +361,7 @@ This book is the door for people.</p>
 <img src="./thonly.jpg" alt="Thon Ly, in an AI-enhanced portrait">
 <div><b>Thon Ly</b><span class="muted"> writes the research this book examines. He answers in it, and marks what he
 cannot answer.</span><br><a class="faint" href="#">thonly.org</a>
-<p class="credit">Portrait: a photograph, enhanced with AI.</p></div>
+</div>
 </div>
 <h3>Also</h3>
 <ul class="list">
@@ -663,8 +663,7 @@ board("Thanks.dc.html", "16 · Thanks", "page-5", """
 <h1>Thank the author</h1>
 <div class="about" style="border-top:0;padding-top:0">
 <img src="./thonly.jpg" alt="Thon Ly, in an AI-enhanced portrait">
-<div><b>Thon Ly</b><span class="muted"> wrote the research this book examines.</span>
-<p class="credit">Portrait: a photograph, enhanced with AI.</p></div>
+<div><b>Thon Ly</b><span class="muted"> wrote the research this book examines.</span></div>
 </div>
 <p class="lede">Kiitos always, cash optional.</p>
 <h3>With money</h3>
