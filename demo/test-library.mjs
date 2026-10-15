@@ -157,8 +157,22 @@ async function machine(ev) {
     check(!PENDING.test(ld[0] || "") && !/creativeWorkStatus/.test(ld[0] || ""), `named, never pending: no status in the markup`);
     const get = async (p) => { const r = await fetch(new URL(p, URL_)); return [r.status, await r.text()]; };
     const [rs, robots] = await get("/robots.txt");
-    check(rs === 200 && /^Sitemap: https:\/\/book\.thonly\.org\/sitemap\.xml$/m.test(robots) && !/^\s*Disallow:\s*\S/mi.test(robots),
-          `robots.txt allows everything and names the sitemap (${rs})`);
+    const groups = [];
+    let g = null, ua = false;
+    for (const raw of robots.split("\n")) {
+        const line = raw.replace(/#.*/, "").trim(), i = line.indexOf(":");
+        if (i < 0) continue;
+        const key = line.slice(0, i).trim().toLowerCase(), val = line.slice(i + 1).trim();
+        if (key === "user-agent") { if (!ua) groups.push((g = { agents: [], rules: [] })); g.agents.push(val.toLowerCase()); ua = true; }
+        else { ua = false; if (g && /^(allow|disallow)$/.test(key)) g.rules.push(`${key}:${val}`); }
+    }
+    const star = groups.find((x) => x.agents.includes("*")), ai = groups.filter((x) => !x.agents.includes("*"));
+    check(rs === 200 && /^Sitemap: https:\/\/book\.thonly\.org\/sitemap\.xml$/m.test(robots) && !!star && !star.rules.some((r) => /^disallow:\S/.test(r)),
+          `robots.txt: everyone else, link previews included, is blocked from nothing, and the sitemap is named (${rs})`);
+    const named = ai.flatMap((x) => x.agents);
+    const MUST = ["gptbot", "oai-searchbot", "claudebot", "claude-searchbot", "perplexitybot", "google-extended", "ccbot"];
+    check(MUST.every((a) => named.includes(a)) && ai.every((x) => x.rules.length === 1 && x.rules[0] === "disallow:/demo/"),
+          `robots.txt: the named AI crawlers are kept out of /demo/ and nothing else (${named.length} named)`);
     const [ss, sm] = await get("/sitemap.xml");
     const locs = [...sm.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1]);
     check(ss === 200 && locs.includes("https://book.thonly.org/") && locs.every((l) => l.startsWith("https://book.thonly.org/") && !l.includes("/demo/")),

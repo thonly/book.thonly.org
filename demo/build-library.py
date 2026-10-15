@@ -17,7 +17,8 @@ M-0009; og:image is an ABSOLUTE URL (a relative one yields a card with no image,
 
 ⭐ MACHINE-READABLE (2026-10-15): --landing also writes what a machine reads, from the SAME five pairs, so the page and
 the machine files cannot say different things — schema.org JSON-LD in the page (the landing only; the draft tells
-machines nothing) · ../robots.txt (allow-all + the sitemap; ⛔ never a Disallow, see the README) · ../sitemap.xml (every
+machines nothing) · ../robots.txt (the named AI crawlers kept out of /demo/; everyone else blocked from nothing — see the
+README) · ../sitemap.xml (every
 public route; ⛔ never /demo/) · ../llms.txt (the five books in plain text, each with its record).
 ⛔ Nothing on thonly.org points here for machines: the Two Singularities seats enter the corpus through thonly.org's
 llms.txt, and a pointer there would put the book one hop from the readers it is about (SPEC §8).
@@ -155,9 +156,22 @@ def jsonld():
     return '<script type="application/ld+json">\n%s\n</script>\n' % body
 
 
-ROBOTS = """# Allow all crawlers. Sitemap below.
-# ⛔ Never add a Disallow: a robots file that blocks anything also stops the link-preview crawlers, and Facebook
-# caches it for about a day. /demo/ is kept out of search by naming the search crawlers in its pages' meta tags.
+# The AI companies' crawlers, kept out of /demo/ BY NAME (founder 2026-10-15): its quotes are sample text attributed to
+# the seats — words no model said — and these crawlers feed the models and build the search the seats use. ⚠️ A
+# request, not a wall, and the same text is in this public repository: the property fix is taking /demo/ off the host
+# when phase 4 ships (README, the carry list).
+AI_CRAWLERS = ["GPTBot", "OAI-SearchBot", "ChatGPT-User", "ClaudeBot", "Claude-SearchBot", "Claude-User", "anthropic-ai",
+               "Google-Extended", "Applebot-Extended", "PerplexityBot", "Perplexity-User", "CCBot", "Bytespider",
+               "meta-externalagent", "Amazonbot", "cohere-ai", "MistralAI-User", "DuckAssistBot"]
+
+ROBOTS = """# The AI companies' crawlers, by name: kept out of /demo/ (sample text, never what a model said) and nothing else.
+# A crawler named in a group follows that group alone.
+%(ai)s
+Disallow: /demo/
+
+# Everyone else, the link-preview crawlers included. ⛔ Never a Disallow in this group: it would also stop link
+# previews, and Facebook caches a robots file for about a day. /demo/ is kept out of search by naming the search
+# crawlers in its pages' meta tags.
 User-agent: *
 Allow: /
 
@@ -165,7 +179,7 @@ Sitemap: %(site)s/sitemap.xml
 
 # Not a robots.txt directive (crawlers ignore unknown lines); this is where an agent looks first.
 #   llms.txt: %(site)s/llms.txt   (the five books in plain text, each with its record)
-""" % dict(site=SITE)
+""" % dict(site=SITE, ai="\n".join("User-agent: " + a for a in AI_CRAWLERS))
 
 
 def sitemap():

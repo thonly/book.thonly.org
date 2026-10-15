@@ -79,7 +79,7 @@ caption *"Portrait: a photograph, enhanced with AI."* and an `alt` that says the
 | `/two-singularities/hardcopy/` | Printed copies — **only once a proof is approved** (§7.3) | yes |
 | `/thanks/` | Thanks by Stripe, or a private note (§7) | yes |
 | `/privacy/` | What the site stores and why | yes |
-| `/demo/` | Drawings and the clickable prototype (phases 2–3) | **no** — unlisted, excluded from search by named crawler |
+| `/demo/` | Drawings and the clickable prototype (phases 2–3) | **no** — unlisted, excluded from search and from the AI crawlers, by name; off the host at phase 4 |
 
 ⭐ **Every edition stays readable forever at its own URL.** A new edition never replaces an old one; the book's page
 defaults to the newest. This is what lets a reader see the corpus change over time.
@@ -223,9 +223,10 @@ One quiet line **after** each chapter and at the end of each edition (and at the
   the identical `snapshot.yml` · a sitemap · a privacy page.
 - ⛔ **The book is kept out of the corpus index served at `corpus.333.eco`**, so each year's seats read the corpus, not the
   book about it.
-- **Machine-readable (2026-10-15):** schema.org JSON-LD on the landing, an allow-all `robots.txt`, `sitemap.xml` and
-  `llms.txt`, all written by `demo/build-library.py --landing` from the page's own source. ⛔ **Nothing on thonly.org points
-  here for machines**, for the reason in the line above: the seats enter through thonly.org's `llms.txt`.
+- **Machine-readable (2026-10-15):** schema.org JSON-LD on the landing, `robots.txt`, `sitemap.xml` and `llms.txt`, all
+  written by `demo/build-library.py --landing` from the page's own source. `robots.txt` keeps the named AI crawlers out of
+  `/demo/` (sample quotes no model said) and blocks no one else. ⛔ **Nothing on thonly.org, and nothing in the corpus
+  index, points here for machines**, for the reason in the line above: the seats enter through both.
 - **No hostname reservation needed:** thonly.org serves no handles, so `book` cannot be claimed by a registrant.
 
 ## 9. Before any screen ships — the review

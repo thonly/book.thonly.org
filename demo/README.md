@@ -45,9 +45,13 @@ look at the screens, commit, push. GitHub Pages publishes in under a minute.
 ## Search, link previews and machine readers
 
 `/demo/` is kept out of search engines **by name** (`googlebot`, `bingbot`, `slurp`, `yandex`); there is no blanket
-robots meta. AI crawlers are not named, so they can read it. The root `robots.txt` (since 2026-10-15) **allows
-everything** and only names the sitemap and `llms.txt`. ⛔ Never add a `Disallow`: a robots file that blocks anything
-also stops the link-preview crawlers, and Facebook caches it for about a day. `og:image` is an absolute URL.
+robots meta. The AI companies' crawlers are kept out of `/demo/` **by name** too, in the root `robots.txt` (founder
+2026-10-15): its quotes are sample text attributed to the seats, words no model said, and those crawlers feed the models
+and build the search the seats use. Everyone else falls in the `*` group, which **blocks nothing** and names the sitemap
+and `llms.txt`. ⛔ Never a `Disallow` in the `*` group: it would also stop the link-preview crawlers, and Facebook
+caches a robots file for about a day. ⚠️ robots.txt is a request, and the same sample text is in this public
+repository; the fix that needs no one's compliance is taking `/demo/` off the host (the carry list, below).
+`og:image` is an absolute URL.
 
 What a machine reads is written by `build-library.py --landing` from the same five pairs as the page: schema.org JSON-LD
 in `../index.html` (the draft carries none), `../robots.txt`, `../sitemap.xml` (every public route in `PAGES`; ⛔ never
@@ -82,3 +86,5 @@ A prototype is allowed to stub what a build is not. Each of these must be real, 
 - **Links out** — the record opens `github.com/thonly/two-singularities`, the Machine Door opens `thonly.org/mcp`.
 - **Addresses** — the prototype routes by `#/…`; the site uses real paths (`/two-singularities/2027/…`).
 - **Not built yet:** the privacy page, analytics, EPUB and PDF generation, the objection pages beyond one, Khmer.
+- **`/demo/` comes off the public host** (founder 2026-10-15). Its sample quotes are attributed to the seats, and until
+  then they are kept from the AI crawlers only by a request in `robots.txt`.
