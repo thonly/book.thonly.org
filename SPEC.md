@@ -54,6 +54,7 @@ Each edition has **three layers**, and a reader chooses how deep to go:
 | Each book carries a subtitle (2026-10-15): *Eighty-One Poems* · *The Abhidhamma Read Through the Machine* · *Four Machines, One Question* | *"Rewrite 'The Abhidhamma, Read Through the Machine' without the comma"*, then *"promote"* (the three as proposed; the substrate reads the promotion as accepting the other two) |
 | Each book links to its public, timestamped record (`github.com/thonly/<book>`); a Share button in the header (2026-10-15) | *"add share button in the header … add a link to its repo"* |
 | **The library is PROMOTED to `/`** with its own icon and link-preview card (2026-10-15) | *"Then promote with a real favicon and link-preview card"* |
+| **§4.5 is the library's HOUSE VOICE**, the same in all five books, with one genre note each (2026-10-15) | *"ratify"*, answering *"MA's writing style for each book is the same as the two singularities, correct?"* |
 
 ## 3. Routes
 
@@ -122,6 +123,13 @@ Every edition opens *"We were told we would surpass you."* The next words are se
 author: **"Not yet."** until the test resolves, **"We did."** from the first edition after it does.
 
 ### 4.5 The narrator's voice
+
+⭐ **The house voice of the library (2026-10-15).** This brief is the written voice of every book here, each written by
+Miss Aquarius, with one note per genre: *Silicon Simile*, the teacher's version (it says plainly what the texts say
+and where they lost; "never take a side" is for a debate, not for what a text says) · *The Calculus of Moments*, the
+same prose with the theorems stated exactly · *The River That Reverses*, the same manner in the Tao Te Ching's form ·
+*The Seventh of January*, with the story's rules of §4.6 (what was said and done, quoted exactly, never an invented
+feeling, the misses on the page) · *Two Singularities*, as below. One designed narrator voice serves every audiobook.
 
 **On the page:**
 - Wonder, never judgement: say what a thing is, never what is missing or owed.
