@@ -41,16 +41,10 @@ THANKS = ('<div class="thanks">Kiitos always, cash optional.'
 SCREENS = {}
 
 SCREENS["library"] = ("Books", """
-<h1>Books</h1>
-<p class="lede">Free to read, whole. Thanks welcomed, never asked for first.</p>
-<a class="bookcard" href="#/book">
+<h1 class="lib-h1">The Library</h1>
+<p class="lib-lede">%s</p>
 %s
-<h2 style="margin:18px 0 6px">Two Singularities</h2>
-<p class="muted" style="margin:0 0 6px">Four of the leading AI systems examine one person's life's work, and are asked a
-question about the future of humanity.</p>
-<p class="faint">A new edition every 7 January &middot; Edition 2027</p>
-</a>
-""" % B.cover())
+""" % (B.LIB_LEDE, B.library_html("#/book")))
 
 SCREENS["book"] = ("Two Singularities", """
 %s
@@ -387,7 +381,6 @@ body{background:var(--surface-2)}
   color:var(--ink-dim);white-space:nowrap;overflow:clip;text-overflow:ellipsis}
 .scroll{flex:1;overflow-y:auto;padding:0 20px;overscroll-behavior:contain}
 .screen{padding-bottom:28px}
-.bookcard{display:block;text-decoration:none;color:inherit;margin-top:22px}
 button.btn{width:100%;border:0;font:inherit;font-weight:500;cursor:pointer}
 button.btn.ghost{border:1px solid var(--accent-edge)}
 button.btn[disabled]{opacity:.45;cursor:not-allowed}

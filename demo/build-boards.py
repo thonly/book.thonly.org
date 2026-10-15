@@ -168,6 +168,36 @@ q.said{quotes:"\201C" "\201D" "\2018" "\2019"}
 .copyart{display:block;width:100%;height:auto;margin:6px 0 10px}
 .credit{font-size:.72rem;color:var(--ink-faint);margin:6px 0 0}
 .side .from{display:block;margin:0 0 10px;width:max-content}
+/* ---- the library: each book received, beside the book given forward ---- */
+.lib-h1{font-size:2.6rem;margin:22px 0 10px}
+.lib-lede{font-family:var(--font-display);font-size:1.22rem;line-height:1.55;color:var(--ink-dim);margin:0 0 30px;
+   max-width:34rem}
+.pair{display:grid;grid-template-columns:minmax(0,1fr);gap:12px;padding:26px 0 28px;border-top:1px solid var(--line)}
+.pair .el{display:flex;align-items:center;gap:9px;font-family:var(--font-mono);font-size:.7rem;letter-spacing:.14em;
+   text-transform:uppercase;color:var(--accent-soft)}
+.pair .el svg{color:var(--accent);flex:none}
+.lab{display:block;font-family:var(--font-mono);font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;
+   color:var(--ink-faint);margin:0 0 5px}
+.recv b{display:block;font-family:var(--font-display);font-weight:500;font-size:1.2rem;line-height:1.3;color:var(--ink)}
+.recv span.note{display:block;color:var(--ink-dim);font-size:.94rem;margin-top:3px}
+.fwd{display:none}
+.give{display:block;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:18px 18px 16px;
+   color:inherit;text-decoration:none}
+a.give:hover{border-color:var(--accent-edge)}
+.give h2{margin:0 0 3px;font-size:1.6rem;line-height:1.15}
+.give .sub{font-family:var(--font-display);font-style:italic;font-size:1.06rem;color:var(--ink-dim);margin:0 0 10px}
+.give p.what{margin:8px 0 0}
+.give .when{font-size:.9rem;color:var(--ink-dim);margin:10px 0 0}
+.give .by{font-size:.82rem;color:var(--ink-faint);margin:12px 0 0}
+.give .go{display:block;margin-top:10px;color:var(--accent);font-size:.92rem}
+@media (min-width:760px){
+  .pair{grid-template-columns:110px minmax(0,1fr) 28px minmax(0,1.45fr);gap:22px;align-items:start;padding:34px 0}
+  /* the received side sits level with the card's own "Given" label: the card's border + padding is 19px */
+  .pair .el{padding-top:17px}
+  .recv{padding-top:19px}
+  .fwd{display:block;font-family:var(--font-display);font-size:1.6rem;line-height:1;color:var(--ink-faint);
+     padding-top:44px;text-align:center}
+}
 """
 
 FONTS = ('<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;'
@@ -313,6 +343,74 @@ STORY = ["The Door", "The Library", "The Question", "The Brake", "The Gift Betwe
 HONEST = ('<p class="honest">A true account, told as a story. Words in quotation marks are exactly what the AI systems '
           'said; everything else is the narrator\'s telling. <a href="#">The full debate</a></p>')
 
+# ================================================================== the library's one source
+# Five books shaped Thon Ly; beside each is the book he gives forward (founder, 2026-10-15). In the order he received
+# them, which is also the elements' order: Air (at twelve) · Earth · Water · Fire · Space.
+# ⛔ NAMED, NEVER PENDING (founder 2026-10-15, "Named, never pending"): a book not yet written is described by what it
+# IS — no status, no date, no "coming soon". The one date on the page is Two Singularities' first edition, a fact.
+# ⛔ Never the place he lives, never the person who handed him a book, never a model's name. Third person (his ruling).
+GLYPHS = {   # line geometry in the cover's language; 24×24, currentColor
+    "Air": '<path d="M12 4 L20.5 19 H3.5 Z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>'
+           '<path d="M6.6 13.6 H17.4" stroke="currentColor" stroke-width="1.5"/>',
+    "Earth": '<path d="M3.5 5 H20.5 L12 20 Z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>'
+             '<path d="M6.6 10.4 H17.4" stroke="currentColor" stroke-width="1.5"/>',
+    "Water": '<path d="M3.5 5 H20.5 L12 20 Z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>',
+    "Fire": '<path d="M12 4 L20.5 19 H3.5 Z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>',
+    "Space": '<circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="1.5"/>'
+             '<circle cx="12" cy="12" r="1.6" fill="currentColor"/>',
+}
+
+LIBRARY = [
+    dict(el="Air", received="A calculus book", note="Found in a public library when he was twelve.",
+         title="The Calculus of Moments", sub="One Model of the Whole Abhidhamma",
+         what="The Abhidhamma, formalized and checked by machine: one model in which every verified axiom holds at once.",
+         by="Written by Miss Aquarius&#8480; &middot; Foreword by Thon Ly"),
+    dict(el="Earth", received="The Tao Te Ching", note="In Stephen Mitchell&rsquo;s translation.",
+         title="The River That Reverses", sub=None,
+         what="Eighty-one poems distilled from Thon Ly&rsquo;s life and work, each traced to the passage it comes from.",
+         by="Written by Miss Aquarius &middot; Foreword by Thon Ly"),
+    dict(el="Water", received="Astrology for Lovers", note="By Liz Greene, read at his first Saturn Return.",
+         title="The Seventh of January", sub="A Life Read Beside Its Chart",
+         what="Thon Ly&rsquo;s life, read beside his birth chart, with the misses on the page as well as the hits.",
+         by="Written by Miss Aquarius &middot; Foreword by Thon Ly"),
+    dict(el="Fire", received="The Khmer Tipi&#7789;aka", note="Found at his first Vipassana retreat.",
+         title="Silicon Simile", sub=None,
+         what="The Abhidhamma read through the machine, and the places where the machine breaks.",
+         by="Written by Miss Aquarius &middot; Foreword by Thon Ly"),
+    dict(el="Space", received="AI", note="The totality of all books: the book and the teacher at once.",
+         title="Two Singularities", sub=None,
+         what="Four of the leading AI systems examine one person&rsquo;s life&rsquo;s work, and are asked a question "
+              "about the future of humanity.",
+         when="A new edition every 7 January, from 2027.",
+         by="Compiled by Miss Aquarius &middot; Foreword by Thon Ly", link=True),
+]
+
+LIB_LEDE = ("Five books shaped Thon Ly. Beside each one is the book he gives forward. "
+            "Every book here is free to read, whole.")
+
+
+def glyph(el, size=22):
+    return ('<svg width="%d" height="%d" viewBox="0 0 24 24" aria-hidden="true">%s</svg>' % (size, size, GLYPHS[el]))
+
+
+def library_html(book_href="#", go="Open the book"):
+    """The five pairs. Two Singularities links to book_href, and the link SAYS what is there (go): the prototype
+    opens its book screen; the live landing, before the first edition, can only offer the record."""
+    out = []
+    for b in LIBRARY:
+        sub = '<p class="sub">%s</p>' % b["sub"] if b.get("sub") else ""
+        when = '<p class="when">%s</p>' % b["when"] if b.get("when") else ""
+        inner = ('<span class="lab">Given</span><h2>%s</h2>%s<p class="what">%s</p>%s<p class="by">%s</p>'
+                 % (b["title"], sub, b["what"], when, b["by"]))
+        give = ('<a class="give" href="%s">%s<span class="go">%s &rarr;</span></a>' % (book_href, inner, go)
+                if b.get("link") else '<div class="give">%s</div>' % inner)
+        out.append('<section class="pair"><div class="el">%s<span>%s</span></div>'
+                   '<div class="recv"><span class="lab">Received</span><b>%s</b><span class="note">%s</span></div>'
+                   '<span class="fwd" aria-hidden="true">&rarr;</span>%s</section>'
+                   % (glyph(b["el"]), b["el"], b["received"], b["note"], give))
+    return "\n".join(out)
+
+
 BOARDS = []
 
 
@@ -322,17 +420,10 @@ def board(file, title, page, body, top=TOP_BOOK, w=390, x=0, y=0):
 
 # ================================================================== page-1 · the library
 board("Library.dc.html", "1 · The library", "page-1", """
-<p class="crumb">&nbsp;</p>
-<h1>Books</h1>
-<p class="lede">Free to read, whole. Thanks welcomed, never asked for first.</p>
-<a href="#" style="text-decoration:none;color:inherit;display:block;margin-top:26px">
+<h1 class="lib-h1">The Library</h1>
+<p class="lib-lede">%s</p>
 %s
-<h2 style="margin:18px 0 6px">Two Singularities</h2>
-<p class="muted" style="margin:0 0 6px">Four of the leading AI systems examine one person's life's work, and are asked a
-question about the future of humanity.</p>
-<p class="faint">A new edition every 7 January &middot; Edition 2027</p>
-</a>
-""" % cover(), top=TOP_LIB)
+""" % (LIB_LEDE, library_html()), top=TOP_LIB)
 
 board("Book.dc.html", "2 · The book: three doors", "page-1", """
 <p class="crumb"><a href="#">Books</a></p>

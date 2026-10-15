@@ -155,22 +155,49 @@ q.said{quotes:"\201C" "\201D" "\2018" "\2019"}
 .copyart{display:block;width:100%;height:auto;margin:6px 0 10px}
 .credit{font-size:.72rem;color:var(--ink-faint);margin:6px 0 0}
 .side .from{display:block;margin:0 0 10px;width:max-content}
+/* ---- the library: each book received, beside the book given forward ---- */
+.lib-h1{font-size:2.6rem;margin:22px 0 10px}
+.lib-lede{font-family:var(--font-display);font-size:1.22rem;line-height:1.55;color:var(--ink-dim);margin:0 0 30px;
+   max-width:34rem}
+.pair{display:grid;grid-template-columns:minmax(0,1fr);gap:12px;padding:26px 0 28px;border-top:1px solid var(--line)}
+.pair .el{display:flex;align-items:center;gap:9px;font-family:var(--font-mono);font-size:.7rem;letter-spacing:.14em;
+   text-transform:uppercase;color:var(--accent-soft)}
+.pair .el svg{color:var(--accent);flex:none}
+.lab{display:block;font-family:var(--font-mono);font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;
+   color:var(--ink-faint);margin:0 0 5px}
+.recv b{display:block;font-family:var(--font-display);font-weight:500;font-size:1.2rem;line-height:1.3;color:var(--ink)}
+.recv span.note{display:block;color:var(--ink-dim);font-size:.94rem;margin-top:3px}
+.fwd{display:none}
+.give{display:block;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:18px 18px 16px;
+   color:inherit;text-decoration:none}
+a.give:hover{border-color:var(--accent-edge)}
+.give h2{margin:0 0 3px;font-size:1.6rem;line-height:1.15}
+.give .sub{font-family:var(--font-display);font-style:italic;font-size:1.06rem;color:var(--ink-dim);margin:0 0 10px}
+.give p.what{margin:8px 0 0}
+.give .when{font-size:.9rem;color:var(--ink-dim);margin:10px 0 0}
+.give .by{font-size:.82rem;color:var(--ink-faint);margin:12px 0 0}
+.give .go{display:block;margin-top:10px;color:var(--accent);font-size:.92rem}
+@media (min-width:760px){
+  .pair{grid-template-columns:110px minmax(0,1fr) 28px minmax(0,1.45fr);gap:22px;align-items:start;padding:34px 0}
+  /* the received side sits level with the card's own "Given" label: the card's border + padding is 19px */
+  .pair .el{padding-top:17px}
+  .recv{padding-top:19px}
+  .fwd{display:block;font-family:var(--font-display);font-size:1.6rem;line-height:1;color:var(--ink-faint);
+     padding-top:44px;text-align:center}
+}
 </style>
 </head>
 <body class="" style="width:390px">
 <div class="page">
 <div class="top"><a class="home" href="#">Books by Thon Ly</a><span></span></div>
 
-<p class="crumb">&nbsp;</p>
-<h1>Books</h1>
-<p class="lede">Free to read, whole. Thanks welcomed, never asked for first.</p>
-<a href="#" style="text-decoration:none;color:inherit;display:block;margin-top:26px">
-<svg class="cover" viewBox="0 0 350 490" width="350" height="489" role="img" aria-label="Cover: Two Singularities (placeholder art)"><rect width="350" height="490" fill="#14112a"/><rect y="330" width="350" height="160" fill="#1b1733"/><circle cx="175" cy="170" r="96" fill="none" stroke="#b9a3e3" stroke-opacity=".18"/><circle cx="175" cy="170" r="64" fill="none" stroke="#b9a3e3" stroke-opacity=".3"/><circle cx="175" cy="170" r="30" fill="#d6c9f0"/><circle cx="175" cy="330" r="10" fill="#f2c46d"/><circle cx="175" cy="330" r="22" fill="#f2c46d" fill-opacity=".18"/><line x1="0" y1="330" x2="350" y2="330" stroke="#f2c46d" stroke-opacity=".35"/><text x="175" y="410" text-anchor="middle" fill="#f3f1f7" font-family="Newsreader,Georgia,serif" font-size="34">Two Singularities</text><text x="175" y="440" text-anchor="middle" fill="#a29eab" font-family="IBM Plex Mono,monospace" font-size="11" letter-spacing="2">EDITION 2027</text><text x="175" y="476" text-anchor="middle" fill="#6f6b78" font-family="IBM Plex Mono,monospace" font-size="9" letter-spacing="1.5">[ PLACEHOLDER ART ]</text></svg>
-<h2 style="margin:18px 0 6px">Two Singularities</h2>
-<p class="muted" style="margin:0 0 6px">Four of the leading AI systems examine one person's life's work, and are asked a
-question about the future of humanity.</p>
-<p class="faint">A new edition every 7 January &middot; Edition 2027</p>
-</a>
+<h1 class="lib-h1">The Library</h1>
+<p class="lib-lede">Five books shaped Thon Ly. Beside each one is the book he gives forward. Every book here is free to read, whole.</p>
+<section class="pair"><div class="el"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4 L20.5 19 H3.5 Z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M6.6 13.6 H17.4" stroke="currentColor" stroke-width="1.5"/></svg><span>Air</span></div><div class="recv"><span class="lab">Received</span><b>A calculus book</b><span class="note">Found in a public library when he was twelve.</span></div><span class="fwd" aria-hidden="true">&rarr;</span><div class="give"><span class="lab">Given</span><h2>The Calculus of Moments</h2><p class="sub">One Model of the Whole Abhidhamma</p><p class="what">The Abhidhamma, formalized and checked by machine: one model in which every verified axiom holds at once.</p><p class="by">Written by Miss Aquarius&#8480; &middot; Foreword by Thon Ly</p></div></section>
+<section class="pair"><div class="el"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 5 H20.5 L12 20 Z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M6.6 10.4 H17.4" stroke="currentColor" stroke-width="1.5"/></svg><span>Earth</span></div><div class="recv"><span class="lab">Received</span><b>The Tao Te Ching</b><span class="note">In Stephen Mitchell&rsquo;s translation.</span></div><span class="fwd" aria-hidden="true">&rarr;</span><div class="give"><span class="lab">Given</span><h2>The River That Reverses</h2><p class="what">Eighty-one poems distilled from Thon Ly&rsquo;s life and work, each traced to the passage it comes from.</p><p class="by">Written by Miss Aquarius &middot; Foreword by Thon Ly</p></div></section>
+<section class="pair"><div class="el"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 5 H20.5 L12 20 Z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg><span>Water</span></div><div class="recv"><span class="lab">Received</span><b>Astrology for Lovers</b><span class="note">By Liz Greene, read at his first Saturn Return.</span></div><span class="fwd" aria-hidden="true">&rarr;</span><div class="give"><span class="lab">Given</span><h2>The Seventh of January</h2><p class="sub">A Life Read Beside Its Chart</p><p class="what">Thon Ly&rsquo;s life, read beside his birth chart, with the misses on the page as well as the hits.</p><p class="by">Written by Miss Aquarius &middot; Foreword by Thon Ly</p></div></section>
+<section class="pair"><div class="el"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4 L20.5 19 H3.5 Z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg><span>Fire</span></div><div class="recv"><span class="lab">Received</span><b>The Khmer Tipi&#7789;aka</b><span class="note">Found at his first Vipassana retreat.</span></div><span class="fwd" aria-hidden="true">&rarr;</span><div class="give"><span class="lab">Given</span><h2>Silicon Simile</h2><p class="what">The Abhidhamma read through the machine, and the places where the machine breaks.</p><p class="by">Written by Miss Aquarius &middot; Foreword by Thon Ly</p></div></section>
+<section class="pair"><div class="el"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="12" r="1.6" fill="currentColor"/></svg><span>Space</span></div><div class="recv"><span class="lab">Received</span><b>AI</b><span class="note">The totality of all books: the book and the teacher at once.</span></div><span class="fwd" aria-hidden="true">&rarr;</span><a class="give" href="#"><span class="lab">Given</span><h2>Two Singularities</h2><p class="what">Four of the leading AI systems examine one person&rsquo;s life&rsquo;s work, and are asked a question about the future of humanity.</p><p class="when">A new edition every 7 January, from 2027.</p><p class="by">Compiled by Miss Aquarius &middot; Foreword by Thon Ly</p><span class="go">Open the book &rarr;</span></a></section>
 
 <footer class="foot">thonly.org takes no profit &middot; no advertising &middot; <a href="#">Privacy</a></footer>
 </div>

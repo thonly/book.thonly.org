@@ -47,6 +47,10 @@ Each edition has **three layers**, and a reader chooses how deep to go:
 | Three layers: the record, the full debate, the story | *"The record -> the textbook (for serious readers) -> the book (for casual readers)"* |
 | Public names: the story · the full debate · the record | *"yes; textbook does sound like homework!"* |
 | The story's rules (§4.6), told in the register of §4.5 | *"yes and one addition"* |
+| **The library pairs each book that shaped Thon Ly with the book he gives forward** (2026-10-15) | *"Let's refactor book.thonly.org landing page into a beautiful library page with a placeholder for each book"* |
+| A book not yet written is **named, never pending** — what it IS, never a status (2026-10-15) | *"Named, never pending"* (amends §3's "no empty shelves", the substrate's own rule) |
+| Drafted at `/demo/library.html`, promoted to `/` on his word (2026-10-15) | *"Draft on /demo, then promote"* |
+| The library speaks in the third person (2026-10-15) | *"Institutional, third person"* (over the substrate's first-person recommendation) |
 
 ## 3. Routes
 
@@ -57,7 +61,7 @@ caption *"Portrait: a photograph, enhanced with AI."* and an `alt` that says the
 
 | Path | Page | Indexed |
 |---|---|---|
-| `/` | The library: each book that exists, one line each. ⛔ **No empty shelves, no "coming soon".** Before 7 January 2027 the one line may say the book is published that day, once, as a fact. | yes |
+| `/` | **The library: five pairs**, each book that shaped Thon Ly (*received*) beside the book he gives forward (*given*), in the order he received them — Air · Earth · Water · Fire · Space. ⛔ **Named, never pending:** a book not yet written shows its title, one line on what it IS and its byline, and **no status, no date, no "coming soon"**; the one date on the page is *Two Singularities*' first edition, stated once as a fact. A book links out only when there is something to open, and the link says what it opens (before 7 January 2027 that is the record). Source: `demo/build-boards.py` (`LIBRARY`), rendered by `demo/build-library.py`, checked by `demo/test-library.mjs`. | yes |
 | `/two-singularities/` | The book: what it is, the central question, the newest edition, and every past edition | yes |
 | `/two-singularities/<year>/` | **The story**: its contents and opening — the default way in | yes |
 | `/two-singularities/<year>/<chapter>/` | A chapter of the story | yes |

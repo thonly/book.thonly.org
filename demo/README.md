@@ -27,11 +27,14 @@ for word in the debate — and the story says what a seat said and did, never wh
 | `build-og.py` | renders `og.png` and `og-walkthrough.png`, the 1200×630 link-preview cards, with headless Chrome |
 | `build-prototype.py` | ⭐ writes `walkthrough.html`, **the clickable prototype** (phase 3) — it IMPORTS the style, quotes, titles and cover from `build-boards.py`, so the two cannot disagree |
 | `test-walkthrough.mjs` | serves the prototype over HTTP and drives it in headless Chrome at 390 and 1280px: every screen, the note, the printed-copy total, the jump from a quote to the debate, Back, overflow, nested scrollers, exceptions |
+| `build-library.py` | writes `library.html`, **the library page** — the draft of the landing (`--landing` writes `../index.html`, on the founder's word only). It IMPORTS the five pairs (`LIBRARY`), the lede and the style from `build-boards.py`, which also renders them as the *1 · The library* board and the prototype's library screen: three renderings, one source |
+| `test-library.mjs` | loads the library at a TRUE 390px (device emulation — a window-size screenshot is a crop of a ~500px layout and looks like overflow) and at 1280px: sideways overflow, nested scrollers, five pairs, the one link out says what it opens, **no status words** (named, never pending), no console errors. `SCHEME=light` · `SHOTS=<dir>` · `LIB_URL=` for a live host |
 
 ## The loop
 
 ```sh
 python3 build-boards.py && node measure.mjs && python3 build-prototype.py && node test-walkthrough.mjs \
+  && python3 build-library.py && node test-library.mjs \
   && python3 build-index.py && python3 build-wall.py && python3 build-og.py
 ```
 
