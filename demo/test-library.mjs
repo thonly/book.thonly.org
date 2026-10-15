@@ -86,6 +86,10 @@ async function at(width) {
         return !/^(visible|clip)$/.test(s.overflowY) || !/^(visible|clip)$/.test(s.overflowX);
     }).map(e => e.tagName.toLowerCase() + (e.getAttribute('class') ? '.' + e.getAttribute('class') : ''))`);
     check(scrollers.length === 0, `no nested scroll container (${scrollers.join(", ") || "NONE"})`);
+    const img = await ev(`(() => { const i = document.querySelector('img.lib-portrait'); return i ? [i.complete && i.naturalWidth > 0, i.alt] : [false, ""]; })()`);
+    check(img[0] && /AI-enhanced/.test(img[1]), `the portrait loads, and its alt carries the disclosure ("${img[1]}")`);
+    const covers = await ev(`document.querySelectorAll('svg.bookcover').length`);
+    check(covers === 5, `a cover for each book (${covers})`);
     const pairs = await ev(`document.querySelectorAll('section.pair').length`);
     check(pairs === 5, `five pairs, each received beside given (${pairs})`);
     const links = await ev(`[...document.querySelectorAll('main a')].map(a => a.textContent.trim().replace(/\\s+/g, ' ').slice(-20))`);

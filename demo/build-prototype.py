@@ -41,10 +41,10 @@ THANKS = ('<div class="thanks">Kiitos always, cash optional.'
 SCREENS = {}
 
 SCREENS["library"] = ("Books", """
-<h1 class="lib-h1">The Library</h1>
+%s
 <p class="lib-lede">%s</p>
 %s
-""" % (B.LIB_LEDE, B.library_html("#/book")))
+""" % (B.library_head(), B.LIB_LEDE, B.library_html("#/book")))
 
 SCREENS["book"] = ("Two Singularities", """
 %s

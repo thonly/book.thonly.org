@@ -58,7 +58,7 @@ PAGE = """<!doctype html>
 <div class="page">
 <main class="lib">
 <div class="top"><a class="home" href="/">Books by Thon Ly</a><span></span></div>
-<h1 class="lib-h1">The Library</h1>
+%(head)s
 <p class="lib-lede">%(lede)s</p>
 %(pairs)s
 <footer class="foot">thonly.org takes no profit &middot; No advertising</footer>
@@ -76,6 +76,8 @@ def render(landing):
         desc=DESC, url="https://book.thonly.org/" if landing else "https://book.thonly.org/demo/library.html",
         canonical='<link rel="canonical" href="https://book.thonly.org/">\n' if landing else "",
         fonts=B.FONTS, css=B.CSS + EXTRA, lede=B.LIB_LEDE,
+        # ⚠️ the landing borrows the demo's signed portrait until the image is placed at the root with its own declaration
+        head=B.library_head("/demo/thonly.jpg" if landing else "thonly.jpg"),
         pairs=B.library_html(RECORD, "Read the record"),
         caption="" if landing else ('<p class="draft">DRAFT &middot; THE LIBRARY, FOR REVIEW &middot; '
                                     'NOT YET THE LANDING PAGE</p>\n'))

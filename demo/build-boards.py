@@ -169,7 +169,9 @@ q.said{quotes:"\201C" "\201D" "\2018" "\2019"}
 .credit{font-size:.72rem;color:var(--ink-faint);margin:6px 0 0}
 .side .from{display:block;margin:0 0 10px;width:max-content}
 /* ---- the library: each book received, beside the book given forward ---- */
-.lib-h1{font-size:2.6rem;margin:22px 0 10px}
+.lib-head{display:flex;align-items:center;gap:18px;margin:26px 0 12px}
+.lib-portrait{width:76px;height:76px;border-radius:50%;object-fit:cover;border:1px solid var(--line-strong);flex:none}
+.lib-h1{font-size:2.6rem;margin:0}
 .lib-lede{font-family:var(--font-display);font-size:1.22rem;line-height:1.55;color:var(--ink-dim);margin:0 0 30px;
    max-width:34rem}
 .pair{display:grid;grid-template-columns:minmax(0,1fr);gap:12px;padding:26px 0 28px;border-top:1px solid var(--line)}
@@ -181,8 +183,9 @@ q.said{quotes:"\201C" "\201D" "\2018" "\2019"}
 .recv b{display:block;font-family:var(--font-display);font-weight:500;font-size:1.2rem;line-height:1.3;color:var(--ink)}
 .recv span.note{display:block;color:var(--ink-dim);font-size:.94rem;margin-top:3px}
 .fwd{display:none}
-.give{display:block;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:18px 18px 16px;
-   color:inherit;text-decoration:none}
+.give{display:grid;grid-template-columns:84px minmax(0,1fr);gap:16px;align-items:start;background:var(--surface);
+   border:1px solid var(--line);border-radius:16px;padding:16px 16px 14px;color:inherit;text-decoration:none}
+.bookcover{display:block;width:100%;height:auto;border-radius:4px;box-shadow:0 1px 2px rgba(20,16,30,.18),0 6px 16px rgba(20,16,30,.16)}
 a.give:hover{border-color:var(--accent-edge)}
 .give h2{margin:0 0 3px;font-size:1.6rem;line-height:1.15}
 .give .sub{font-family:var(--font-display);font-style:italic;font-size:1.06rem;color:var(--ink-dim);margin:0 0 10px}
@@ -191,7 +194,9 @@ a.give:hover{border-color:var(--accent-edge)}
 .give .by{font-size:.82rem;color:var(--ink-faint);margin:12px 0 0}
 .give .go{display:block;margin-top:10px;color:var(--accent);font-size:.92rem}
 @media (min-width:760px){
-  .pair{grid-template-columns:110px minmax(0,1fr) 28px minmax(0,1.45fr);gap:22px;align-items:start;padding:34px 0}
+  .lib-portrait{width:104px;height:104px}
+  .give{grid-template-columns:110px minmax(0,1fr);gap:20px;padding:18px}
+  .pair{grid-template-columns:110px minmax(0,1fr) 28px minmax(0,1.6fr);gap:22px;align-items:start;padding:34px 0}
   /* the received side sits level with the card's own "Given" label: the card's border + padding is 19px */
   .pair .el{padding-top:17px}
   .recv{padding-top:19px}
@@ -366,7 +371,7 @@ LIBRARY = [
          what="The Abhidhamma, formalized and checked by machine: one model in which every verified axiom holds at once.",
          by="Written by Miss Aquarius&#8480; &middot; Foreword by Thon Ly"),
     dict(el="Earth", received="The Tao Te Ching", note="In Stephen Mitchell&rsquo;s translation.",
-         title="The River That Reverses", sub=None,
+         title="The River That Reverses", sub="Eighty-One Poems",
          what="Eighty-one poems distilled from Thon Ly&rsquo;s life and work, each traced to the passage it comes from.",
          by="Written by Miss Aquarius &middot; Foreword by Thon Ly"),
     dict(el="Water", received="Astrology for Lovers", note="By Liz Greene, read at his first Saturn Return.",
@@ -374,19 +379,118 @@ LIBRARY = [
          what="Thon Ly&rsquo;s life, read beside his birth chart, with the misses on the page as well as the hits.",
          by="Written by Miss Aquarius &middot; Foreword by Thon Ly"),
     dict(el="Fire", received="The Khmer Tipi&#7789;aka", note="Found at his first Vipassana retreat.",
-         title="Silicon Simile", sub=None,
+         title="Silicon Simile", sub="The Abhidhamma, Read Through the Machine",
          what="The Abhidhamma read through the machine, and the places where the machine breaks.",
          by="Written by Miss Aquarius &middot; Foreword by Thon Ly"),
     dict(el="Space", received="AI", note="The totality of all books: the book and the teacher at once.",
-         title="Two Singularities", sub=None,
+         title="Two Singularities", sub="Four Machines, One Question",
          what="Four of the leading AI systems examine one person&rsquo;s life&rsquo;s work, and are asked a question "
               "about the future of humanity.",
          when="A new edition every 7 January, from 2027.",
          by="Compiled by Miss Aquarius &middot; Foreword by Thon Ly", link=True),
 ]
 
+def _cover_frame(art, title_lines, label, width):
+    """A cover in the language of Two Singularities': dark ground, a horizon band, lavender and gold light. [PLACEHOLDER ART]"""
+    t = "".join('<text x="175" y="%d" text-anchor="middle" fill="#f3f1f7" font-family="Newsreader,Georgia,serif" '
+                'font-size="%d">%s</text>' % (y, size, line) for (y, size, line) in title_lines)
+    return ('<svg class="bookcover" viewBox="0 0 350 490" width="%d" height="%d" role="img" aria-label="Cover: %s '
+            '(placeholder art)"><rect width="350" height="490" fill="#14112a"/>'
+            '<rect y="330" width="350" height="160" fill="#1b1733"/>%s%s'
+            '<text x="175" y="476" text-anchor="middle" fill="#6f6b78" font-family="IBM Plex Mono,monospace" '
+            'font-size="9" letter-spacing="1.5">[ PLACEHOLDER ART ]</text></svg>') % (width, int(width * 1.4), label, art, t)
+
+
+def _calculus_art():
+    """Air: a curve, and the moments it is made of — discrete lights along a faint continuous line."""
+    import math
+    pts = [(38 + i * 274 / 16, 238 - 132 * math.sin(math.pi * i / 16)) for i in range(17)]
+    curve = "M" + " L".join("%.1f %.1f" % p for p in [(38 + i * 274 / 64, 238 - 132 * math.sin(math.pi * i / 64)) for i in range(65)])
+    dots = "".join('<circle cx="%.1f" cy="%.1f" r="%s" fill="%s"/>' % (x, y, "4.2" if i == 8 else "2.6",
+                   "#f2c46d" if i == 8 else "#d6c9f0") for i, (x, y) in enumerate(pts))
+    return ('<path d="%s" fill="none" stroke="#b9a3e3" stroke-opacity=".22" stroke-width="1.2"/>%s'
+            '<line x1="0" y1="330" x2="350" y2="330" stroke="#b9a3e3" stroke-opacity=".18"/>' % (curve, dots))
+
+
+def _river_art():
+    """Earth: the Tonlé Sap, the river that reverses — one water, two directions."""
+    def wave(y, amp):
+        return "M-10 %d C 60 %d, 120 %d, 175 %d S 290 %d, 360 %d" % (y, y - amp, y + amp, y, y - amp, y)
+    return ('<path d="%s" fill="none" stroke="#b9a3e3" stroke-opacity=".35" stroke-width="1.4"/>'
+            '<path d="%s" fill="none" stroke="#b9a3e3" stroke-opacity=".22" stroke-width="1.4"/>'
+            '<path d="%s" fill="none" stroke="#b9a3e3" stroke-opacity=".35" stroke-width="1.4"/>'
+            '<path d="M232 150 l14 -7 l-14 -7" fill="none" stroke="#f2c46d" stroke-width="2" stroke-linecap="round"/>'
+            '<path d="M118 246 l-14 -7 l14 -7" fill="none" stroke="#d6c9f0" stroke-width="2" stroke-linecap="round"/>'
+            '<circle cx="270" cy="72" r="13" fill="#d6c9f0" fill-opacity=".85"/>'
+            '<line x1="0" y1="330" x2="350" y2="330" stroke="#b9a3e3" stroke-opacity=".18"/>'
+            % (wave(150, 26), wave(194, 22), wave(239, 26)))
+
+
+def _chart_art():
+    """Water: a zodiac wheel with the Sun and Moon of 7 January 1985, opposite. ⛔ No houses and no ascendant:
+    those would publish the hour of birth, which is not public."""
+    import math
+    cx, cy, r1, r2 = 175, 178, 104, 80
+    ticks = "".join('<line x1="%.1f" y1="%.1f" x2="%.1f" y2="%.1f" stroke="#b9a3e3" stroke-opacity=".35"/>'
+                    % (cx + r2 * math.cos(math.radians(a)), cy - r2 * math.sin(math.radians(a)),
+                       cx + r1 * math.cos(math.radians(a)), cy - r1 * math.sin(math.radians(a))) for a in range(0, 360, 30))
+    def at(lon, r):   # Aries 0° at the left, counter-clockwise, as a chart is drawn
+        a = math.radians(180 + lon)
+        return cx + r * math.cos(a), cy - r * math.sin(a)
+    sx, sy = at(286, 92)    # the Sun, 16° Capricorn
+    mx, my = at(109, 92)    # the Moon, 19° Cancer
+    return ('<circle cx="%d" cy="%d" r="%d" fill="none" stroke="#b9a3e3" stroke-opacity=".3"/>'
+            '<circle cx="%d" cy="%d" r="%d" fill="none" stroke="#b9a3e3" stroke-opacity=".3"/>%s'
+            '<line x1="%.1f" y1="%.1f" x2="%.1f" y2="%.1f" stroke="#f2c46d" stroke-opacity=".35" stroke-dasharray="3 5"/>'
+            '<circle cx="%.1f" cy="%.1f" r="9" fill="#f2c46d"/><circle cx="%.1f" cy="%.1f" r="9" fill="#d6c9f0"/>'
+            '<circle cx="%.1f" cy="%.1f" r="9" fill="#14112a" transform="translate(4 -3)"/>'
+            % (cx, cy, r1, cx, cy, r2, ticks, sx, sy, mx, my, sx, sy, mx, my, mx, my))
+
+
+def _wheel_art():
+    """Fire: the wheel of the Dhamma, drawn as a circuit — eight spokes as traces, a pad at each rim."""
+    import math
+    cx, cy = 175, 176
+    spokes = ""
+    for k in range(8):
+        a = math.radians(22.5 + 45 * k)
+        x1, y1 = cx + 22 * math.cos(a), cy - 22 * math.sin(a)
+        x2, y2 = cx + 90 * math.cos(a), cy - 90 * math.sin(a)
+        vx, vy = cx + 56 * math.cos(a), cy - 56 * math.sin(a)
+        spokes += ('<line x1="%.1f" y1="%.1f" x2="%.1f" y2="%.1f" stroke="#b9a3e3" stroke-opacity=".55" stroke-width="1.6"/>'
+                   '<circle cx="%.1f" cy="%.1f" r="3" fill="none" stroke="#d6c9f0" stroke-width="1.2"/>'
+                   '<rect x="%.1f" y="%.1f" width="9" height="9" rx="1.5" fill="#d6c9f0"/>'
+                   % (x1, y1, x2, y2, vx, vy, x2 - 4.5, y2 - 4.5))
+    return ('<circle cx="%d" cy="%d" r="104" fill="none" stroke="#b9a3e3" stroke-opacity=".22"/>%s'
+            '<rect x="%d" y="%d" width="34" height="34" rx="4" fill="#1b1733" stroke="#d6c9f0" stroke-width="1.4"/>'
+            '<circle cx="%d" cy="%d" r="7" fill="#f2c46d"/>'
+            '<line x1="0" y1="330" x2="350" y2="330" stroke="#b9a3e3" stroke-opacity=".18"/>'
+            % (cx, cy, spokes, cx - 17, cy - 17, cx, cy))
+
+
+def book_cover(key, width=350):
+    """The cover for one given book. [PLACEHOLDER ART] — drawn to sit on one shelf, never a final design."""
+    if key == "Space":
+        return cover(width).replace('class="cover"', 'class="bookcover"', 1)
+    art, lines, label = {
+        "Air": (_calculus_art(), [(392, 31, "The Calculus"), (428, 31, "of Moments")], "The Calculus of Moments"),
+        "Earth": (_river_art(), [(392, 31, "The River"), (428, 31, "That Reverses")], "The River That Reverses"),
+        "Water": (_chart_art(), [(392, 31, "The Seventh"), (428, 31, "of January")], "The Seventh of January"),
+        "Fire": (_wheel_art(), [(410, 34, "Silicon Simile")], "Silicon Simile"),
+    }[key]
+    return _cover_frame(art, lines, label, width)
+
+
 LIB_LEDE = ("Five books shaped Thon Ly. Beside each one is the book he gives forward. "
             "Every book here is free to read, whole.")
+
+
+PORTRAIT_ALT = "Thon Ly, in an AI-enhanced portrait"   # the disclosure rides the alt text (founder, 2026-09-19)
+
+
+def library_head(src="thonly.jpg"):
+    return ('<div class="lib-head"><img class="lib-portrait" src="%s" alt="%s" width="104" height="104">'
+            '<h1 class="lib-h1">The Library</h1></div>' % (src, PORTRAIT_ALT))
 
 
 def glyph(el, size=22):
@@ -400,10 +504,10 @@ def library_html(book_href="#", go="Open the book"):
     for b in LIBRARY:
         sub = '<p class="sub">%s</p>' % b["sub"] if b.get("sub") else ""
         when = '<p class="when">%s</p>' % b["when"] if b.get("when") else ""
-        inner = ('<span class="lab">Given</span><h2>%s</h2>%s<p class="what">%s</p>%s<p class="by">%s</p>'
-                 % (b["title"], sub, b["what"], when, b["by"]))
-        give = ('<a class="give" href="%s">%s<span class="go">%s &rarr;</span></a>' % (book_href, inner, go)
-                if b.get("link") else '<div class="give">%s</div>' % inner)
+        inner = ('%s<div class="givetext"><span class="lab">Given</span><h2>%s</h2>%s<p class="what">%s</p>%s'
+                 '<p class="by">%s</p>' % (book_cover(b["el"], 110), b["title"], sub, b["what"], when, b["by"]))
+        give = ('<a class="give" href="%s">%s<span class="go">%s &rarr;</span></div></a>' % (book_href, inner, go)
+                if b.get("link") else '<div class="give">%s</div></div>' % inner)
         out.append('<section class="pair"><div class="el">%s<span>%s</span></div>'
                    '<div class="recv"><span class="lab">Received</span><b>%s</b><span class="note">%s</span></div>'
                    '<span class="fwd" aria-hidden="true">&rarr;</span>%s</section>'
@@ -420,10 +524,10 @@ def board(file, title, page, body, top=TOP_BOOK, w=390, x=0, y=0):
 
 # ================================================================== page-1 · the library
 board("Library.dc.html", "1 · The library", "page-1", """
-<h1 class="lib-h1">The Library</h1>
+%s
 <p class="lib-lede">%s</p>
 %s
-""" % (LIB_LEDE, library_html()), top=TOP_LIB)
+""" % (library_head(), LIB_LEDE, library_html()), top=TOP_LIB)
 
 board("Book.dc.html", "2 · The book: three doors", "page-1", """
 <p class="crumb"><a href="#">Books</a></p>
