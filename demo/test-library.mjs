@@ -92,8 +92,25 @@ async function at(width) {
     check(covers === 5, `a cover for each book (${covers})`);
     const pairs = await ev(`document.querySelectorAll('section.pair').length`);
     check(pairs === 5, `five pairs, each received beside given (${pairs})`);
-    const links = await ev(`[...document.querySelectorAll('main a')].map(a => a.textContent.trim().replace(/\\s+/g, ' ').slice(-20))`);
-    check(links.filter((t) => /Read the record/.test(t)).length === 1, `one link out, and it says what it opens (${links.length} links in main)`);
+    // every card links to its book's public record, and the link says so
+    const recs = await ev(`[...document.querySelectorAll('a.give')].map(a => [a.href, /Read the record/.test(a.textContent)])`);
+    check(recs.length === 5 && recs.every(([h, said]) => /^https:\/\/github\.com\/thonly\/[a-z-]+$/.test(h) && said),
+          `five records linked, each saying what it opens (${recs.map(([h]) => h.split("/").pop()).join(", ")})`);
+    // the share button sits at the right of the header bar
+    const bar = await ev(`(() => { const t = document.querySelector('.top').getBoundingClientRect(), h = document.querySelector('.top .home').getBoundingClientRect(), b = document.querySelector('.top .share')?.getBoundingClientRect(); return b ? [Math.round(t.right - b.right), Math.round(b.left - h.right)] : null; })()`);
+    check(bar && bar[0] <= 1 && bar[1] > 20, `share button right of "Books by Thon Ly", space between (${bar ? "right gap " + bar[0] + "px, between " + bar[1] + "px" : "missing"})`);
+    // both paths: the system share sheet where it exists, and the fallback that tells the reader what happened
+    const sheet = await ev(`(() => { window.__shared = null; navigator.share = (d) => { window.__shared = d; return Promise.resolve(); };
+        document.getElementById('share').click(); return window.__shared && window.__shared.url; })()`);
+    check(!!sheet, `share sheet path hands over the URL (${sheet})`);
+    const told = await ev(`(async () => { delete navigator.share; Object.defineProperty(navigator, 'share', { value: undefined, configurable: true });
+        document.getElementById('share').click(); await new Promise(r => setTimeout(r, 300)); return document.getElementById('share-said').textContent; })()`);
+    check(/Link copied|Copy this link: http/.test(told), `fallback says what happened, with no dialog ("${told}")`);
+    // the cover: beside the text on a wide screen, above it on a phone, large enough for its title to read
+    const cov = await ev(`(() => { const c = document.querySelector('a.give .bookcover').getBoundingClientRect(), h = document.querySelector('a.give h2').getBoundingClientRect(); return [Math.round(c.width), Math.round(c.right), Math.round(h.left), Math.round(c.bottom), Math.round(h.top)]; })()`);
+    const [cw, cr, hl, cb, ht] = cov;
+    check(cw >= 160, `cover ${cw}px wide: its title reads (≥160)`);
+    check(width < 760 ? cb <= ht : cr <= hl, width < 760 ? `one column: the cover sits above the title (${cb} ≤ ${ht})` : `two columns: the cover sits beside the title (${cr} ≤ ${hl})`);
     const pending_ = await ev(`/coming soon|in preparation|forthcoming|in progress/i.test(document.body.innerText)`);
     check(!pending_, `named, never pending: no status words anywhere`);
     check(errors.length === 0, `no exceptions or console errors (${errors.join(" | ") || "none"})`);

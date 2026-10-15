@@ -37,6 +37,24 @@ main.lib{max-width:1040px;margin:0 auto}
    font-size:.64rem;letter-spacing:.06em;line-height:1.5;text-align:center}
 """
 
+# The share button: the system share sheet where there is one (phones); otherwise the link is copied and the page says
+# so once. ⛔ Never a dialog (alert/prompt) — if copying is refused too, the link itself is shown to copy by hand.
+SHARE_JS = """
+(function () {
+  var b = document.getElementById('share'), said = document.getElementById('share-said');
+  if (!b || !said) return;
+  function tell(t) { said.textContent = t; setTimeout(function () { if (said.textContent === t) said.textContent = ''; }, 2600); }
+  b.addEventListener('click', function () {
+    var c = document.querySelector('link[rel=canonical]'), url = c ? c.href : location.href;
+    if (navigator.share) { navigator.share({ title: 'Books by Thon Ly', url: url }).catch(function () {}); return; }
+    var shown = function () { said.textContent = 'Copy this link: ' + url; };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(url).then(function () { tell('Link copied'); }, shown);
+    } else { shown(); }
+  });
+})();
+"""
+
 PAGE = """<!doctype html>
 <html lang="en">
 <head>
@@ -57,14 +75,16 @@ PAGE = """<!doctype html>
 <body>
 <div class="page">
 <main class="lib">
-<div class="top"><a class="home" href="/">Books by Thon Ly</a><span></span></div>
+<div class="top"><a class="home" href="/">Books by Thon Ly</a>%(share)s</div>
+<p class="share-said" id="share-said" aria-live="polite"></p>
 %(head)s
 <p class="lib-lede">%(lede)s</p>
 %(pairs)s
 <footer class="foot">thonly.org takes no profit &middot; No advertising</footer>
 </main>
 </div>
-%(caption)s</body>
+%(caption)s<script>%(script)s</script>
+</body>
 </html>
 """
 
@@ -75,10 +95,10 @@ def render(landing):
         title="Books by Thon Ly" if landing else "The Library — draft — book.thonly.org",
         desc=DESC, url="https://book.thonly.org/" if landing else "https://book.thonly.org/demo/library.html",
         canonical='<link rel="canonical" href="https://book.thonly.org/">\n' if landing else "",
-        fonts=B.FONTS, css=B.CSS + EXTRA, lede=B.LIB_LEDE,
+        fonts=B.FONTS, css=B.CSS + EXTRA, lede=B.LIB_LEDE, script=SHARE_JS,
         # ⚠️ the landing borrows the demo's signed portrait until the image is placed at the root with its own declaration
         head=B.library_head("/demo/thonly.jpg" if landing else "thonly.jpg"),
-        pairs=B.library_html(RECORD, "Read the record"),
+        pairs=B.library_html(), share=B.SHARE,
         caption="" if landing else ('<p class="draft">DRAFT &middot; THE LIBRARY, FOR REVIEW &middot; '
                                     'NOT YET THE LANDING PAGE</p>\n'))
 

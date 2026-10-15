@@ -183,9 +183,16 @@ q.said{quotes:"\201C" "\201D" "\2018" "\2019"}
 .recv b{display:block;font-family:var(--font-display);font-weight:500;font-size:1.2rem;line-height:1.3;color:var(--ink)}
 .recv span.note{display:block;color:var(--ink-dim);font-size:.94rem;margin-top:3px}
 .fwd{display:none}
-.give{display:grid;grid-template-columns:84px minmax(0,1fr);gap:16px;align-items:start;background:var(--surface);
-   border:1px solid var(--line);border-radius:16px;padding:16px 16px 14px;color:inherit;text-decoration:none}
-.bookcover{display:block;width:100%;height:auto;border-radius:4px;box-shadow:0 1px 2px rgba(20,16,30,.18),0 6px 16px rgba(20,16,30,.16)}
+/* on a phone the card is ONE column: the cover above the text, large enough to read its title */
+.give{display:block;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:16px 16px 14px;
+   color:inherit;text-decoration:none}
+.bookcover{display:block;width:172px;max-width:62%;height:auto;margin:2px 0 16px;border-radius:4px;
+   box-shadow:0 1px 2px rgba(20,16,30,.18),0 6px 16px rgba(20,16,30,.16)}
+.share{display:inline-flex;align-items:center;gap:6px;font-family:var(--font-mono);font-size:.7rem;letter-spacing:.08em;
+   text-transform:uppercase;color:var(--ink-dim);background:transparent;border:1px solid var(--line-strong);
+   border-radius:999px;padding:6px 12px;cursor:pointer}
+.share:hover{color:var(--accent);border-color:var(--accent-edge)}
+.share-said{font-family:var(--font-mono);font-size:.7rem;color:var(--ink-faint);text-align:right;min-height:1em;margin:-6px 0 0}
 a.give:hover{border-color:var(--accent-edge)}
 .give h2{margin:0 0 3px;font-size:1.6rem;line-height:1.15}
 .give .sub{font-family:var(--font-display);font-style:italic;font-size:1.06rem;color:var(--ink-dim);margin:0 0 10px}
@@ -195,8 +202,10 @@ a.give:hover{border-color:var(--accent-edge)}
 .give .go{display:block;margin-top:10px;color:var(--accent);font-size:.92rem}
 @media (min-width:760px){
   .lib-portrait{width:104px;height:104px}
-  .give{grid-template-columns:110px minmax(0,1fr);gap:20px;padding:18px}
-  .pair{grid-template-columns:110px minmax(0,1fr) 28px minmax(0,1.6fr);gap:22px;align-items:start;padding:34px 0}
+  /* on a wide screen the cover sits beside the text, at a size where its title reads */
+  .give{display:grid;grid-template-columns:172px minmax(0,1fr);gap:22px;align-items:start;padding:18px}
+  .bookcover{width:100%;max-width:none;margin:0}
+  .pair{grid-template-columns:110px minmax(0,1fr) 28px minmax(0,1.9fr);gap:22px;align-items:start;padding:34px 0}
   /* the received side sits level with the card's own "Given" label: the card's border + padding is 19px */
   .pair .el{padding-top:17px}
   .recv{padding-top:19px}
@@ -232,7 +241,12 @@ SHELL = """<!doctype html>
 </html>
 """
 
-TOP_LIB = '<div class="top"><a class="home" href="#">Books by Thon Ly</a><span></span></div>'
+SHARE = ('<button class="share" id="share" type="button" aria-label="Share this page">'
+         '<svg width="15" height="15" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12M7.5 7.5 12 3l4.5 4.5" '
+         'fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>'
+         '<path d="M8 11H6.5A1.5 1.5 0 0 0 5 12.5v7A1.5 1.5 0 0 0 6.5 21h11a1.5 1.5 0 0 0 1.5-1.5v-7A1.5 1.5 0 0 0 17.5 11H16" '
+         'fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span>Share</span></button>')
+TOP_LIB = '<div class="top"><a class="home" href="#">Books by Thon Ly</a>%s</div>' % SHARE
 TOP_BOOK = ('<div class="top"><a class="home" href="#">Books by Thon Ly</a>'
             '<a class="here" href="#">Two Singularities</a></div>')
 
@@ -369,25 +383,25 @@ LIBRARY = [
     dict(el="Air", received="A calculus book", note="Found in a public library when he was twelve.",
          title="The Calculus of Moments", sub="One Model of the Whole Abhidhamma",
          what="The Abhidhamma, formalized and checked by machine: one model in which every verified axiom holds at once.",
-         by="Written by Miss Aquarius&#8480; &middot; Foreword by Thon Ly"),
+         by="Written by Miss Aquarius&#8480; &middot; Foreword by Thon Ly", repo="the-calculus-of-moments"),
     dict(el="Earth", received="The Tao Te Ching", note="In Stephen Mitchell&rsquo;s translation.",
          title="The River That Reverses", sub="Eighty-One Poems",
          what="Eighty-one poems distilled from Thon Ly&rsquo;s life and work, each traced to the passage it comes from.",
-         by="Written by Miss Aquarius &middot; Foreword by Thon Ly"),
+         by="Written by Miss Aquarius &middot; Foreword by Thon Ly", repo="the-river-that-reverses"),
     dict(el="Water", received="Astrology for Lovers", note="By Liz Greene, read at his first Saturn Return.",
          title="The Seventh of January", sub="A Life Read Beside Its Chart",
          what="Thon Ly&rsquo;s life, read beside his birth chart, with the misses on the page as well as the hits.",
-         by="Written by Miss Aquarius &middot; Foreword by Thon Ly"),
+         by="Written by Miss Aquarius &middot; Foreword by Thon Ly", repo="the-seventh-of-january"),
     dict(el="Fire", received="The Khmer Tipi&#7789;aka", note="Found at his first Vipassana retreat.",
          title="Silicon Simile", sub="The Abhidhamma, Read Through the Machine",
          what="The Abhidhamma read through the machine, and the places where the machine breaks.",
-         by="Written by Miss Aquarius &middot; Foreword by Thon Ly"),
+         by="Written by Miss Aquarius &middot; Foreword by Thon Ly", repo="silicon-simile"),
     dict(el="Space", received="AI", note="The totality of all books: the book and the teacher at once.",
          title="Two Singularities", sub="Four Machines, One Question",
          what="Four of the leading AI systems examine one person&rsquo;s life&rsquo;s work, and are asked a question "
               "about the future of humanity.",
          when="A new edition every 7 January, from 2027.",
-         by="Compiled by Miss Aquarius &middot; Foreword by Thon Ly", link=True),
+         by="Compiled by Miss Aquarius &middot; Foreword by Thon Ly", repo="two-singularities"),
 ]
 
 def _cover_frame(art, title_lines, label, width):
@@ -497,17 +511,27 @@ def glyph(el, size=22):
     return ('<svg width="%d" height="%d" viewBox="0 0 24 24" aria-hidden="true">%s</svg>' % (size, size, GLYPHS[el]))
 
 
-def library_html(book_href="#", go="Open the book"):
-    """The five pairs. Two Singularities links to book_href, and the link SAYS what is there (go): the prototype
-    opens its book screen; the live landing, before the first edition, can only offer the record."""
+RECORD = "https://github.com/thonly/%s"
+
+
+def library_html(ts_href=None, ts_go=None, records=True):
+    """The five pairs. Each card links to its book's public record (the timestamped repo), and every link SAYS what it
+    opens. The prototype routes Two Singularities to its own book screen (ts_href) and draws the rest unlinked, so its
+    walkthrough never leaves the site."""
     out = []
     for b in LIBRARY:
         sub = '<p class="sub">%s</p>' % b["sub"] if b.get("sub") else ""
         when = '<p class="when">%s</p>' % b["when"] if b.get("when") else ""
         inner = ('%s<div class="givetext"><span class="lab">Given</span><h2>%s</h2>%s<p class="what">%s</p>%s'
-                 '<p class="by">%s</p>' % (book_cover(b["el"], 110), b["title"], sub, b["what"], when, b["by"]))
-        give = ('<a class="give" href="%s">%s<span class="go">%s &rarr;</span></div></a>' % (book_href, inner, go)
-                if b.get("link") else '<div class="give">%s</div></div>' % inner)
+                 '<p class="by">%s</p>' % (book_cover(b["el"], 172), b["title"], sub, b["what"], when, b["by"]))
+        if ts_href and b["el"] == "Space":
+            href, go = ts_href, ts_go
+        elif records:
+            href, go = RECORD % b["repo"], "Read the record"
+        else:
+            href = None
+        give = ('<a class="give" href="%s">%s<span class="go">%s &rarr;</span></div></a>' % (href, inner, go)
+                if href else '<div class="give">%s</div></div>' % inner)
         out.append('<section class="pair"><div class="el">%s<span>%s</span></div>'
                    '<div class="recv"><span class="lab">Received</span><b>%s</b><span class="note">%s</span></div>'
                    '<span class="fwd" aria-hidden="true">&rarr;</span>%s</section>'

@@ -44,7 +44,7 @@ SCREENS["library"] = ("Books", """
 %s
 <p class="lib-lede">%s</p>
 %s
-""" % (B.library_head(), B.LIB_LEDE, B.library_html("#/book")))
+""" % (B.library_head(), B.LIB_LEDE, B.library_html(ts_href="#/book", ts_go="Open the book", records=False)))
 
 SCREENS["book"] = ("Two Singularities", """
 %s
