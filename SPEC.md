@@ -51,6 +51,9 @@ Each edition has **three layers**, and a reader chooses how deep to go:
 | A book not yet written is **named, never pending** — what it IS, never a status (2026-10-15) | *"Named, never pending"* (amends §3's "no empty shelves", the substrate's own rule) |
 | Drafted at `/demo/library.html`, promoted to `/` on his word (2026-10-15) | *"Draft on /demo, then promote"* |
 | The library speaks in the third person (2026-10-15) | *"Institutional, third person"* (over the substrate's first-person recommendation) |
+| Each book carries a subtitle (2026-10-15): *Eighty-One Poems* · *The Abhidhamma Read Through the Machine* · *Four Machines, One Question* | *"Rewrite 'The Abhidhamma, Read Through the Machine' without the comma"*, then *"promote"* (the three as proposed; the substrate reads the promotion as accepting the other two) |
+| Each book links to its public, timestamped record (`github.com/thonly/<book>`); a Share button in the header (2026-10-15) | *"add share button in the header … add a link to its repo"* |
+| **The library is PROMOTED to `/`** with its own icon and link-preview card (2026-10-15) | *"Then promote with a real favicon and link-preview card"* |
 
 ## 3. Routes
 
@@ -61,7 +64,7 @@ caption *"Portrait: a photograph, enhanced with AI."* and an `alt` that says the
 
 | Path | Page | Indexed |
 |---|---|---|
-| `/` | **The library: five pairs**, each book that shaped Thon Ly (*received*) beside the book he gives forward (*given*), in the order he received them — Air · Earth · Water · Fire · Space. ⛔ **Named, never pending:** a book not yet written shows its title, one line on what it IS and its byline, and **no status, no date, no "coming soon"**; the one date on the page is *Two Singularities*' first edition, stated once as a fact. A book links out only when there is something to open, and the link says what it opens (before 7 January 2027 that is the record). Source: `demo/build-boards.py` (`LIBRARY`), rendered by `demo/build-library.py`, checked by `demo/test-library.mjs`. | yes |
+| `/` | **The library: five pairs**, each book that shaped Thon Ly (*received*) beside the book he gives forward (*given*), in the order he received them — Air · Earth · Water · Fire · Space. ⛔ **Named, never pending:** a book not yet written shows its title, one line on what it IS and its byline, and **no status, no date, no "coming soon"**; the one date on the page is *Two Singularities*' first edition, stated once as a fact. A book links out only when there is something to open, and the link says what it opens (before 7 January 2027 that is the record). Source: `demo/build-boards.py` (`LIBRARY`), rendered by `demo/build-library.py` (`--landing` writes `/`), checked by `demo/test-library.mjs`; icons by `demo/build-icons.py`, the card by `demo/build-og.py` (register M-0009). **Live since 2026-10-15.** | yes |
 | `/two-singularities/` | The book: what it is, the central question, the newest edition, and every past edition | yes |
 | `/two-singularities/<year>/` | **The story**: its contents and opening — the default way in | yes |
 | `/two-singularities/<year>/<chapter>/` | A chapter of the story | yes |

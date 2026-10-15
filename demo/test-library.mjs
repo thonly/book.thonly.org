@@ -18,12 +18,15 @@ import { fileURLToPath } from "node:url";
 const HERE = dirname(fileURLToPath(import.meta.url));
 const CHROME = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
 const DPORT = 9343, HPORT = 8767;
-const URL_ = process.env.LIB_URL || `http://127.0.0.1:${HPORT}/library.html`;
+// The server serves the REPO ROOT, so the root-level icons and card resolve exactly as on the host; with no LIB_URL both the
+// draft and the promoted landing are tested.
+const URLS = process.env.LIB_URL ? [process.env.LIB_URL] : [`http://127.0.0.1:${HPORT}/demo/library.html`, `http://127.0.0.1:${HPORT}/`];
+let URL_ = URLS[0];
 const SHOTS = process.env.SHOTS || "";
 const SCHEME = process.env.SCHEME || "";     // SCHEME=light|dark forces prefers-color-scheme (the host machine may be either)
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
-const server = spawn("python3", ["-m", "http.server", String(HPORT), "--bind", "127.0.0.1"], { cwd: HERE, stdio: "ignore" });
+const server = spawn("python3", ["-m", "http.server", String(HPORT), "--bind", "127.0.0.1"], { cwd: join(HERE, ".."), stdio: "ignore" });
 const profile = mkdtempSync(join(tmpdir(), "lib-"));
 const chrome = spawn(CHROME, ["--headless=new", "--disable-gpu", "--hide-scrollbars",
     `--remote-debugging-port=${DPORT}`, `--user-data-dir=${profile}`, "about:blank"], { stdio: "ignore" });
@@ -75,7 +78,7 @@ async function at(width) {
     const ev = async (expr) => (await send("Runtime.evaluate", { expression: expr, awaitPromise: true, returnByValue: true }, sessionId)).result.value;
     await send("Page.navigate", { url: URL_ }, sessionId);
     for (let i = 0; i < 60 && !(await ev(`document.readyState === "complete" && document.fonts.status === "loaded"`)); i++) await sleep(100);
-    console.log(`\n${width}px`);
+    console.log(`\n${URL_.replace(/^https?:\/\/[^/]+/, "")} · ${width}px`);
     const sw = await ev(`document.documentElement.scrollWidth`);
     check(sw <= width, `no sideways overflow (document ${sw}px wide)`);
     // measure.mjs's predicate, verbatim in effect: svg and form fields are scroll containers by the UA stylesheet and
@@ -113,6 +116,11 @@ async function at(width) {
     check(width < 760 ? cb <= ht : cr <= hl, width < 760 ? `one column: the cover sits above the title (${cb} ≤ ${ht})` : `two columns: the cover sits beside the title (${cr} ≤ ${hl})`);
     const pending_ = await ev(`/coming soon|in preparation|forthcoming|in progress/i.test(document.body.innerText)`);
     check(!pending_, `named, never pending: no status words anywhere`);
+    // the icons resolve and the preview card is an absolute URL (a relative og:image yields a card with no image)
+    const icons = await ev(`Promise.all([...document.querySelectorAll('link[rel~=icon], link[rel=apple-touch-icon]')].map(l => fetch(l.href).then(r => l.getAttribute('href') + ' ' + r.status)))`);
+    check(icons.length === 3 && icons.every((t) => / 200$/.test(t)), `three icons resolve (${icons.join(", ")})`);
+    const og = await ev(`document.querySelector('meta[property="og:image"]')?.content || ""`);
+    check(/^https:\/\/book\.thonly\.org\/og\.png$/.test(og), `the preview card is an absolute URL (${og})`);
     check(errors.length === 0, `no exceptions or console errors (${errors.join(" | ") || "none"})`);
     if (SHOTS) {
         const h = await ev(`document.documentElement.scrollHeight`);
@@ -126,7 +134,7 @@ async function at(width) {
 
 try {
     await connect();
-    for (const w of [390, 1280]) await at(w);
+    for (const u of URLS) { URL_ = u; for (const w of [390, 1280]) await at(w); }
 } catch (e) { failures.push(String(e)); console.log(`  ⛔ ${e}`); }
 finally { try { ws?.close(); } catch {} chrome.kill(); server.kill(); }
 console.log(failures.length ? `\n${failures.length} check(s) FAILED` : "\nall checks passed");

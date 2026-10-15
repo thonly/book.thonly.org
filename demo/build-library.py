@@ -12,8 +12,8 @@ the prototype's library screen and this page cannot say different things.
 
 ⛔ Served raw by GitHub Pages: it carries its own charset, viewport and [hidden] rule. The draft is kept out of search
 by NAMING the crawlers (never a blanket robots meta: that also stops link previews). The landing is indexed.
-⚠️ The icon is EMPTY (`data:,`) until a real one is chosen: without a declared icon the browser requests
-/favicon.ico, which 404s on this host (the first test run caught it).
+⭐ The icons and the link-preview card live at the ROOT (build-icons.py · build-og.py), declared under register
+M-0009; og:image is an ABSOLUTE URL (a relative one yields a card with no image, silently).
 """
 import importlib.util, io, os, sys
 
@@ -67,8 +67,15 @@ PAGE = """<!doctype html>
 <meta property="og:url" content="%(url)s">
 <meta property="og:title" content="Books by Thon Ly">
 <meta property="og:description" content="%(desc)s">
+<meta property="og:image" content="https://book.thonly.org/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="The Library: five drawn book covers under the words The Library, book.thonly.org">
+<meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#6b4fa0">
-<link rel="icon" href="data:,">
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
 %(canonical)s%(fonts)s
 <style>%(css)s</style>
 </head>

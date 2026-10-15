@@ -29,6 +29,7 @@ for word in the debate — and the story says what a seat said and did, never wh
 | `test-walkthrough.mjs` | serves the prototype over HTTP and drives it in headless Chrome at 390 and 1280px: every screen, the note, the printed-copy total, the jump from a quote to the debate, Back, overflow, nested scrollers, exceptions |
 | `build-library.py` | writes `library.html`, **the library page** — the draft of the landing (`--landing` writes `../index.html`, on the founder's word only). It IMPORTS the five pairs (`LIBRARY`), the lede and the style from `build-boards.py`, which also renders them as the *1 · The library* board and the prototype's library screen: three renderings, one source |
 | `test-library.mjs` | loads the library at a TRUE 390px (device emulation — a window-size screenshot is a crop of a ~500px layout and looks like overflow) and at 1280px: sideways overflow, nested scrollers, five pairs, the one link out says what it opens, **no status words** (named, never pending), no console errors. `SCHEME=light` · `SHOTS=<dir>` · `LIB_URL=` for a live host |
+| `build-icons.py` | writes the site's icons to the ROOT — `icon.svg` (the tab), `favicon.ico` (16 + 32), `apple-touch-icon.png` — from one drawn SVG (a ring and a gold light on the covers' ground), and STAMPS the PNG (register M-0009). `build-og.py` also writes the landing's card, `../og.png`, under M-0009 |
 
 ## The loop
 

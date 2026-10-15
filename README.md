@@ -8,4 +8,4 @@ Free to read; thanks welcomed; printed copies sold at cost; no advertising.
 - **The record behind each edition** — the rules committed before each run, the transcripts and the ledger — is at
   [github.com/thonly/two-singularities](https://github.com/thonly/two-singularities).
 
-Status: specification (phase 1 of 4). Nothing is served yet.
+Status: the library is live at the root (promoted 2026-10-15): five books received, beside the five given forward. *Two Singularities* is drawn and prototyped under [`/demo`](https://book.thonly.org/demo/); its first edition is published here on 7 January 2027.
