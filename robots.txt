@@ -1,0 +1,10 @@
+# Allow all crawlers. Sitemap below.
+# ⛔ Never add a Disallow: a robots file that blocks anything also stops the link-preview crawlers, and Facebook
+# caches it for about a day. /demo/ is kept out of search by naming the search crawlers in its pages' meta tags.
+User-agent: *
+Allow: /
+
+Sitemap: https://book.thonly.org/sitemap.xml
+
+# Not a robots.txt directive (crawlers ignore unknown lines); this is where an agent looks first.
+#   llms.txt: https://book.thonly.org/llms.txt   (the five books in plain text, each with its record)

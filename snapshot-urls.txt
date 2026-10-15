@@ -1,0 +1,11 @@
+# Canonical URLs to prior-art-snapshot on push (one per line; # = comment).
+#
+# The workflow (.github/workflows/snapshot.yml, identical across the estate — never edit it here) submits a URL when its
+# source file changes: "/" is the root index.html, which demo/build-library.py --landing writes. A line ADDED here is
+# submitted on the push that adds it.
+#
+# The DAILY full run in 333eco/snapshot.333.eco reads the LIVE https://book.thonly.org/sitemap.xml (book.thonly.org was
+# added to its hosts.txt on 2026-10-15), so every page here is re-archived daily regardless. Add each new public page to
+# PAGES in demo/build-library.py (the sitemap) and here; the workflow's drift check compares the two.
+# ⛔ Never /demo/ — it is unlisted.
+https://book.thonly.org/

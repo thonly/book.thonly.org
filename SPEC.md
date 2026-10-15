@@ -223,6 +223,9 @@ One quiet line **after** each chapter and at the end of each edition (and at the
   the identical `snapshot.yml` · a sitemap · a privacy page.
 - ⛔ **The book is kept out of the corpus index served at `corpus.333.eco`**, so each year's seats read the corpus, not the
   book about it.
+- **Machine-readable (2026-10-15):** schema.org JSON-LD on the landing, an allow-all `robots.txt`, `sitemap.xml` and
+  `llms.txt`, all written by `demo/build-library.py --landing` from the page's own source. ⛔ **Nothing on thonly.org points
+  here for machines**, for the reason in the line above: the seats enter through thonly.org's `llms.txt`.
 - **No hostname reservation needed:** thonly.org serves no handles, so `book` cannot be claimed by a registrant.
 
 ## 9. Before any screen ships — the review

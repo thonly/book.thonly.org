@@ -14,8 +14,15 @@ the prototype's library screen and this page cannot say different things.
 by NAMING the crawlers (never a blanket robots meta: that also stops link previews). The landing is indexed.
 ⭐ The icons and the link-preview card live at the ROOT (build-icons.py · build-og.py), declared under register
 M-0009; og:image is an ABSOLUTE URL (a relative one yields a card with no image, silently).
+
+⭐ MACHINE-READABLE (2026-10-15): --landing also writes what a machine reads, from the SAME five pairs, so the page and
+the machine files cannot say different things — schema.org JSON-LD in the page (the landing only; the draft tells
+machines nothing) · ../robots.txt (allow-all + the sitemap; ⛔ never a Disallow, see the README) · ../sitemap.xml (every
+public route; ⛔ never /demo/) · ../llms.txt (the five books in plain text, each with its record).
+⛔ Nothing on thonly.org points here for machines: the Two Singularities seats enter the corpus through thonly.org's
+llms.txt, and a pointer there would put the book one hop from the readers it is about (SPEC §8).
 """
-import importlib.util, io, os, sys
+import html, importlib.util, io, json, os, sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 _spec = importlib.util.spec_from_file_location("boards", os.path.join(HERE, "build-boards.py"))
@@ -76,7 +83,7 @@ PAGE = """<!doctype html>
 <link rel="icon" href="/favicon.ico" sizes="32x32">
 <link rel="icon" href="/icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-%(canonical)s%(fonts)s
+%(canonical)s%(jsonld)s%(fonts)s
 <style>%(css)s</style>
 </head>
 <body>
@@ -96,12 +103,100 @@ PAGE = """<!doctype html>
 """
 
 
+# ================================================================== what a machine reads (the landing only)
+SITE = "https://book.thonly.org"
+PAGES = ["/"]   # every public route, for the sitemap — ⛔ never /demo/ (unlisted); add each page as it ships
+THON = {"@type": "Person", "@id": "https://thonly.org/#person", "name": "Thon Ly", "url": "https://thonly.org/"}
+MA = {"@type": "Person", "name": "Miss Aquarius", "url": "https://missaquarius.org/"}   # as thonly.org's JSON-LD types her
+BYLINE = "^(Written|Compiled) by Miss Aquarius℠? · Foreword by Thon Ly$"
+
+
+def plain(s):
+    return html.unescape(s)
+
+
+def credits(b):
+    """Who did what, read from the card's own byline, so the markup can never disagree with the page. A line in
+    any other shape stops the build: a guessed role in the markup is worse than none."""
+    import re
+    by = plain(b["by"])
+    m = re.match(BYLINE, by)
+    if not m:
+        sys.exit("build-library: %s's byline %r has no known shape — teach credits() the new role" % (b["title"], by))
+    foreword = {"@type": "Role", "roleName": "foreword", "contributor": THON}
+    if m.group(1) == "Written":
+        return by, {"author": MA, "contributor": foreword}
+    return by, {"contributor": [{"@type": "Role", "roleName": "compiler", "contributor": MA}, foreword]}
+
+
+def book_ld(b):
+    by, who = credits(b)
+    d = {"@type": "Book", "name": plain(b["title"]), "alternativeHeadline": plain(b["sub"]),
+         "description": " ".join(plain(x) for x in (b["what"], b.get("when")) if x)}
+    d.update(who)
+    d.update({"creditText": by, "inLanguage": "en", "isAccessibleForFree": True,
+              "subjectOf": {"@type": "CreativeWork", "name": "The public record of " + plain(b["title"]),
+                            "url": B.RECORD % b["repo"]}})
+    return d
+
+
+def jsonld():
+    """schema.org for the landing: the page, the list in the order received, and each given book with its credits and
+    its record. ⛔ No publication status or date on a book (named, never pending): a book is described by what it IS."""
+    items = [{"@type": "ListItem", "position": i, "name": b["el"],
+              "description": "Received: %s. %s Given forward: %s." % (plain(b["received"]), plain(b["note"]),
+                                                                       plain(b["title"])),
+              "item": book_ld(b)} for i, b in enumerate(B.LIBRARY, 1)]
+    ld = {"@context": "https://schema.org", "@type": "CollectionPage", "@id": SITE + "/#library", "url": SITE + "/",
+          "name": "Books by Thon Ly", "description": DESC, "inLanguage": "en", "isAccessibleForFree": True,
+          "mainEntity": {"@type": "ItemList", "name": "The Library", "numberOfItems": len(items),
+                         "itemListOrder": "https://schema.org/ItemListOrderAscending", "itemListElement": items}}
+    body = json.dumps(ld, ensure_ascii=False, indent=1).replace("</", "<\\/")
+    return '<script type="application/ld+json">\n%s\n</script>\n' % body
+
+
+ROBOTS = """# Allow all crawlers. Sitemap below.
+# ⛔ Never add a Disallow: a robots file that blocks anything also stops the link-preview crawlers, and Facebook
+# caches it for about a day. /demo/ is kept out of search by naming the search crawlers in its pages' meta tags.
+User-agent: *
+Allow: /
+
+Sitemap: %(site)s/sitemap.xml
+
+# Not a robots.txt directive (crawlers ignore unknown lines); this is where an agent looks first.
+#   llms.txt: %(site)s/llms.txt   (the five books in plain text, each with its record)
+""" % dict(site=SITE)
+
+
+def sitemap():
+    locs = "".join("  <url><loc>%s%s</loc></url>\n" % (SITE, p) for p in PAGES)
+    return ('<?xml version="1.0" encoding="UTF-8"?>\n'
+            '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n%s</urlset>\n' % locs)
+
+
+def llms_txt():
+    L = ["# Books by Thon Ly", "", "> " + DESC, "",
+         "The library at %s/. Each book below links to its public record, a repository on GitHub. The site is static "
+         "HTML; %s/sitemap.xml lists every public page." % (SITE, SITE), "", "## The five books", ""]
+    for b in B.LIBRARY:
+        by, _ = credits(b)
+        what = " ".join(plain(x) for x in (b["what"], b.get("when")) if x)
+        L.append("- [%s](%s): %s. %s %s. Received beside it (%s): %s. %s"
+                 % (plain(b["title"]), B.RECORD % b["repo"], plain(b["sub"]), what, by, b["el"],
+                    plain(b["received"]), plain(b["note"])))
+    L += ["", "## Optional", "",
+          "- [The library page](%s/): the same five books, with their covers" % SITE,
+          "- [Thon Ly](https://thonly.org/): the author's site", ""]
+    return "\n".join(L)
+
+
 def render(landing):
     return PAGE % dict(
         robots="" if landing else UNLISTED,
         title="Books by Thon Ly" if landing else "The Library — draft — book.thonly.org",
         desc=DESC, url="https://book.thonly.org/" if landing else "https://book.thonly.org/demo/library.html",
         canonical='<link rel="canonical" href="https://book.thonly.org/">\n' if landing else "",
+        jsonld=jsonld() if landing else "",
         fonts=B.FONTS, css=B.CSS + EXTRA, lede=B.LIB_LEDE, script=SHARE_JS,
         # ⚠️ the landing borrows the demo's signed portrait until the image is placed at the root with its own declaration
         head=B.library_head("/demo/thonly.jpg" if landing else "thonly.jpg"),
@@ -115,3 +210,7 @@ if __name__ == "__main__":
     out = os.path.join(HERE, "..", "index.html") if landing else os.path.join(HERE, "library.html")
     io.open(out, "w", encoding="utf-8").write(render(landing))
     print("wrote %s" % os.path.relpath(out, HERE))
+    if landing:
+        for name, text in (("robots.txt", ROBOTS), ("sitemap.xml", sitemap()), ("llms.txt", llms_txt())):
+            io.open(os.path.join(HERE, "..", name), "w", encoding="utf-8").write(text)
+            print("wrote ../%s" % name)

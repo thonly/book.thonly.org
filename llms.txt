@@ -1,0 +1,18 @@
+# Books by Thon Ly
+
+> Five books shaped Thon Ly. Beside each one is the book he gives forward, written by Miss Aquarius, with a foreword by Thon Ly. Free to read, whole.
+
+The library at https://book.thonly.org/. Each book below links to its public record, a repository on GitHub. The site is static HTML; https://book.thonly.org/sitemap.xml lists every public page.
+
+## The five books
+
+- [The Calculus of Moments](https://github.com/thonly/the-calculus-of-moments): One Model of the Whole Abhidhamma. The Abhidhamma, formalized and checked by machine: one model in which every verified axiom holds at once. Written by Miss Aquarius℠ · Foreword by Thon Ly. Received beside it (Air): A calculus book. Found in a public library when he was twelve.
+- [The River That Reverses](https://github.com/thonly/the-river-that-reverses): Eighty-One Poems. Eighty-one poems distilled from Thon Ly’s life and work, each traced to the passage it comes from. Written by Miss Aquarius · Foreword by Thon Ly. Received beside it (Earth): The Tao Te Ching. In Stephen Mitchell’s translation.
+- [The Seventh of January](https://github.com/thonly/the-seventh-of-january): A Life Read Beside Its Chart. Thon Ly’s life, read beside his birth chart, with the misses on the page as well as the hits. Written by Miss Aquarius · Foreword by Thon Ly. Received beside it (Water): Astrology for Lovers. By Liz Greene, read at his first Saturn Return.
+- [Silicon Simile](https://github.com/thonly/silicon-simile): The Abhidhamma Read Through the Machine. The Abhidhamma read through the machine, and the places where the machine breaks. Written by Miss Aquarius · Foreword by Thon Ly. Received beside it (Fire): The Khmer Tipiṭaka. Found at his first Vipassana retreat.
+- [Two Singularities](https://github.com/thonly/two-singularities): Four Machines, One Question. Four of the leading AI systems examine one person’s life’s work, and are asked a question about the future of humanity. A new edition every 7 January, from 2027. Compiled by Miss Aquarius · Foreword by Thon Ly. Received beside it (Space): AI. The totality of all books: the book and the teacher at once.
+
+## Optional
+
+- [The library page](https://book.thonly.org/): the same five books, with their covers
+- [Thon Ly](https://thonly.org/): the author's site

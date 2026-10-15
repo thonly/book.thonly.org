@@ -27,8 +27,8 @@ for word in the debate — and the story says what a seat said and did, never wh
 | `build-og.py` | renders `og.png` and `og-walkthrough.png`, the 1200×630 link-preview cards, with headless Chrome |
 | `build-prototype.py` | ⭐ writes `walkthrough.html`, **the clickable prototype** (phase 3) — it IMPORTS the style, quotes, titles and cover from `build-boards.py`, so the two cannot disagree |
 | `test-walkthrough.mjs` | serves the prototype over HTTP and drives it in headless Chrome at 390 and 1280px: every screen, the note, the printed-copy total, the jump from a quote to the debate, Back, overflow, nested scrollers, exceptions |
-| `build-library.py` | writes `library.html`, **the library page** — the draft of the landing (`--landing` writes `../index.html`, on the founder's word only). It IMPORTS the five pairs (`LIBRARY`), the lede and the style from `build-boards.py`, which also renders them as the *1 · The library* board and the prototype's library screen: three renderings, one source |
-| `test-library.mjs` | loads the library at a TRUE 390px (device emulation — a window-size screenshot is a crop of a ~500px layout and looks like overflow) and at 1280px: sideways overflow, nested scrollers, five pairs, the one link out says what it opens, **no status words** (named, never pending), no console errors. `SCHEME=light` · `SHOTS=<dir>` · `LIB_URL=` for a live host |
+| `build-library.py` | writes `library.html`, **the library page** — the draft of the landing (`--landing` writes `../index.html`, on the founder's word only). It IMPORTS the five pairs (`LIBRARY`), the lede and the style from `build-boards.py`, which also renders them as the *1 · The library* board and the prototype's library screen: three renderings, one source. `--landing` also writes what a machine reads — the JSON-LD in the page, `../robots.txt`, `../sitemap.xml`, `../llms.txt` |
+| `test-library.mjs` | loads the library at a TRUE 390px (device emulation — a window-size screenshot is a crop of a ~500px layout and looks like overflow) and at 1280px: sideways overflow, nested scrollers, five pairs, the one link out says what it opens, **no status words** (named, never pending), no console errors; and what a machine reads (the JSON-LD against the cards, then robots, sitemap and `llms.txt`; the draft must carry no markup). `SCHEME=light` · `SHOTS=<dir>` · `LIB_URL=` for a live host |
 | `build-icons.py` | writes the site's icons to the ROOT — `icon.svg` (the tab), `favicon.ico` (16 + 32), `apple-touch-icon.png` — from one drawn SVG (a ring and a gold light on the covers' ground), and STAMPS the PNG (register M-0009). `build-og.py` also writes the landing's card, `../og.png`, under M-0009 |
 
 ## The loop
@@ -42,11 +42,18 @@ python3 build-boards.py && node measure.mjs && python3 build-prototype.py && nod
 Then the structural checks (div balance, quote integrity, tag nesting, and `node --check` on the wall's script), a
 look at the screens, commit, push. GitHub Pages publishes in under a minute.
 
-## Search and link previews
+## Search, link previews and machine readers
 
-Search engines are kept out **by name** (`googlebot`, `bingbot`, `slurp`, `yandex`); there is no blanket robots meta
-and **no `robots.txt` on this host** — either would also stop the link-preview crawlers, and Facebook caches a
-robots file for about a day. Absence means allow. `og:image` is an absolute URL.
+`/demo/` is kept out of search engines **by name** (`googlebot`, `bingbot`, `slurp`, `yandex`); there is no blanket
+robots meta. AI crawlers are not named, so they can read it. The root `robots.txt` (since 2026-10-15) **allows
+everything** and only names the sitemap and `llms.txt`. ⛔ Never add a `Disallow`: a robots file that blocks anything
+also stops the link-preview crawlers, and Facebook caches it for about a day. `og:image` is an absolute URL.
+
+What a machine reads is written by `build-library.py --landing` from the same five pairs as the page: schema.org JSON-LD
+in `../index.html` (the draft carries none), `../robots.txt`, `../sitemap.xml` (every public route in `PAGES`; ⛔ never
+`/demo/`) and `../llms.txt`. `test-library.mjs` checks each one against the page's own cards. ⛔ **Nothing on thonly.org
+points here for machines:** the Two Singularities seats enter the corpus through thonly.org's `llms.txt`, and a pointer
+there would put the book one hop from the readers it is about (`../SPEC.md` §8).
 
 ## What the screens are arguing
 

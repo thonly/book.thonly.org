@@ -8,6 +8,8 @@
 // drawn). Device-metrics emulation sets the real layout viewport. Checked at each width: no sideways overflow, no
 // nested scroll container (the /build rule — on a phone the document is the only scroller), all five pairs present,
 // the only link out is the one that says what it opens, and no exception. Screenshots go to SHOTS when it is set.
+// Once per URL it also checks what a MACHINE reads — the JSON-LD against the page's own cards, and robots.txt,
+// sitemap.xml and llms.txt beside the landing (machine(), below).
 
 import { spawn } from "node:child_process";
 import { mkdtempSync, writeFileSync } from "node:fs";
@@ -121,6 +123,7 @@ async function at(width) {
     check(icons.length === 3 && icons.every((t) => / 200$/.test(t)), `three icons resolve (${icons.join(", ")})`);
     const og = await ev(`document.querySelector('meta[property="og:image"]')?.content || ""`);
     check(/^https:\/\/book\.thonly\.org\/og\.png$/.test(og), `the preview card is an absolute URL (${og})`);
+    if (width === 390) await machine(ev);
     check(errors.length === 0, `no exceptions or console errors (${errors.join(" | ") || "none"})`);
     if (SHOTS) {
         const h = await ev(`document.documentElement.scrollHeight`);
@@ -130,6 +133,40 @@ async function at(width) {
         writeFileSync(join(SHOTS, `library-${width}${SCHEME ? "-" + SCHEME : ""}.png`), Buffer.from(data, "base64"));
     }
     await send("Target.closeTarget", { targetId });
+}
+
+// What a machine reads, checked against what the page SHOWS (once per URL). The landing carries schema.org JSON-LD and has
+// robots.txt, sitemap.xml and llms.txt beside it, all written by build-library.py --landing from the same five pairs; the
+// draft carries no markup at all (it is unlisted, and must not tell a machine about itself).
+const PENDING = /coming soon|in preparation|forthcoming|in progress/i;
+async function machine(ev) {
+    const ld = await ev(`[...document.querySelectorAll('script[type="application/ld+json"]')].map(s => s.textContent)`);
+    if (new URL(URL_).pathname !== "/") { check(ld.length === 0, `the draft tells machines nothing: no JSON-LD (${ld.length})`); return; }
+    let data = null;
+    try { data = JSON.parse(ld[0]); } catch {}
+    check(ld.length === 1 && !!data, `one JSON-LD block, and it parses (${ld.length})`);
+    const items = data?.mainEntity?.itemListElement || [];
+    const dom = await ev(`[...document.querySelectorAll('section.pair')].map(s => [s.querySelector('h2').textContent, s.querySelector('a.give')?.href, s.querySelector('.el span').textContent])`);
+    check(items.length === 5 && items.every((it, i) => it.position === i + 1 && it.name === dom[i]?.[2] && it.item?.["@type"] === "Book"
+            && it.item.name === dom[i]?.[0] && it.item.subjectOf?.url === dom[i]?.[1]),
+          `the markup names the page's five books, in its order, each with its record (${items.map((it) => it.item?.name).join(" · ")})`);
+    const roles = (b) => [].concat(b?.contributor || []).map((r) => `${r.roleName}:${r.contributor?.name}`);
+    check(items.length === 5 && items.every(({ item: b }) => roles(b).includes("foreword:Thon Ly")
+            && (b.author?.name === "Miss Aquarius" || roles(b).includes("compiler:Miss Aquarius"))),
+          `each book credits Miss Aquarius (author or compiler) and Thon Ly (foreword)`);
+    check(!PENDING.test(ld[0] || "") && !/creativeWorkStatus/.test(ld[0] || ""), `named, never pending: no status in the markup`);
+    const get = async (p) => { const r = await fetch(new URL(p, URL_)); return [r.status, await r.text()]; };
+    const [rs, robots] = await get("/robots.txt");
+    check(rs === 200 && /^Sitemap: https:\/\/book\.thonly\.org\/sitemap\.xml$/m.test(robots) && !/^\s*Disallow:\s*\S/mi.test(robots),
+          `robots.txt allows everything and names the sitemap (${rs})`);
+    const [ss, sm] = await get("/sitemap.xml");
+    const locs = [...sm.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1]);
+    check(ss === 200 && locs.includes("https://book.thonly.org/") && locs.every((l) => l.startsWith("https://book.thonly.org/") && !l.includes("/demo/")),
+          `sitemap.xml lists the landing, nothing off this host, never /demo/ (${locs.join(", ") || ss})`);
+    const [ls, llms] = await get("/llms.txt");
+    check(ls === 200 && /^# /.test(llms) && dom.length === 5 && dom.every(([t, h]) => llms.includes(`[${t}](${h})`)),
+          `llms.txt names all five books, each linked to its record (${ls})`);
+    check(!/&[a-z]+;|&#\d+;|<[a-z]/i.test(llms) && !PENDING.test(llms), `llms.txt is plain text: no HTML, no entities, no status words`);
 }
 
 try {
