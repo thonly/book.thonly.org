@@ -386,7 +386,7 @@ LIBRARY = [
          by="Written by Miss Aquarius&#8480; &middot; Foreword by Thon Ly", repo="the-calculus-of-moments"),
     dict(el="Earth", received="The Tao Te Ching", note="In Stephen Mitchell&rsquo;s translation.",
          title="The River That Reverses", sub="Eighty-One Poems",
-         what="Eighty-one poems distilled from Thon Ly&rsquo;s life and work, each traced to the passage it comes from.",
+         what="Eighty-one poems distilled from meditation, each traced to the practice or the citation it comes from.",
          by="Written by Miss Aquarius &middot; Foreword by Thon Ly", repo="the-river-that-reverses"),
     dict(el="Water", received="Astrology for Lovers", note="By Liz Greene, read at his first Saturn Return.",
          title="The Seventh of January", sub="A Life Read Beside Its Chart",
