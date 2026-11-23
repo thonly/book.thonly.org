@@ -4,8 +4,9 @@
 # source file changes: "/" is the root index.html, which demo/build-library.py --landing writes. A line ADDED here is
 # submitted on the push that adds it.
 #
-# The DAILY full run in 333eco/snapshot.333.eco reads the LIVE https://book.thonly.org/sitemap.xml (book.thonly.org was
-# added to its hosts.txt on 2026-10-15), so every page here is re-archived daily regardless. Add each new public page to
+# The WEEKLY full run in 333eco/snapshot.333.eco (Sundays 06:00 UTC since 2026-10-27; daily before) reads the LIVE
+# https://book.thonly.org/sitemap.xml (book.thonly.org was added to its hosts.txt on 2026-10-15), so every page here is
+# re-archived within a week regardless. Add each new public page to
 # PAGES in demo/build-library.py (the sitemap) and here; the workflow's drift check compares the two.
 # ⛔ Never /demo/ — it is unlisted.
 https://book.thonly.org/
