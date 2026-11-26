@@ -20,7 +20,9 @@ missing either language stops the build.
     Only "/" redirects, in the head before first paint; the footer toggle stores the reader's choice.
   · Theme: the system's by default; the footer toggle (Auto · Light · Dark) overrides it, applied before first paint.
   · ⛔ The Khmer is OUR DRAFT until a native reader approves it (/khmer-review): marked in the page's head and in its
-    footer with the estate's draft line. ⭐ The disclosure lines are in Khmer too, by the founder's call ("Translate all
+    footer with the estate's draft line. The review page is demo.thonly.org/khmer/book.thonly.org/, made by
+    scripts/khmer-review.py from this table; approved Khmer comes back as scripts/khmer-reviewed.json, merged over the
+    draft by apply_reviewed(). The draft line comes off only when every entry is reviewed AND the founder says so. ⭐ The disclosure lines are in Khmer too, by the founder's call ("Translate all
     English texts"; recorded in /build Default 3): the AI-portrait alt text and the bylines naming Miss Aquarius. ⛔ Never
     "fix" them back to English.
   · The books' TITLES are in Khmer too, on the cards and on the drawn covers (founder 2026-11-26: "translate the titles
@@ -81,9 +83,9 @@ W = {
     "auto": {"en": "Auto", "km": "ស្វ័យប្រវត្តិ"},
     "light": {"en": "Light", "km": "ភ្លឺ"},
     "dark": {"en": "Dark", "km": "ងងឹត"},
-    "cover": {"en": "Cover: %s (placeholder art)", "km": "គម្រប៖ %s (គំនូរបណ្តោះអាសន្ន)"},
+    "cover": {"en": "Cover: {title} (placeholder art)", "km": "គម្រប៖ {title} (គំនូរបណ្តោះអាសន្ន)"},
     "placeholder": {"en": "[ PLACEHOLDER ART ]", "km": "[ គំនូរបណ្តោះអាសន្ន ]"},
-    "ld_item": {"en": "Received: %s. %s Given forward: %s.", "km": "បានទទួល៖ %s។ %s ផ្តល់បន្ត៖ %s។"},
+    "ld_item": {"en": "Received: {received}. {note} Given forward: {title}.", "km": "បានទទួល៖ {received}។ {note} ផ្តល់បន្ត៖ {title}។"},
 }
 EL = {"Air": {"en": "Air", "km": "ខ្យល់"}, "Earth": {"en": "Earth", "km": "ដី"}, "Water": {"en": "Water", "km": "ទឹក"},
       "Fire": {"en": "Fire", "km": "ភ្លើង"}, "Space": {"en": "Space", "km": "អាកាស"}}
@@ -151,6 +153,31 @@ LIBRARY = [
 ]
 
 
+# ⭐ THE NATIVE READERS' KHMER (/khmer-review): scripts/khmer-review.py apply writes the approved Khmer to
+# scripts/khmer-reviewed.json, keyed as the review sheet keys them (w.<key> · el.<element> · book.<element>.<field>), and it
+# replaces our draft here, field by field. The table above stays OUR DRAFT; the file is THEIRS. ⛔ Never edit it by hand.
+REVIEWED = os.path.join(HERE, "khmer-reviewed.json")
+
+
+def apply_reviewed():
+    if not os.path.exists(REVIEWED):
+        return {}
+    rows = json.load(io.open(REVIEWED, encoding="utf-8")).get("entries", {})
+    for key, row in rows.items():
+        km = html.escape(row["km"], quote=True)
+        kind, _, rest = key.partition(".")
+        if kind == "w" and rest in W:
+            W[rest]["km"] = km
+        elif kind == "el" and rest in EL:
+            EL[rest]["km"] = km
+        elif kind == "book" and rest.count(".") == 1 and any(b["el"] == rest.split(".")[0] for b in LIBRARY):
+            el, field = rest.split(".")
+            next(b for b in LIBRARY if b["el"] == el)["km"][field] = km
+        else:
+            sys.exit("build-site: khmer-reviewed.json names %r, which is not a word on this page" % key)
+    return rows
+
+
 def check_words():
     """Both languages for every key, or no build: a page that falls back to English in one place says nothing about it."""
     bad = [k for k, v in list(W.items()) + list(EL.items()) if set(v) != set(LANGS) or not all(v.values())]
@@ -159,8 +186,13 @@ def check_words():
                 | ({"edition"} if b["el"] == "Space" else set()))
         if set(b["km"]) != need or not all(b["km"].values()):
             bad.append("%s: km has %s, needs %s" % (b["title"], sorted(b["km"]), sorted(need)))
+    # A Khmer cover's lines are its title, broken by hand: if a reviewed title changes, the cover must be re-broken.
+    squash = lambda x: re.sub(r"\s", "", html.unescape(x))
+    for b in LIBRARY:
+        if squash("".join(line for _, _, line in b["km"]["cover"])) != squash(b["km"]["title"]):
+            bad.append("%s: its Khmer cover lines do not spell its Khmer title — re-break km.cover by hand" % b["title"])
     if bad:
-        sys.exit("build-site: a word without both languages: %s" % "; ".join(bad))
+        sys.exit("build-site: the words are not complete: %s" % "; ".join(bad))
 
 
 # ================================================================== the style (copied verbatim from demo/, 2026-11-26)
@@ -462,7 +494,7 @@ def cover(lang, width=350):
             '<circle cx="175" cy="330" r="10" fill="#f2c46d"/>'
             '<circle cx="175" cy="330" r="22" fill="#f2c46d" fill-opacity=".18"/>'
             '<line x1="0" y1="330" x2="350" y2="330" stroke="#f2c46d" stroke-opacity=".35"/>'
-            '%s%s%s</svg>') % (width, int(width * 1.4), W["cover"][lang] % words(ts, lang)["title"], title, edition,
+            '%s%s%s</svg>') % (width, int(width * 1.4), W["cover"][lang].format(title=words(ts, lang)["title"]), title, edition,
                                placeholder(lang))
 
 
@@ -474,7 +506,7 @@ def _cover_frame(art, title_lines, label, width, lang):
     return ('<svg class="bookcover" viewBox="0 0 350 490" width="%d" height="%d" role="img" aria-label="%s">'
             '<rect width="350" height="490" fill="#14112a"/>'
             '<rect y="330" width="350" height="160" fill="#1b1733"/>%s%s%s</svg>'
-            ) % (width, int(width * 1.4), W["cover"][lang] % label, art, t, placeholder(lang))
+            ) % (width, int(width * 1.4), W["cover"][lang].format(title=label), art, t, placeholder(lang))
 
 
 def _calculus_art():
@@ -790,7 +822,8 @@ def jsonld(lang):
     for i, b in enumerate(LIBRARY, 1):
         t = words(b, lang)
         items.append({"@type": "ListItem", "position": i, "name": EL[b["el"]][lang],
-                      "description": W["ld_item"][lang] % (plain(t["received"]), plain(t["note"]), plain(t["title"])),
+                      "description": W["ld_item"][lang].format(received=plain(t["received"]), note=plain(t["note"]),
+                                                                title=plain(t["title"])),
                       "item": book_ld(b, lang)})
     url = SITE + PATH[lang]
     ld = {"@context": "https://schema.org", "@type": "CollectionPage", "@id": url + "#library", "url": url,
@@ -868,6 +901,7 @@ def render(lang):
 
 
 def outputs():
+    apply_reviewed()
     check_words()
     return {"index.html": render("en"), "km/index.html": render("km"), "robots.txt": ROBOTS, "sitemap.xml": sitemap(),
             "llms.txt": llms_txt()}

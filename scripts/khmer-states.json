@@ -1,0 +1,37 @@
+{
+ "about": "The screens the Khmer review's screenshots are taken from: this site's own files served locally, the Khmer page and its footer, most typical first (the FIRST screen that shows an entry keeps it). Written for python3 scripts/khmer-review.py capture. The page shows the founder's own AI-enhanced portrait (M-0001), so every picture is stamped as depicting him, on his own consent.",
+ "base": "http://localhost:4352",
+ "viewport": {
+  "width": 390,
+  "height": 844
+ },
+ "stamp": {
+  "register": "M-0025",
+  "rights": "reserved",
+  "disclosure": "https://demo.thonly.org/khmer/book.thonly.org/",
+  "depicts": "Thon Ly",
+  "consent": "self"
+ },
+ "states": [
+  {
+   "id": "km",
+   "url": "/km/",
+   "ready": "main",
+   "settle": 1500
+  },
+  {
+   "id": "km-footer",
+   "url": "/km/",
+   "ready": "main",
+   "eval": "window.scrollTo(0, document.body.scrollHeight)",
+   "settle": 1200
+  },
+  {
+   "id": "km-link-copied",
+   "url": "/km/",
+   "ready": "main",
+   "eval": "Object.defineProperty(navigator, 'share', { value: undefined, configurable: true }); Object.defineProperty(navigator, 'clipboard', { value: { writeText: () => Promise.resolve() }, configurable: true }); window.scrollTo(0, 0); document.getElementById('share').click();",
+   "settle": 600
+  }
+ ]
+}

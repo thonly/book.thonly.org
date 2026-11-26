@@ -26,3 +26,6 @@ notes-private/
 
 # Python bytecode
 __pycache__/
+
+# The Khmer review's working files (scripts/khmer-review.py)
+staging/
