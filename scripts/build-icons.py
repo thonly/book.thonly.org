@@ -1,14 +1,16 @@
 #!/usr/bin/env python3
 """Draw the library's icons and write them to the site root (founder 2026-10-15: "promote with a real favicon").
 
-    python3 build-icons.py      # writes ../icon.svg · ../apple-touch-icon.png · ../favicon.ico
+    python3 scripts/build-icons.py      # writes icon.svg · apple-touch-icon.png · favicon.ico at the site root
+
+Moved here from demo/ on 2026-11-26, when the drawings left for demo.thonly.org/book/: the icons are the live site's.
 
 The icon is drawn in the covers' language: a lavender ring and a gold light on the covers' dark ground — the light of
 Two Singularities' cover, small enough to read at 16px. One SVG is the source; the PNGs are rendered from it by headless
 Chrome and resized with macOS `sips`, so the three cannot disagree.
 
 ⭐ THE GENERATOR STAMPS ITS OWN OUTPUT (/media): apple-touch-icon.png is stamped `drawn` under register M-0009 and the
-build fails if the stamp does. icon.svg is markup with no packet (exempt in ../.mediaignore, the M-0005 precedent);
+build fails if the stamp does. icon.svg is markup with no packet (exempt in .mediaignore, the M-0005 precedent);
 favicon.ico is not a media type the hook reads, and holds the same pixels as the stamped PNG.
 ⛔ Not thonly.org's favicon: that is a stock heart, never the institution's mark, and it should not spread.
 """

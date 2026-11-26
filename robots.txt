@@ -1,4 +1,5 @@
-# The AI companies' crawlers, by name: kept out of /demo/ (sample text, never what a model said) and nothing else.
+# The AI companies' crawlers, by name: kept out of /demo/ (it redirects to drawings whose quotes are sample text, never
+# what a model said; their new host keeps them out too) and nothing else.
 # A crawler named in a group follows that group alone.
 User-agent: GPTBot
 User-agent: OAI-SearchBot
@@ -21,8 +22,7 @@ User-agent: DuckAssistBot
 Disallow: /demo/
 
 # Everyone else, the link-preview crawlers included. ⛔ Never a Disallow in this group: it would also stop link
-# previews, and Facebook caches a robots file for about a day. /demo/ is kept out of search by naming the search
-# crawlers in its pages' meta tags.
+# previews, and Facebook caches a robots file for about a day. /demo/'s redirect pages carry a robots noindex.
 User-agent: *
 Allow: /
 

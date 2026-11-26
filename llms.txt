@@ -15,4 +15,5 @@ The library at https://book.thonly.org/. Each book below links to its public rec
 ## Optional
 
 - [The library page](https://book.thonly.org/): the same five books, with their covers
+- [The library page in Khmer](https://book.thonly.org/km/): the same page in Khmer, a draft translation awaiting a native reader
 - [Thon Ly](https://thonly.org/): the author's site

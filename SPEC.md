@@ -55,6 +55,9 @@ Each edition has **three layers**, and a reader chooses how deep to go:
 | Each book links to its public, timestamped record (`github.com/thonly/<book>`); a Share button in the header (2026-10-15) | *"add share button in the header … add a link to its repo"* |
 | **The library is PROMOTED to `/`** with its own icon and link-preview card (2026-10-15) | *"Then promote with a real favicon and link-preview card"* |
 | **§4.5 is the library's HOUSE VOICE**, the same in all five books, with one genre note each (2026-10-15) | *"ratify"*, answering *"MA's writing style for each book is the same as the two singularities, correct?"* |
+| **A language toggle and a theme toggle in the footer, on one line with space between** (2026-11-25) | *"Add language toggle and theme toggle to the footer (one line, space between)"* |
+| **The drawings and the prototype move to `demo.thonly.org/book/`** (2026-11-26; `/build` Default 7: a root domain's drawings live on its own `demo.<root>`). `/demo/` keeps a redirect at each old page. Amends *"book.thonly.org/demo"* above. Half of phase 4's carry item: the sample quotes are off the book's host, still public on the demo's | *"Move book.thonly.org/demo/ to demo.thonly.org ?"* |
+| **The landing in Khmer too, every English text translated** (2026-11-25) — at `/km/`, OUR DRAFT until a native reader approves it; the disclosure lines included (the AI-portrait alt text, the bylines naming Miss Aquarius), as `/build` Default 3 records. Amends *English first* for the landing; the books' own text is not touched. The books' titles are in Khmer too, on the cards and on the drawn covers (2026-11-26, *"translate the titles too"*, over the substrate's first reading, which kept them in English); the markup keeps each book's English name and adds the Khmer one | *"Translate all English texts to khmer"* |
 
 ## 3. Routes
 
@@ -65,7 +68,8 @@ caption *"Portrait: a photograph, enhanced with AI."* and an `alt` that says the
 
 | Path | Page | Indexed |
 |---|---|---|
-| `/` | **The library: five pairs**, each book that shaped Thon Ly (*received*) beside the book he gives forward (*given*), in the order he received them — Air · Earth · Water · Fire · Space. ⛔ **Named, never pending:** a book not yet written shows its title, one line on what it IS and its byline, and **no status, no date, no "coming soon"**; the one date on the page is *Two Singularities*' first edition, stated once as a fact. A book links out only when there is something to open, and the link says what it opens (before 7 January 2027 that is the record). Source: `demo/build-boards.py` (`LIBRARY`), rendered by `demo/build-library.py` (`--landing` writes `/`), checked by `demo/test-library.mjs`; icons by `demo/build-icons.py`, the card by `demo/build-og.py` (register M-0009). **Live since 2026-10-15.** | yes |
+| `/` | **The library: five pairs**, each book that shaped Thon Ly (*received*) beside the book he gives forward (*given*), in the order he received them — Air · Earth · Water · Fire · Space. ⛔ **Named, never pending:** a book not yet written shows its title, one line on what it IS and its byline, and **no status, no date, no "coming soon"**; the one date on the page is *Two Singularities*' first edition, stated once as a fact. A book links out only when there is something to open, and the link says what it opens (before 7 January 2027 that is the record). ⭐ **Source: `scripts/build-site.py`** (since 2026-11-26: the founder's 11/11 ruling that no live site is generated from a drawing; it was `demo/build-library.py --landing` out of `demo/build-boards.py`), one table of words in both languages; checked by `scripts/test-site.mjs`; icons by `scripts/build-icons.py`, the card by `scripts/build-og.py` (register M-0009), the portrait at `/thonly.jpg` (M-0001). **Live since 2026-10-15.** | yes |
+| `/km/` | **The library in Khmer** — the same page from the same table, OUR DRAFT until a native reader approves it (`/khmer-review`), marked in its head and its footer. Language: stored choice → the browser's language → the Phnom Penh time zone; only `/` redirects; the footer toggle stores the choice. Theme: Auto · Light · Dark in the footer. | yes |
 | `/two-singularities/` | The book: what it is, the central question, the newest edition, and every past edition | yes |
 | `/two-singularities/<year>/` | **The story**: its contents and opening — the default way in | yes |
 | `/two-singularities/<year>/<chapter>/` | A chapter of the story | yes |
@@ -79,7 +83,7 @@ caption *"Portrait: a photograph, enhanced with AI."* and an `alt` that says the
 | `/two-singularities/hardcopy/` | Printed copies — **only once a proof is approved** (§7.3) | yes |
 | `/thanks/` | Thanks by Stripe, or a private note (§7) | yes |
 | `/privacy/` | What the site stores and why | yes |
-| `/demo/` | Drawings and the clickable prototype (phases 2–3) | **no** — unlisted, excluded from search and from the AI crawlers, by name; off the host at phase 4 |
+| `/demo/` | **Redirects only** (since 2026-11-26): each old page sends the reader to its twin at `https://demo.thonly.org/book/`, the drawings and the clickable prototype (phases 2–3), unlisted there, excluded from search and from the AI crawlers by name (that host's `robots.txt`) | **no** |
 
 ⭐ **Every edition stays readable forever at its own URL.** A new edition never replaces an old one; the book's page
 defaults to the newest. This is what lets a reader see the corpus change over time.
@@ -224,8 +228,9 @@ One quiet line **after** each chapter and at the end of each edition (and at the
 - ⛔ **The book is kept out of the corpus index served at `corpus.333.eco`**, so each year's seats read the corpus, not the
   book about it.
 - **Machine-readable (2026-10-15):** schema.org JSON-LD on the landing, `robots.txt`, `sitemap.xml` and `llms.txt`, all
-  written by `demo/build-library.py --landing` from the page's own source. `robots.txt` keeps the named AI crawlers out of
-  `/demo/` (sample quotes no model said) and blocks no one else. ⛔ **Nothing on thonly.org, and nothing in the corpus
+  written by `scripts/build-site.py` from the page's own source, for both pages. `robots.txt` keeps the named AI crawlers out of
+  `/demo/` (now redirects to the drawings, whose sample quotes no model said; `demo.thonly.org`'s own `robots.txt` keeps them
+  out of `/book/`) and blocks no one else. ⛔ **Nothing on thonly.org, and nothing in the corpus
   index, points here for machines**, for the reason in the line above: the seats enter through both.
 - **No hostname reservation needed:** thonly.org serves no handles, so `book` cannot be claimed by a registrant.
 
@@ -243,13 +248,13 @@ One quiet line **after** each chapter and at the end of each edition (and at the
 | | What | When |
 |---|---|---|
 | M0 | This spec · the repository · DNS | September 2026 |
-| M1 | Drawings of every page above at `/demo/` (phase 2) | October 2026 |
-| M2 | Clickable prototype at `/demo/` (phase 3) | October 2026 |
+| M1 | Drawings of every page above at `/demo/` (phase 2; at `demo.thonly.org/book/` since 2026-11-26) | October 2026 |
+| M2 | Clickable prototype at `/demo/` (phase 3; moved with the drawings) | October 2026 |
 | M3 | The pilot run's text rendered through the real templates | November 2026 |
 | M4 | Library, book, method, glossary, privacy, thanks (Stripe + note) — live | by 7 January 2027 |
 | M5 | Edition 1 published — the story, the full debate and the record — with free EPUB and PDF of both | 7 January 2027 |
 | M6 | Printed copies, after an approved proof | 2027 |
-| M7 | Khmer, reviewed by a native reader | 2027 |
+| M7 | Khmer, reviewed by a native reader (the landing's Khmer drafted 2026-11-26; its review is owed) | 2027 |
 | M8 | Audiobook and film on YouTube, with Super Thanks and AI disclosure | later |
 
 ## 11. Open

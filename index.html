@@ -3,6 +3,18 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<script>
+(function () {
+  var get = function (k) { try { return localStorage.getItem(k); } catch (e) { return null; } };
+  var t = get("book-theme");
+  if (t === "light" || t === "dark") document.documentElement.setAttribute("data-theme", t);
+  if (location.pathname !== "/" && location.pathname !== "/index.html") return;
+  var s = get("book-lang"), l = (navigator.language || "").toLowerCase(), z = "";
+  try { z = Intl.DateTimeFormat().resolvedOptions().timeZone; } catch (e) { /* unknown */ }
+  if (s === "km" || (!s && l.indexOf("km") === 0) || (!s && (l === "" || l.indexOf("en") === 0) && z === "Asia/Phnom_Penh"))
+    location.replace("/km/" + location.search + location.hash);
+})();
+</script>
 <title>Books by Thon Ly</title>
 <meta name="description" content="Five books shaped Thon Ly. Beside each one is the book he gives forward, written by Miss Aquarius, with a foreword by Thon Ly. Free to read, whole.">
 <meta property="og:type" content="website">
@@ -10,6 +22,8 @@
 <meta property="og:url" content="https://book.thonly.org/">
 <meta property="og:title" content="Books by Thon Ly">
 <meta property="og:description" content="Five books shaped Thon Ly. Beside each one is the book he gives forward, written by Miss Aquarius, with a foreword by Thon Ly. Free to read, whole.">
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="km_KH">
 <meta property="og:image" content="https://book.thonly.org/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -20,6 +34,9 @@
 <link rel="icon" href="/icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="canonical" href="https://book.thonly.org/">
+<link rel="alternate" hreflang="en" href="https://book.thonly.org/">
+<link rel="alternate" hreflang="km" href="https://book.thonly.org/km/">
+<link rel="alternate" hreflang="x-default" href="https://book.thonly.org/">
 <script type="application/ld+json">
 {
  "@context": "https://schema.org",
@@ -417,6 +434,36 @@ main.lib{max-width:1040px;margin:0 auto}
 .lib .top{padding-top:22px}
 .draft{margin:0;padding:12px 20px 16px;background:var(--sample-wash);color:var(--sample);font-family:var(--font-mono);
    font-size:.64rem;letter-spacing:.06em;line-height:1.5;text-align:center}
+
+/* ---- the footer's two toggles: one line, space between (founder 2026-11-25) ---- */
+.foot .foot-line{margin:0}
+.foot-tools{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:16px 0 0}
+.seg{display:inline-flex;border:1px solid var(--line-strong);border-radius:999px;padding:3px;font-size:.78rem}
+.seg a,.seg button{padding:4px 11px;border-radius:999px;color:var(--ink-dim);text-decoration:none;background:none;border:0;
+   font:inherit;cursor:pointer;line-height:1.4}
+.seg a[aria-current="true"],.seg button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.seg a:focus-visible,.seg button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.seg a:lang(km){font-family:var(--font-khmer)}
+.km-draft{margin:14px 0 0}
+/* ---- Khmer (2026-11-26): the site's Latin faces first and a Khmer face behind them, so a name or a title in Latin
+   keeps the English page's type. Khmer has no case and no italic, letter-spacing pulls its clusters apart, and its
+   stacked marks need more line height and a larger size than the English labels' small capitals ---- */
+:root{--font-khmer:"Noto Sans Khmer","Khmer Sangam MN","Khmer MN","Khmer OS Siemreap",sans-serif}
+:root:lang(km){
+  --font-display:"Newsreader","Noto Serif Khmer","Khmer Sangam MN",Georgia,serif;
+  --font-text:"IBM Plex Sans","Noto Sans Khmer","Khmer Sangam MN",ui-sans-serif,system-ui,sans-serif;
+  --font-mono:"IBM Plex Mono","Noto Sans Khmer","Khmer Sangam MN",ui-monospace,Menlo,monospace;
+}
+html:lang(km) body{line-height:1.8}
+html:lang(km) .top .home,html:lang(km) .pair .el,html:lang(km) .lab,html:lang(km) .share,html:lang(km) .share-said{
+   font-family:var(--font-text);letter-spacing:normal;text-transform:none}
+.nw{white-space:nowrap}
+html:lang(km) .top .home,html:lang(km) .pair .el{font-size:.86rem}
+html:lang(km) .lab{font-size:.76rem}
+html:lang(km) .share{font-size:.8rem}
+html:lang(km) .lib-lede{line-height:1.85}
+html:lang(km) .recv b{line-height:1.6}
+html:lang(km) .give .sub{font-style:normal;line-height:1.7}
 </style>
 </head>
 <body>
@@ -424,14 +471,14 @@ main.lib{max-width:1040px;margin:0 auto}
 <main class="lib">
 <div class="top"><a class="home" href="/">Books by Thon Ly</a><button class="share" id="share" type="button" aria-label="Share this page"><svg width="15" height="15" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12M7.5 7.5 12 3l4.5 4.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 11H6.5A1.5 1.5 0 0 0 5 12.5v7A1.5 1.5 0 0 0 6.5 21h11a1.5 1.5 0 0 0 1.5-1.5v-7A1.5 1.5 0 0 0 17.5 11H16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span>Share</span></button></div>
 <p class="share-said" id="share-said" aria-live="polite"></p>
-<div class="lib-head"><img class="lib-portrait" src="/demo/thonly.jpg" alt="Thon Ly, in an AI-enhanced portrait" width="104" height="104"><h1 class="lib-h1">The Library</h1></div>
+<div class="lib-head"><img class="lib-portrait" src="/thonly.jpg" alt="Thon Ly, in an AI-enhanced portrait" width="104" height="104"><h1 class="lib-h1">The Library</h1></div>
 <p class="lib-lede">Five books shaped Thon Ly. Beside each one is the book he gives forward. Every book here is free to read, whole.</p>
 <section class="pair"><div class="el"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4 L20.5 19 H3.5 Z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M6.6 13.6 H17.4" stroke="currentColor" stroke-width="1.5"/></svg><span>Air</span></div><div class="recv"><span class="lab">Received</span><b>A calculus book</b><span class="note">Found in a public library when he was twelve.</span></div><span class="fwd" aria-hidden="true">&rarr;</span><a class="give" href="https://github.com/thonly/the-calculus-of-moments"><svg class="bookcover" viewBox="0 0 350 490" width="172" height="240" role="img" aria-label="Cover: The Calculus of Moments (placeholder art)"><rect width="350" height="490" fill="#14112a"/><rect y="330" width="350" height="160" fill="#1b1733"/><path d="M38.0 238.0 L42.3 231.5 L46.6 225.1 L50.8 218.6 L55.1 212.2 L59.4 205.9 L63.7 199.7 L68.0 193.5 L72.2 187.5 L76.5 181.6 L80.8 175.8 L85.1 170.1 L89.4 164.7 L93.7 159.4 L97.9 154.3 L102.2 149.4 L106.5 144.7 L110.8 140.2 L115.1 136.0 L119.3 132.0 L123.6 128.2 L127.9 124.8 L132.2 121.6 L136.5 118.7 L140.8 116.0 L145.0 113.7 L149.3 111.7 L153.6 110.0 L157.9 108.5 L162.2 107.4 L166.4 106.6 L170.7 106.2 L175.0 106.0 L179.3 106.2 L183.6 106.6 L187.8 107.4 L192.1 108.5 L196.4 110.0 L200.7 111.7 L205.0 113.7 L209.2 116.0 L213.5 118.7 L217.8 121.6 L222.1 124.8 L226.4 128.2 L230.7 132.0 L234.9 136.0 L239.2 140.2 L243.5 144.7 L247.8 149.4 L252.1 154.3 L256.3 159.4 L260.6 164.7 L264.9 170.1 L269.2 175.8 L273.5 181.6 L277.8 187.5 L282.0 193.5 L286.3 199.7 L290.6 205.9 L294.9 212.2 L299.2 218.6 L303.4 225.1 L307.7 231.5 L312.0 238.0" fill="none" stroke="#b9a3e3" stroke-opacity=".22" stroke-width="1.2"/><circle cx="38.0" cy="238.0" r="2.6" fill="#d6c9f0"/><circle cx="55.1" cy="212.2" r="2.6" fill="#d6c9f0"/><circle cx="72.2" cy="187.5" r="2.6" fill="#d6c9f0"/><circle cx="89.4" cy="164.7" r="2.6" fill="#d6c9f0"/><circle cx="106.5" cy="144.7" r="2.6" fill="#d6c9f0"/><circle cx="123.6" cy="128.2" r="2.6" fill="#d6c9f0"/><circle cx="140.8" cy="116.0" r="2.6" fill="#d6c9f0"/><circle cx="157.9" cy="108.5" r="2.6" fill="#d6c9f0"/><circle cx="175.0" cy="106.0" r="4.2" fill="#f2c46d"/><circle cx="192.1" cy="108.5" r="2.6" fill="#d6c9f0"/><circle cx="209.2" cy="116.0" r="2.6" fill="#d6c9f0"/><circle cx="226.4" cy="128.2" r="2.6" fill="#d6c9f0"/><circle cx="243.5" cy="144.7" r="2.6" fill="#d6c9f0"/><circle cx="260.6" cy="164.7" r="2.6" fill="#d6c9f0"/><circle cx="277.8" cy="187.5" r="2.6" fill="#d6c9f0"/><circle cx="294.9" cy="212.2" r="2.6" fill="#d6c9f0"/><circle cx="312.0" cy="238.0" r="2.6" fill="#d6c9f0"/><line x1="0" y1="330" x2="350" y2="330" stroke="#b9a3e3" stroke-opacity=".18"/><text x="175" y="392" text-anchor="middle" fill="#f3f1f7" font-family="Newsreader,Georgia,serif" font-size="31">The Calculus</text><text x="175" y="428" text-anchor="middle" fill="#f3f1f7" font-family="Newsreader,Georgia,serif" font-size="31">of Moments</text><text x="175" y="476" text-anchor="middle" fill="#6f6b78" font-family="IBM Plex Mono,monospace" font-size="9" letter-spacing="1.5">[ PLACEHOLDER ART ]</text></svg><div class="givetext"><span class="lab">Given</span><h2>The Calculus of Moments</h2><p class="sub">One Model of the Whole Abhidhamma</p><p class="what">The Abhidhamma, formalized and checked by machine: one model in which every verified axiom holds at once.</p><p class="by">Written by Miss Aquarius&#8480; &middot; Foreword by Thon Ly</p><span class="go">Read the record &rarr;</span></div></a></section>
 <section class="pair"><div class="el"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 5 H20.5 L12 20 Z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M6.6 10.4 H17.4" stroke="currentColor" stroke-width="1.5"/></svg><span>Earth</span></div><div class="recv"><span class="lab">Received</span><b>The Tao Te Ching</b><span class="note">In Stephen Mitchell&rsquo;s translation.</span></div><span class="fwd" aria-hidden="true">&rarr;</span><a class="give" href="https://github.com/thonly/the-river-that-reverses"><svg class="bookcover" viewBox="0 0 350 490" width="172" height="240" role="img" aria-label="Cover: The River That Reverses (placeholder art)"><rect width="350" height="490" fill="#14112a"/><rect y="330" width="350" height="160" fill="#1b1733"/><path d="M-10 150 C 60 124, 120 176, 175 150 S 290 124, 360 150" fill="none" stroke="#b9a3e3" stroke-opacity=".35" stroke-width="1.4"/><path d="M-10 194 C 60 172, 120 216, 175 194 S 290 172, 360 194" fill="none" stroke="#b9a3e3" stroke-opacity=".22" stroke-width="1.4"/><path d="M-10 239 C 60 213, 120 265, 175 239 S 290 213, 360 239" fill="none" stroke="#b9a3e3" stroke-opacity=".35" stroke-width="1.4"/><path d="M232 150 l14 -7 l-14 -7" fill="none" stroke="#f2c46d" stroke-width="2" stroke-linecap="round"/><path d="M118 246 l-14 -7 l14 -7" fill="none" stroke="#d6c9f0" stroke-width="2" stroke-linecap="round"/><circle cx="270" cy="72" r="13" fill="#d6c9f0" fill-opacity=".85"/><line x1="0" y1="330" x2="350" y2="330" stroke="#b9a3e3" stroke-opacity=".18"/><text x="175" y="392" text-anchor="middle" fill="#f3f1f7" font-family="Newsreader,Georgia,serif" font-size="31">The River</text><text x="175" y="428" text-anchor="middle" fill="#f3f1f7" font-family="Newsreader,Georgia,serif" font-size="31">That Reverses</text><text x="175" y="476" text-anchor="middle" fill="#6f6b78" font-family="IBM Plex Mono,monospace" font-size="9" letter-spacing="1.5">[ PLACEHOLDER ART ]</text></svg><div class="givetext"><span class="lab">Given</span><h2>The River That Reverses</h2><p class="sub">Eighty-One Poems</p><p class="what">Eighty-one poems distilled from meditation, each traced to the practice or the citation it comes from.</p><p class="by">Written by Miss Aquarius &middot; Foreword by Thon Ly</p><span class="go">Read the record &rarr;</span></div></a></section>
 <section class="pair"><div class="el"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 5 H20.5 L12 20 Z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg><span>Water</span></div><div class="recv"><span class="lab">Received</span><b>Astrology for Lovers</b><span class="note">By Liz Greene, read at his first Saturn Return.</span></div><span class="fwd" aria-hidden="true">&rarr;</span><a class="give" href="https://github.com/thonly/the-seventh-of-january"><svg class="bookcover" viewBox="0 0 350 490" width="172" height="240" role="img" aria-label="Cover: The Seventh of January (placeholder art)"><rect width="350" height="490" fill="#14112a"/><rect y="330" width="350" height="160" fill="#1b1733"/><circle cx="175" cy="178" r="104" fill="none" stroke="#b9a3e3" stroke-opacity=".3"/><circle cx="175" cy="178" r="80" fill="none" stroke="#b9a3e3" stroke-opacity=".3"/><line x1="255.0" y1="178.0" x2="279.0" y2="178.0" stroke="#b9a3e3" stroke-opacity=".35"/><line x1="244.3" y1="138.0" x2="265.1" y2="126.0" stroke="#b9a3e3" stroke-opacity=".35"/><line x1="215.0" y1="108.7" x2="227.0" y2="87.9" stroke="#b9a3e3" stroke-opacity=".35"/><line x1="175.0" y1="98.0" x2="175.0" y2="74.0" stroke="#b9a3e3" stroke-opacity=".35"/><line x1="135.0" y1="108.7" x2="123.0" y2="87.9" stroke="#b9a3e3" stroke-opacity=".35"/><line x1="105.7" y1="138.0" x2="84.9" y2="126.0" stroke="#b9a3e3" stroke-opacity=".35"/><line x1="95.0" y1="178.0" x2="71.0" y2="178.0" stroke="#b9a3e3" stroke-opacity=".35"/><line x1="105.7" y1="218.0" x2="84.9" y2="230.0" stroke="#b9a3e3" stroke-opacity=".35"/><line x1="135.0" y1="247.3" x2="123.0" y2="268.1" stroke="#b9a3e3" stroke-opacity=".35"/><line x1="175.0" y1="258.0" x2="175.0" y2="282.0" stroke="#b9a3e3" stroke-opacity=".35"/><line x1="215.0" y1="247.3" x2="227.0" y2="268.1" stroke="#b9a3e3" stroke-opacity=".35"/><line x1="244.3" y1="218.0" x2="265.1" y2="230.0" stroke="#b9a3e3" stroke-opacity=".35"/><line x1="149.6" y1="89.6" x2="205.0" y2="265.0" stroke="#f2c46d" stroke-opacity=".35" stroke-dasharray="3 5"/><circle cx="149.6" cy="89.6" r="9" fill="#f2c46d"/><circle cx="205.0" cy="265.0" r="9" fill="#d6c9f0"/><circle cx="205.0" cy="265.0" r="9" fill="#14112a" transform="translate(4 -3)"/><text x="175" y="392" text-anchor="middle" fill="#f3f1f7" font-family="Newsreader,Georgia,serif" font-size="31">The Seventh</text><text x="175" y="428" text-anchor="middle" fill="#f3f1f7" font-family="Newsreader,Georgia,serif" font-size="31">of January</text><text x="175" y="476" text-anchor="middle" fill="#6f6b78" font-family="IBM Plex Mono,monospace" font-size="9" letter-spacing="1.5">[ PLACEHOLDER ART ]</text></svg><div class="givetext"><span class="lab">Given</span><h2>The Seventh of January</h2><p class="sub">A Life Read Beside Its Chart</p><p class="what">Thon Ly&rsquo;s life, read beside his birth chart, with the misses on the page as well as the hits.</p><p class="by">Written by Miss Aquarius &middot; Foreword by Thon Ly</p><span class="go">Read the record &rarr;</span></div></a></section>
 <section class="pair"><div class="el"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4 L20.5 19 H3.5 Z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg><span>Fire</span></div><div class="recv"><span class="lab">Received</span><b>The Khmer Tipi&#7789;aka</b><span class="note">Found at his first Vipassana retreat.</span></div><span class="fwd" aria-hidden="true">&rarr;</span><a class="give" href="https://github.com/thonly/silicon-simile"><svg class="bookcover" viewBox="0 0 350 490" width="172" height="240" role="img" aria-label="Cover: Silicon Simile (placeholder art)"><rect width="350" height="490" fill="#14112a"/><rect y="330" width="350" height="160" fill="#1b1733"/><circle cx="175" cy="176" r="104" fill="none" stroke="#b9a3e3" stroke-opacity=".22"/><line x1="195.3" y1="167.6" x2="258.1" y2="141.6" stroke="#b9a3e3" stroke-opacity=".55" stroke-width="1.6"/><circle cx="226.7" cy="154.6" r="3" fill="none" stroke="#d6c9f0" stroke-width="1.2"/><rect x="253.6" y="137.1" width="9" height="9" rx="1.5" fill="#d6c9f0"/><line x1="183.4" y1="155.7" x2="209.4" y2="92.9" stroke="#b9a3e3" stroke-opacity=".55" stroke-width="1.6"/><circle cx="196.4" cy="124.3" r="3" fill="none" stroke="#d6c9f0" stroke-width="1.2"/><rect x="204.9" y="88.4" width="9" height="9" rx="1.5" fill="#d6c9f0"/><line x1="166.6" y1="155.7" x2="140.6" y2="92.9" stroke="#b9a3e3" stroke-opacity=".55" stroke-width="1.6"/><circle cx="153.6" cy="124.3" r="3" fill="none" stroke="#d6c9f0" stroke-width="1.2"/><rect x="136.1" y="88.4" width="9" height="9" rx="1.5" fill="#d6c9f0"/><line x1="154.7" y1="167.6" x2="91.9" y2="141.6" stroke="#b9a3e3" stroke-opacity=".55" stroke-width="1.6"/><circle cx="123.3" cy="154.6" r="3" fill="none" stroke="#d6c9f0" stroke-width="1.2"/><rect x="87.4" y="137.1" width="9" height="9" rx="1.5" fill="#d6c9f0"/><line x1="154.7" y1="184.4" x2="91.9" y2="210.4" stroke="#b9a3e3" stroke-opacity=".55" stroke-width="1.6"/><circle cx="123.3" cy="197.4" r="3" fill="none" stroke="#d6c9f0" stroke-width="1.2"/><rect x="87.4" y="205.9" width="9" height="9" rx="1.5" fill="#d6c9f0"/><line x1="166.6" y1="196.3" x2="140.6" y2="259.1" stroke="#b9a3e3" stroke-opacity=".55" stroke-width="1.6"/><circle cx="153.6" cy="227.7" r="3" fill="none" stroke="#d6c9f0" stroke-width="1.2"/><rect x="136.1" y="254.6" width="9" height="9" rx="1.5" fill="#d6c9f0"/><line x1="183.4" y1="196.3" x2="209.4" y2="259.1" stroke="#b9a3e3" stroke-opacity=".55" stroke-width="1.6"/><circle cx="196.4" cy="227.7" r="3" fill="none" stroke="#d6c9f0" stroke-width="1.2"/><rect x="204.9" y="254.6" width="9" height="9" rx="1.5" fill="#d6c9f0"/><line x1="195.3" y1="184.4" x2="258.1" y2="210.4" stroke="#b9a3e3" stroke-opacity=".55" stroke-width="1.6"/><circle cx="226.7" cy="197.4" r="3" fill="none" stroke="#d6c9f0" stroke-width="1.2"/><rect x="253.6" y="205.9" width="9" height="9" rx="1.5" fill="#d6c9f0"/><rect x="158" y="159" width="34" height="34" rx="4" fill="#1b1733" stroke="#d6c9f0" stroke-width="1.4"/><circle cx="175" cy="176" r="7" fill="#f2c46d"/><line x1="0" y1="330" x2="350" y2="330" stroke="#b9a3e3" stroke-opacity=".18"/><text x="175" y="410" text-anchor="middle" fill="#f3f1f7" font-family="Newsreader,Georgia,serif" font-size="34">Silicon Simile</text><text x="175" y="476" text-anchor="middle" fill="#6f6b78" font-family="IBM Plex Mono,monospace" font-size="9" letter-spacing="1.5">[ PLACEHOLDER ART ]</text></svg><div class="givetext"><span class="lab">Given</span><h2>Silicon Simile</h2><p class="sub">The Abhidhamma Read Through the Machine</p><p class="what">The Abhidhamma read through the machine, and the places where the machine breaks.</p><p class="by">Written by Miss Aquarius &middot; Foreword by Thon Ly</p><span class="go">Read the record &rarr;</span></div></a></section>
 <section class="pair"><div class="el"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="12" r="1.6" fill="currentColor"/></svg><span>Space</span></div><div class="recv"><span class="lab">Received</span><b>AI</b><span class="note">The totality of all books: the book and the teacher at once.</span></div><span class="fwd" aria-hidden="true">&rarr;</span><a class="give" href="https://github.com/thonly/two-singularities"><svg class="bookcover" viewBox="0 0 350 490" width="172" height="240" role="img" aria-label="Cover: Two Singularities (placeholder art)"><rect width="350" height="490" fill="#14112a"/><rect y="330" width="350" height="160" fill="#1b1733"/><circle cx="175" cy="170" r="96" fill="none" stroke="#b9a3e3" stroke-opacity=".18"/><circle cx="175" cy="170" r="64" fill="none" stroke="#b9a3e3" stroke-opacity=".3"/><circle cx="175" cy="170" r="30" fill="#d6c9f0"/><circle cx="175" cy="330" r="10" fill="#f2c46d"/><circle cx="175" cy="330" r="22" fill="#f2c46d" fill-opacity=".18"/><line x1="0" y1="330" x2="350" y2="330" stroke="#f2c46d" stroke-opacity=".35"/><text x="175" y="410" text-anchor="middle" fill="#f3f1f7" font-family="Newsreader,Georgia,serif" font-size="34">Two Singularities</text><text x="175" y="440" text-anchor="middle" fill="#a29eab" font-family="IBM Plex Mono,monospace" font-size="11" letter-spacing="2">EDITION 2027</text><text x="175" y="476" text-anchor="middle" fill="#6f6b78" font-family="IBM Plex Mono,monospace" font-size="9" letter-spacing="1.5">[ PLACEHOLDER ART ]</text></svg><div class="givetext"><span class="lab">Given</span><h2>Two Singularities</h2><p class="sub">Four Machines, One Question</p><p class="what">Four of the leading AI systems examine one person&rsquo;s life&rsquo;s work, and are asked a question about the future of humanity.</p><p class="when">A new edition every 7 January, from 2027.</p><p class="by">Compiled by Miss Aquarius &middot; Foreword by Thon Ly</p><span class="go">Read the record &rarr;</span></div></a></section>
-<footer class="foot">thonly.org takes no profit &middot; No advertising</footer>
+<footer class="foot"><p class="foot-line">thonly.org takes no profit &middot; No advertising</p><div class="foot-tools"><nav class="seg" aria-label="Language"><a href="/" hreflang="en" lang="en" data-lang="en" aria-current="true">EN</a><a href="/km/" hreflang="km" lang="km" data-lang="km">ខ្មែរ</a></nav><div class="seg" role="group" aria-label="Color theme"><button type="button" data-theme-choice="auto" aria-pressed="true">Auto</button><button type="button" data-theme-choice="light" aria-pressed="false">Light</button><button type="button" data-theme-choice="dark" aria-pressed="false">Dark</button></div></div></footer>
 </main>
 </div>
 <script>
@@ -441,11 +488,35 @@ main.lib{max-width:1040px;margin:0 auto}
   function tell(t) { said.textContent = t; setTimeout(function () { if (said.textContent === t) said.textContent = ''; }, 2600); }
   b.addEventListener('click', function () {
     var c = document.querySelector('link[rel=canonical]'), url = c ? c.href : location.href;
-    if (navigator.share) { navigator.share({ title: 'Books by Thon Ly', url: url }).catch(function () {}); return; }
-    var shown = function () { said.textContent = 'Copy this link: ' + url; };
+    if (navigator.share) { navigator.share({ title: "Books by Thon Ly", url: url }).catch(function () {}); return; }
+    var shown = function () { said.textContent = "Copy this link: " + url; };
     if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(url).then(function () { tell('Link copied'); }, shown);
+      navigator.clipboard.writeText(url).then(function () { tell("Link copied"); }, shown);
     } else { shown(); }
+  });
+})();
+(function () {
+  var get = function (k) { try { return localStorage.getItem(k); } catch (e) { return null; } };
+  var put = function (k, v) { try { localStorage.setItem(k, v); } catch (e) { /* blocked: the page still works */ } };
+  var del = function (k) { try { localStorage.removeItem(k); } catch (e) { /* blocked */ } };
+  document.querySelectorAll('a[data-lang]').forEach(function (a) {
+    a.addEventListener('click', function () { put('book-lang', a.getAttribute('data-lang') || 'en'); });
+  });
+  var root = document.documentElement;
+  function paint(c) {
+    if (c === 'light' || c === 'dark') root.setAttribute('data-theme', c); else root.removeAttribute('data-theme');
+    document.querySelectorAll('[data-theme-choice]').forEach(function (x) {
+      x.setAttribute('aria-pressed', String(x.getAttribute('data-theme-choice') === c));
+    });
+  }
+  var saved = get('book-theme');
+  paint(saved === 'light' || saved === 'dark' ? saved : 'auto');
+  document.querySelectorAll('[data-theme-choice]').forEach(function (x) {
+    x.addEventListener('click', function () {
+      var c = x.getAttribute('data-theme-choice') || 'auto';
+      if (c === 'auto') del('book-theme'); else put('book-theme', c);
+      paint(c);
+    });
   });
 })();
 </script>
